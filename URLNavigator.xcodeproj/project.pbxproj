@@ -12,7 +12,19 @@
 		03107EE21C6365BF00DF2F14 /* URLNavigable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03107EE11C6365BF00DF2F14 /* URLNavigable.swift */; };
 		03107EE41C6365E500DF2F14 /* URLStringConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03107EE31C6365E500DF2F14 /* URLStringConvertible.swift */; };
 		03107EE61C6366F500DF2F14 /* UIViewController+TopMostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03107EE51C6366F500DF2F14 /* UIViewController+TopMostViewController.swift */; };
+		03107EF01C636A3D00DF2F14 /* URLNavigator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03107ECE1C6362E800DF2F14 /* URLNavigator.framework */; };
+		03107EF91C636A7500DF2F14 /* URLNavigatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03107EF71C636A5500DF2F14 /* URLNavigatorTests.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		03107EF11C636A3D00DF2F14 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 03107EC51C6362E800DF2F14 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 03107ECD1C6362E800DF2F14;
+			remoteInfo = URLNavigator;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		03107ECE1C6362E800DF2F14 /* URLNavigator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = URLNavigator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -22,6 +34,8 @@
 		03107EE11C6365BF00DF2F14 /* URLNavigable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLNavigable.swift; sourceTree = "<group>"; };
 		03107EE31C6365E500DF2F14 /* URLStringConvertible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLStringConvertible.swift; sourceTree = "<group>"; };
 		03107EE51C6366F500DF2F14 /* UIViewController+TopMostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+TopMostViewController.swift"; sourceTree = "<group>"; };
+		03107EEB1C636A3D00DF2F14 /* URLNavigatorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = URLNavigatorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		03107EF71C636A5500DF2F14 /* URLNavigatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLNavigatorTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,6 +46,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		03107EE81C636A3D00DF2F14 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				03107EF01C636A3D00DF2F14 /* URLNavigator.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -39,6 +61,7 @@
 			isa = PBXGroup;
 			children = (
 				03107ED91C6364E700DF2F14 /* Sources */,
+				03107EF61C636A5500DF2F14 /* Tests */,
 				03107EDB1C6364E700DF2F14 /* Supporting Files */,
 				03107ECF1C6362E800DF2F14 /* Products */,
 			);
@@ -48,6 +71,7 @@
 			isa = PBXGroup;
 			children = (
 				03107ECE1C6362E800DF2F14 /* URLNavigator.framework */,
+				03107EEB1C636A3D00DF2F14 /* URLNavigatorTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -70,6 +94,14 @@
 				03107EDC1C6364E700DF2F14 /* Info.plist */,
 			);
 			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		03107EF61C636A5500DF2F14 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				03107EF71C636A5500DF2F14 /* URLNavigatorTests.swift */,
+			);
+			path = Tests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -104,16 +136,38 @@
 			productReference = 03107ECE1C6362E800DF2F14 /* URLNavigator.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		03107EEA1C636A3D00DF2F14 /* URLNavigatorTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 03107EF51C636A3D00DF2F14 /* Build configuration list for PBXNativeTarget "URLNavigatorTests" */;
+			buildPhases = (
+				03107EE71C636A3D00DF2F14 /* Sources */,
+				03107EE81C636A3D00DF2F14 /* Frameworks */,
+				03107EE91C636A3D00DF2F14 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				03107EF21C636A3D00DF2F14 /* PBXTargetDependency */,
+			);
+			name = URLNavigatorTests;
+			productName = URLNavigatorTests;
+			productReference = 03107EEB1C636A3D00DF2F14 /* URLNavigatorTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		03107EC51C6362E800DF2F14 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0720;
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = "Suyeol Jeon";
 				TargetAttributes = {
 					03107ECD1C6362E800DF2F14 = {
+						CreatedOnToolsVersion = 7.2;
+					};
+					03107EEA1C636A3D00DF2F14 = {
 						CreatedOnToolsVersion = 7.2;
 					};
 				};
@@ -131,12 +185,20 @@
 			projectRoot = "";
 			targets = (
 				03107ECD1C6362E800DF2F14 /* URLNavigator */,
+				03107EEA1C636A3D00DF2F14 /* URLNavigatorTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		03107ECC1C6362E800DF2F14 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		03107EE91C636A3D00DF2F14 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -157,7 +219,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		03107EE71C636A3D00DF2F14 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				03107EF91C636A7500DF2F14 /* URLNavigatorTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		03107EF21C636A3D00DF2F14 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 03107ECD1C6362E800DF2F14 /* URLNavigator */;
+			targetProxy = 03107EF11C636A3D00DF2F14 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		03107ED41C6362E800DF2F14 /* Debug */ = {
@@ -284,6 +362,28 @@
 			};
 			name = Release;
 		};
+		03107EF31C636A3D00DF2F14 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = "Supporting Files/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = kr.xoul.URLNavigatorTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		03107EF41C636A3D00DF2F14 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = "Supporting Files/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = kr.xoul.URLNavigatorTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -301,6 +401,15 @@
 			buildConfigurations = (
 				03107ED71C6362E800DF2F14 /* Debug */,
 				03107ED81C6362E800DF2F14 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		03107EF51C636A3D00DF2F14 /* Build configuration list for PBXNativeTarget "URLNavigatorTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				03107EF31C636A3D00DF2F14 /* Debug */,
+				03107EF41C636A3D00DF2F14 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};
