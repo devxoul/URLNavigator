@@ -8,12 +8,20 @@
 
 /* Begin PBXBuildFile section */
 		03107EDD1C6364E700DF2F14 /* URLNavigator.h in Headers */ = {isa = PBXBuildFile; fileRef = 03107EDA1C6364E700DF2F14 /* URLNavigator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		03107EE01C63653900DF2F14 /* URLNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03107EDF1C63653900DF2F14 /* URLNavigator.swift */; };
+		03107EE21C6365BF00DF2F14 /* URLNavigable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03107EE11C6365BF00DF2F14 /* URLNavigable.swift */; };
+		03107EE41C6365E500DF2F14 /* URLStringConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03107EE31C6365E500DF2F14 /* URLStringConvertible.swift */; };
+		03107EE61C6366F500DF2F14 /* UIViewController+TopMostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03107EE51C6366F500DF2F14 /* UIViewController+TopMostViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		03107ECE1C6362E800DF2F14 /* URLNavigator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = URLNavigator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		03107EDA1C6364E700DF2F14 /* URLNavigator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URLNavigator.h; sourceTree = "<group>"; };
 		03107EDC1C6364E700DF2F14 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		03107EDF1C63653900DF2F14 /* URLNavigator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLNavigator.swift; sourceTree = "<group>"; };
+		03107EE11C6365BF00DF2F14 /* URLNavigable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLNavigable.swift; sourceTree = "<group>"; };
+		03107EE31C6365E500DF2F14 /* URLStringConvertible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLStringConvertible.swift; sourceTree = "<group>"; };
+		03107EE51C6366F500DF2F14 /* UIViewController+TopMostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+TopMostViewController.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,6 +56,10 @@
 			isa = PBXGroup;
 			children = (
 				03107EDA1C6364E700DF2F14 /* URLNavigator.h */,
+				03107EDF1C63653900DF2F14 /* URLNavigator.swift */,
+				03107EE11C6365BF00DF2F14 /* URLNavigable.swift */,
+				03107EE31C6365E500DF2F14 /* URLStringConvertible.swift */,
+				03107EE51C6366F500DF2F14 /* UIViewController+TopMostViewController.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -138,6 +150,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03107EE61C6366F500DF2F14 /* UIViewController+TopMostViewController.swift in Sources */,
+				03107EE01C63653900DF2F14 /* URLNavigator.swift in Sources */,
+				03107EE41C6365E500DF2F14 /* URLStringConvertible.swift in Sources */,
+				03107EE21C6365BF00DF2F14 /* URLNavigable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -236,6 +252,7 @@
 		03107ED71C6362E800DF2F14 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -246,12 +263,14 @@
 				PRODUCT_BUNDLE_IDENTIFIER = kr.xoul.URLNavigator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		03107ED81C6362E800DF2F14 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
