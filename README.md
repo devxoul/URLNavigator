@@ -107,4 +107,4 @@ Installation
 License
 -------
 
-URLNavigable is under MIT license. See the [LICENSE](LICENSE) file for more info.
+URLNavigator is under MIT license. See the [LICENSE](LICENSE) file for more info.
