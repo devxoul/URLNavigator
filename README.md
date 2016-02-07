@@ -31,6 +31,8 @@ Navigator.map("myapp://alert") { URL, values in
 }
 ```
 
+> **Note**: Global constant `Navigator` is a shortcut for `URLNavigator.defaultNavigator()`.
+
 #### Pushing, Presenting and Opening URLs
 
 URLNavigator can push and present view controllers and execute closures with URLs.
