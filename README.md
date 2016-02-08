@@ -102,6 +102,57 @@ Installation
         ]
     )
     ```
+    
+
+Tips and Tricks
+---------------
+
+#### Implementing AppDelegate Launch Option URL
+
+It is available to open your app if custom schemes are registered. In this case, you'll have to implement `application:didFinishLaunchingWithOptions:` method to navigate to URL.
+
+```swift
+func application(application: UIApplication,
+                 didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    // ...
+
+    if let URL = launchOptions?[UIApplicationLaunchOptionsURLKey] as? NSURL {
+        Navigator.presentURL(URL)
+    }
+    return true
+}
+
+```
+
+
+#### Implementing AppDelegate Open URL Method
+
+You'll might want to implement custom URL open handler. Here's an example of using URLNavigator with other URL open handlers.
+
+```swift
+func application(application: UIApplication,
+                 openURL url: NSURL,
+                 sourceApplication: String?,
+                 annotation: AnyObject) -> Bool {
+    // If you're using Facebook SDK
+    let fb = FBSDKApplicationDelegate.sharedInstance()
+    if fb.application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation) {
+        return true
+    }
+
+    // URLNavigator Handler
+    if Navigator.openURL(url) {
+        return true
+    }
+
+    // URLNavigator View Controller
+    if Navigator.presentURL(url, wrap: true) != nil {
+        return true
+    }
+
+    return false
+}
+```
 
 
 License
