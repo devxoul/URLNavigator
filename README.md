@@ -107,6 +107,49 @@ Installation
 Tips and Tricks
 ---------------
 
+#### Where to Map URLs
+
+I'd prefer using separated URL map file.
+
+```swift
+struct URLNavigationMap {
+
+    static func initialize() {
+        Navigator.map("myapp://user/<id>", UserViewController.self)
+        Navigator.map("myapp://post/<id>", PostViewController.self)
+
+        Navigator.map("myapp://alert") { URL, values in
+            print(URL.parameters["title"])
+            print(URL.parameters["message"])
+            self.someUtilityMethod()
+            return true
+        }
+    }
+
+    private static func someUtilityMethod() {
+        print("This method is really useful")
+    }
+
+}
+```
+
+Then call `initialize()` at `AppDelegate`'s `application:didFinishLaunchingWithOptions:`.
+
+```swift
+@UIApplicationMain
+final class AppDelegate: UIResponder, UIApplicationDelegate {
+
+    func application(application: UIApplication,
+                     didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        // Navigator
+        URLNavigationMap.initialize()
+        
+        // Do something else...
+    }
+}
+```
+
+
 #### Implementing AppDelegate Launch Option URL
 
 It is available to open your app if custom schemes are registered. In this case, you'll have to implement `application:didFinishLaunchingWithOptions:` method to navigate to URL.
