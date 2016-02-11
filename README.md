@@ -117,7 +117,7 @@ func application(application: UIApplication,
     // ...
 
     if let URL = launchOptions?[UIApplicationLaunchOptionsURLKey] as? NSURL {
-        Navigator.presentURL(URL)
+        self.window?.rootViewController = Navigator.viewControllerForURL(URL)
     }
     return true
 }
