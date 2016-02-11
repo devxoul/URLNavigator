@@ -31,7 +31,7 @@ import UIKit
 ///
 /// Here's an example of mapping URLNaviable-conforming class `UserViewController` to URL:
 ///
-///     Navigator.map("myapp://user/{id}", UserViewController.self)
+///     Navigator.map("myapp://user/<id>", UserViewController.self)
 ///
 /// This URL can be used to push or present the `UserViewController` by providing URLs:
 ///
@@ -108,9 +108,9 @@ public class URLNavigator {
     ///
     /// For example:
     ///
-    ///     let (URLPattern, values) = URLNavigator.matchURL("myapp://user/123", from: ["myapp://user/{id}"])
+    ///     let (URLPattern, values) = URLNavigator.matchURL("myapp://user/123", from: ["myapp://user/<id>"])
     ///
-    /// The value of the `URLPattern` from an example above is `"myapp://user/{id}"` and the value of the `values` is
+    /// The value of the `URLPattern` from an example above is `"myapp://user/<id>"` and the value of the `values` is
     /// `["id": "123"]`.
     ///
     /// - Parameter URL: The placeholder-filled URL.
@@ -122,7 +122,7 @@ public class URLNavigator {
         let URLPathComponents = URLNavigator.normalizedURL(URL).URLString.componentsSeparatedByString("/")
 
         outer: for URLPattern in URLPatterns {
-            // e.g. ["myapp:", "user", "{id}"]
+            // e.g. ["myapp:", "user", "<id>"]
             let URLPatternPathComponents = URLPattern.componentsSeparatedByString("/")
             if URLPatternPathComponents.count != URLPathComponents.count {
                 continue
@@ -130,9 +130,9 @@ public class URLNavigator {
 
             var values = [String: AnyObject]()
 
-            // e.g. ["user", "{id}"]
+            // e.g. ["user", "<id>"]
             for (i, component) in URLPatternPathComponents.enumerate() {
-                if component.hasPrefix("{") && component.hasSuffix("}") { // e.g. "{id}"
+                if component.hasPrefix("<") && component.hasSuffix(">") { // e.g. "<id>"
                     let start = component.startIndex.advancedBy(1)
                     let end = component.endIndex.advancedBy(-1)
                     let placeholder = component[start..<end] // e.g. "id"

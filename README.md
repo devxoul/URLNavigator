@@ -16,13 +16,13 @@ At a Glance
 
 #### Mapping URL Patterns
 
-URL patterns can contain placeholders. Placeholders will be replaced with matching values from URLs. Use `{` and `}` to make placeholders.
+URL patterns can contain placeholders. Placeholders will be replaced with matching values from URLs. Use `<` and `>` to make placeholders.
 
 Here's an example of mapping URL patterns with view controllers and a closure. View controllers should conform a protocol `URLNavigable` to be mapped with URL patterns. See [Implementing URLNavigable](#implementing-urlnavigable) section for details.
 
 ```swift
-Navigator.map("myapp://user/{id}", UserViewController.self)
-Navigator.map("myapp://post/{id}", PostViewController.self)
+Navigator.map("myapp://user/<id>", UserViewController.self)
+Navigator.map("myapp://post/<id>", PostViewController.self)
 
 Navigator.map("myapp://alert") { URL, values in
     print(URL.parameters["title"])

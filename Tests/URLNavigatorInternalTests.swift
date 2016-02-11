@@ -30,10 +30,10 @@ class URLNavigatorInternalTests: XCTestCase {
             XCTAssertNil(URLNavigator.matchURL("myapp://user/1", from: []))
         }();
         {
-            XCTAssertNil(URLNavigator.matchURL("myapp://user/1", from: ["myapp://comment/{id}"]))
+            XCTAssertNil(URLNavigator.matchURL("myapp://user/1", from: ["myapp://comment/<id>"]))
         }();
         {
-            XCTAssertNil(URLNavigator.matchURL("myapp://user/1", from: ["myapp://user/{id}/hello"]))
+            XCTAssertNil(URLNavigator.matchURL("myapp://user/1", from: ["myapp://user/<id>/hello"]))
         }();
         {
             let from = ["myapp://hello"]
@@ -42,29 +42,29 @@ class URLNavigatorInternalTests: XCTestCase {
             XCTAssertEqual(values.count, 0)
         }();
         {
-            let from = ["myapp://user/{id}"]
+            let from = ["myapp://user/<id>"]
             let (URLPattern, values) = URLNavigator.matchURL("myapp://user/1", from: from)!
-            XCTAssertEqual(URLPattern, "myapp://user/{id}")
+            XCTAssertEqual(URLPattern, "myapp://user/<id>")
             XCTAssertEqual(values as! [String: String], ["id": "1"])
         }();
         {
-            let from = ["myapp://user/{id}", "myapp://user/{id}/hello"]
+            let from = ["myapp://user/<id>", "myapp://user/<id>/hello"]
             let (URLPattern, values) = URLNavigator.matchURL("myapp://user/1", from: from)!
-            XCTAssertEqual(URLPattern, "myapp://user/{id}")
+            XCTAssertEqual(URLPattern, "myapp://user/<id>")
             XCTAssertEqual(values as! [String: String], ["id": "1"])
         }();
         {
-            let from = ["myapp://user/{id}", "myapp://user/{id}/{object}"]
+            let from = ["myapp://user/<id>", "myapp://user/<id>/<object>"]
             let (URLPattern, values) = URLNavigator.matchURL("myapp://user/1/posts", from: from)!
-            XCTAssertEqual(URLPattern, "myapp://user/{id}/{object}")
+            XCTAssertEqual(URLPattern, "myapp://user/<id>/<object>")
             XCTAssertEqual(values as! [String: String], ["id": "1", "object": "posts"])
         }();
     }
 
     func testNormalizedURL() {
-        XCTAssertEqual(URLNavigator.normalizedURL("myapp://user/{id}/hello").URLString, "myapp://user/{id}/hello")
-        XCTAssertEqual(URLNavigator.normalizedURL("myapp:///////user///{id}//hello/??/#abc=/def").URLString,
-            "myapp://user/{id}/hello")
+        XCTAssertEqual(URLNavigator.normalizedURL("myapp://user/<id>/hello").URLString, "myapp://user/<id>/hello")
+        XCTAssertEqual(URLNavigator.normalizedURL("myapp:///////user///<id>//hello/??/#abc=/def").URLString,
+            "myapp://user/<id>/hello")
     }
 
     func testReplaceRegex() {

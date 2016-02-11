@@ -37,8 +37,8 @@ class URLNavigatorPublicTests: XCTestCase {
     }
 
     func testViewControllerForURL() {
-        self.navigator.map("myapp://user/{id}", UserViewController.self)
-        self.navigator.map("myapp://post/{id}", PostViewController.self)
+        self.navigator.map("myapp://user/<id>", UserViewController.self)
+        self.navigator.map("myapp://post/<id>", PostViewController.self)
 
         XCTAssertNil(self.navigator.viewControllerForURL("myapp://user/"))
         XCTAssertNil(self.navigator.viewControllerForURL("myapp://user/awesome"))
@@ -49,7 +49,7 @@ class URLNavigatorPublicTests: XCTestCase {
     }
 
     func testPushURL_URLNavigable() {
-        self.navigator.map("myapp://user/{id}", UserViewController.self)
+        self.navigator.map("myapp://user/<id>", UserViewController.self)
         let navigationController = UINavigationController(rootViewController: UIViewController())
         let viewController = self.navigator.pushURL("myapp://user/1", from: navigationController, animated: false)
         XCTAssertNotNil(viewController)
@@ -65,7 +65,7 @@ class URLNavigatorPublicTests: XCTestCase {
     }
 
     func testPresentURL_URLNavigable() {
-        self.navigator.map("myapp://user/{id}", UserViewController.self)
+        self.navigator.map("myapp://user/<id>", UserViewController.self)
         ;{
             let fromViewController = UIViewController()
             let viewController = self.navigator.presentURL("myapp://user/1", from: fromViewController)
@@ -98,7 +98,7 @@ class URLNavigatorPublicTests: XCTestCase {
     }
 
     func testOpenURL_URLNavigable() {
-        self.navigator.map("myapp://user/{id}", UserViewController.self)
+        self.navigator.map("myapp://user/<id>", UserViewController.self)
         XCTAssertFalse(self.navigator.openURL("myapp://user/1"))
     }
 
