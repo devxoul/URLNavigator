@@ -23,24 +23,35 @@
 import Foundation
 
 /// A type which can be converted to URL string.
-public protocol URLStringConvertible {
-    var URLString: String { get }
+public protocol URLConvertible {
+    var URLValue: NSURL? { get }
+    var URLStringValue: String { get }
 }
 
-extension String: URLStringConvertible {
-    public var URLString: String {
+extension String: URLConvertible {
+    public var URLValue: NSURL? {
+        if let URL = NSURL(string: self) {
+            return URL
+        }
+        let set = NSMutableCharacterSet()
+        set.formUnionWithCharacterSet(.URLHostAllowedCharacterSet())
+        set.formUnionWithCharacterSet(.URLPathAllowedCharacterSet())
+        set.formUnionWithCharacterSet(.URLQueryAllowedCharacterSet())
+        set.formUnionWithCharacterSet(.URLFragmentAllowedCharacterSet())
+        return self.stringByAddingPercentEncodingWithAllowedCharacters(set).flatMap { NSURL(string: $0) }
+    }
+
+    public var URLStringValue: String {
         return self
     }
 }
 
-extension NSURL: URLStringConvertible {
-    public var URLString: String {
-        return self.absoluteString
+extension NSURL: URLConvertible {
+    public var URLValue: NSURL? {
+        return self
     }
-}
 
-extension URLStringConvertible {
-    public var parameters: [String: String] {
-        return NSURL(string: self.URLString)?.parameters ?? [:]
+    public var URLStringValue: String {
+        return self.absoluteString
     }
 }

@@ -55,7 +55,7 @@ import UIKit
 public class URLNavigator {
 
     /// A closure type which has URL and values for parameters.
-    public typealias URLOpenHandler = (URL: URLStringConvertible, values: [String: AnyObject]) -> Bool
+    public typealias URLOpenHandler = (URL: URLConvertible, values: [String: AnyObject]) -> Bool
 
     /// A dictionary to store URLNaviables by URL patterns.
     private(set) var URLMap = [String: URLNavigable.Type]()
@@ -87,15 +87,15 @@ public class URLNavigator {
     // MARK: URL Mapping
 
     /// Map an `URLNavigable` to an URL pattern.
-    public func map(URLPattern: URLStringConvertible, _ navigable: URLNavigable.Type) {
-        let URLString = URLNavigator.normalizedURL(URLPattern).URLString
+    public func map(URLPattern: URLConvertible, _ navigable: URLNavigable.Type) {
+        let URLString = URLNavigator.normalizedURL(URLPattern).URLStringValue
         self.URLMap[URLString] = navigable
         NSLog("URLNavigator: Map '\(navigable)' to '\(URLPattern)'")
     }
 
     /// Map an `URLOpenHandler` to an URL pattern.
-    public func map(URLPattern: URLStringConvertible, _ handler: URLOpenHandler) {
-        let URLString = URLNavigator.normalizedURL(URLPattern).URLString
+    public func map(URLPattern: URLConvertible, _ handler: URLOpenHandler) {
+        let URLString = URLNavigator.normalizedURL(URLPattern).URLStringValue
         self.URLOpenHandlers[URLString] = handler
         NSLog("URLNavigator: Map URL open handler to '\(URLPattern)'")
     }
@@ -117,9 +117,9 @@ public class URLNavigator {
     /// - Parameter from: The array of URL patterns.
     ///
     /// - Returns: A tuple of URL pattern string and a dictionary of URL placeholder values.
-    static func matchURL(URL: URLStringConvertible, from URLPatterns: [String]) -> (String, [String: AnyObject])? {
+    static func matchURL(URL: URLConvertible, from URLPatterns: [String]) -> (String, [String: AnyObject])? {
         // e.g. ["myapp:", "user", "123"]
-        let URLPathComponents = URLNavigator.normalizedURL(URL).URLString.componentsSeparatedByString("/")
+        let URLPathComponents = URLNavigator.normalizedURL(URL).URLStringValue.componentsSeparatedByString("/")
 
         outer: for URLPattern in URLPatterns {
             // e.g. ["myapp:", "user", "<id>"]
@@ -151,7 +151,7 @@ public class URLNavigator {
     ///
     /// - Parameter URL: The URL to find view controllers.
     /// - Returns: A match view controller or `nil` if not matched.
-    public func viewControllerForURL(URL: URLStringConvertible) -> UIViewController? {
+    public func viewControllerForURL(URL: URLConvertible) -> UIViewController? {
         if let (URLPattern, values) = URLNavigator.matchURL(URL, from: Array(self.URLMap.keys)) {
             let navigable = self.URLMap[URLPattern]
             return navigable?.init(URL: URL, values: values) as? UIViewController
@@ -180,7 +180,7 @@ public class URLNavigator {
     ///
     /// - Returns: The pushed view controller. Returns `nil` if there's no matching view controller or failed to push
     ///     a view controller.
-    public func pushURL(URL: URLStringConvertible,
+    public func pushURL(URL: URLConvertible,
                         from: UINavigationController? = nil,
                         animated: Bool = true) -> UIViewController? {
         guard let viewController = self.viewControllerForURL(URL) else {
@@ -216,7 +216,7 @@ public class URLNavigator {
     ///
     /// - Returns: The presented view controller. Returns `nil` if there's no matching view controller or failed to
     ///     present a view controller.
-    public func presentURL(URL: URLStringConvertible,
+    public func presentURL(URL: URLConvertible,
                            wrap: Bool = false,
                            from: UIViewController? = nil,
                            animated: Bool = true) -> UIViewController? {
@@ -243,7 +243,7 @@ public class URLNavigator {
     /// - Parameter URL: The URL to find `URLOpenHandler`s.
     ///
     /// - Returns: The return value of the matching `URLOpenHandler`. Returns `false` if there's no match.
-    public func openURL(URL: URLStringConvertible) -> Bool {
+    public func openURL(URL: URLConvertible) -> Bool {
         if let (URLPattern, values) = URLNavigator.matchURL(URL, from: Array(self.URLOpenHandlers.keys)) {
             let handler = self.URLOpenHandlers[URLPattern]
             if handler?(URL: URL, values: values) == true {
@@ -265,14 +265,8 @@ public class URLNavigator {
     /// - Parameter URL: The dirty URL to be normalized.
     ///
     /// - Returns: The normalized URL. Returns `nil` if the pecified URL is invalid.
-    static func normalizedURL(dirtyURL: URLStringConvertible) -> URLStringConvertible {
-        let charSet = NSMutableCharacterSet()
-        charSet.formUnionWithCharacterSet(.URLHostAllowedCharacterSet())
-        charSet.formUnionWithCharacterSet(.URLPathAllowedCharacterSet())
-        charSet.formUnionWithCharacterSet(.URLQueryAllowedCharacterSet())
-        charSet.formUnionWithCharacterSet(.URLFragmentAllowedCharacterSet())
-        guard let encodedURLString = dirtyURL.URLString.stringByAddingPercentEncodingWithAllowedCharacters(charSet),
-              let URL = NSURL(string: encodedURLString) else {
+    static func normalizedURL(dirtyURL: URLConvertible) -> URLConvertible {
+        guard let URL = dirtyURL.URLValue else {
             return dirtyURL
         }
         var URLString = URL.scheme + "://" + (URL.host ?? "") + (URL.path ?? "")

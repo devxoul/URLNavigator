@@ -108,7 +108,7 @@ private class UserViewController: UIViewController, URLNavigable {
 
     var userID: Int?
 
-    convenience required init?(URL: URLStringConvertible, values: [String : AnyObject]) {
+    convenience required init?(URL: URLConvertible, values: [String : AnyObject]) {
         guard let id = values["id"]?.integerValue where id > 0 else {
             return nil
         }
@@ -122,7 +122,7 @@ private class PostViewController: UIViewController, URLNavigable {
 
     var postID: Int?
 
-    convenience required init?(URL: URLStringConvertible, values: [String : AnyObject]) {
+    convenience required init?(URL: URLConvertible, values: [String : AnyObject]) {
         guard let id = values["id"]?.integerValue where id > 0 else {
             return nil
         }

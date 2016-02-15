@@ -62,8 +62,8 @@ class URLNavigatorInternalTests: XCTestCase {
     }
 
     func testNormalizedURL() {
-        XCTAssertEqual(URLNavigator.normalizedURL("myapp://user/<id>/hello").URLString, "myapp://user/<id>/hello")
-        XCTAssertEqual(URLNavigator.normalizedURL("myapp:///////user///<id>//hello/??/#abc=/def").URLString,
+        XCTAssertEqual(URLNavigator.normalizedURL("myapp://user/<id>/hello").URLStringValue, "myapp://user/<id>/hello")
+        XCTAssertEqual(URLNavigator.normalizedURL("myapp:///////user///<id>//hello/??/#abc=/def").URLStringValue,
             "myapp://user/<id>/hello")
     }
 
