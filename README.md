@@ -57,7 +57,7 @@ Parameter `URL` is an URL that is passed from `URLNavigator.pushURL()` and `URLN
 ```swift
 class UserViewController: UIViewController, URLNavigable {
 
-    convenience init?(URL: URLStringConvertible, values: [String : AnyObject]) {
+    convenience init?(URL: URLConvertible, values: [String : AnyObject]) {
         // User id from URL placeholder is required!
         guard let userID = values["id"]?.integerValue where id > 0 else {
             return nil
@@ -75,19 +75,19 @@ Installation
 - **For iOS 8+ projects** with [CocoaPods](https://cocoapods.org):
 
     ```ruby
-    pod 'URLNavigator', '~> 0.2'
+    pod 'URLNavigator', '~> 0.3'
     ```
 
 - **For iOS 8+ projects** with [Carthage](https://github.com/Carthage/Carthage):
 
     ```
-    github "devxoul/URLNavigator" ~> 0.2
+    github "devxoul/URLNavigator" ~> 0.3
     ```
 
 - **For iOS 7 projects** with [CocoaSeeds](https://github.com/devxoul/CocoaSeeds):
 
     ```ruby
-    github 'devxoul/URLNavigator', '0.2.0', :files => 'Sources/*.swift'
+    github 'devxoul/URLNavigator', '0.3.0', :files => 'Sources/*.swift'
     ```
 
 - **Using [Swift Package Manager](https://swift.org/package-manager)**:
@@ -98,7 +98,7 @@ Installation
     let package = Package(
         name: "MyAwesomeApp",
         dependencies: [
-            .Package(url: "https://github.com/devxoul/URLNavigator", "0.2.0"),
+            .Package(url: "https://github.com/devxoul/URLNavigator", "0.3.0"),
         ]
     )
     ```
