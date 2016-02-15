@@ -90,14 +90,12 @@ public class URLNavigator {
     public func map(URLPattern: URLConvertible, _ navigable: URLNavigable.Type) {
         let URLString = URLNavigator.normalizedURL(URLPattern).URLStringValue
         self.URLMap[URLString] = navigable
-        NSLog("URLNavigator: Map '\(navigable)' to '\(URLPattern)'")
     }
 
     /// Map an `URLOpenHandler` to an URL pattern.
     public func map(URLPattern: URLConvertible, _ handler: URLOpenHandler) {
         let URLString = URLNavigator.normalizedURL(URLPattern).URLStringValue
         self.URLOpenHandlers[URLString] = handler
-        NSLog("URLNavigator: Map URL open handler to '\(URLPattern)'")
     }
 
 
