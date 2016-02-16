@@ -68,6 +68,8 @@ class UserViewController: UIViewController, URLNavigable {
 }
 ```
 
+> **Note**: `URLConvertible` is a protocol that `NSURL` and `String` conforms.
+
 
 Installation
 ------------
@@ -152,7 +154,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
 
 #### Implementing AppDelegate Launch Option URL
 
-It is available to open your app if custom schemes are registered. In this case, you'll have to implement `application:didFinishLaunchingWithOptions:` method to navigate to URL.
+It's available to open your app with URLs if custom schemes are registered. In order to navigate to view controllers with URLs, you'll have to implement `application:didFinishLaunchingWithOptions:` method.
 
 ```swift
 func application(application: UIApplication,
