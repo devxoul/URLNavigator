@@ -48,6 +48,8 @@ Navigator.presentURL("myapp://post/54321", wrap: true)
 Navigator.openURL("myapp://alert?title=Hello&message=World")
 ```
 
+For full documentation, see [URLNavigator Class Reference](http://cocoadocs.org/docsets/URLNavigator/0.3.0/Classes/URLNavigator.html).
+
 #### Implementing URLNavigable
 
 View controllers should conform a protocol `URLNavigable` to be mapped with URLs. A protocol `URLNavigable` defines an failable initializer with parameter: `URL` and `values`.
