@@ -59,12 +59,137 @@ class URLNavigatorInternalTests: XCTestCase {
             XCTAssertEqual(URLPattern, "myapp://user/<id>/<object>")
             XCTAssertEqual(values as! [String: String], ["id": "1", "object": "posts"])
         }();
+        {
+            let from = ["http://<path:url>"]
+            let (URLPattern, values) = URLNavigator.matchURL("http://xoul.kr", from: from)!
+            XCTAssertEqual(URLPattern, "http://<path:url>")
+            XCTAssertEqual(values as! [String: String], ["url": "xoul.kr"])
+        }();
+        {
+            let from = ["http://<path:url>"]
+            let (URLPattern, values) = URLNavigator.matchURL("http://xoul.kr/resume", from: from)!
+            XCTAssertEqual(URLPattern, "http://<path:url>")
+            XCTAssertEqual(values as! [String: String], ["url": "xoul.kr/resume"])
+        }();
+        {
+            let from = ["http://<path:url>"]
+            let (URLPattern, values) = URLNavigator.matchURL("http://google.com/search?q=URLNavigator", from: from)!
+            XCTAssertEqual(URLPattern, "http://<path:url>")
+            XCTAssertEqual(values as! [String: String], ["url": "google.com/search?q=URLNavigator"])
+        }();
+        {
+            let from = ["http://<path:url>"]
+            let (URLPattern, values) = URLNavigator.matchURL("http://google.com/search/?q=URLNavigator", from: from)!
+            XCTAssertEqual(URLPattern, "http://<path:url>")
+            XCTAssertEqual(values as! [String: String], ["url": "google.com/search/?q=URLNavigator"])
+        }();
     }
 
     func testNormalizedURL() {
         XCTAssertEqual(URLNavigator.normalizedURL("myapp://user/<id>/hello").URLStringValue, "myapp://user/<id>/hello")
         XCTAssertEqual(URLNavigator.normalizedURL("myapp:///////user///<id>//hello/??/#abc=/def").URLStringValue,
-            "myapp://user/<id>/hello")
+            "myapp://user/<id>/hello/??/#abc=/def")
+        XCTAssertEqual(URLNavigator.normalizedURL("https://<path:_>").URLStringValue, "https://<path:_>")
+    }
+
+    func testPlaceholderValueFromURLPathComponents() {
+        {
+            let placeholder = URLNavigator.placeholderKeyValueFromURLPatternPathComponent(
+                "<id>",
+                URLPathComponents: ["123", "456"],
+                atIndex: 0
+            )
+            XCTAssertEqual(placeholder?.0, "id")
+            XCTAssertEqual(placeholder?.1 as? String, "123")
+        }();
+        {
+            let placeholder = URLNavigator.placeholderKeyValueFromURLPatternPathComponent(
+                "<int:id>",
+                URLPathComponents: ["123", "456"],
+                atIndex: 0
+            )
+            XCTAssertEqual(placeholder?.0, "id")
+            XCTAssertEqual(placeholder?.1 as? Int, 123)
+        }();
+        {
+            let placeholder = URLNavigator.placeholderKeyValueFromURLPatternPathComponent(
+                "<int:id>",
+                URLPathComponents: ["abc", "456"],
+                atIndex: 0
+            )
+            XCTAssertNil(placeholder)
+        }();
+        {
+            let placeholder = URLNavigator.placeholderKeyValueFromURLPatternPathComponent(
+                "<float:height>",
+                URLPathComponents: ["180", "456"],
+                atIndex: 0
+            )
+            XCTAssertEqual(placeholder?.0, "height")
+            XCTAssertEqual(placeholder?.1 as? Float, 180)
+        }();
+        {
+            let placeholder = URLNavigator.placeholderKeyValueFromURLPatternPathComponent(
+                "<float:height>",
+                URLPathComponents: ["abc", "456"],
+                atIndex: 0
+            )
+            XCTAssertNil(placeholder)
+        }();
+        {
+            let placeholder = URLNavigator.placeholderKeyValueFromURLPatternPathComponent(
+                "<url>",
+                URLPathComponents: ["xoul.kr"],
+                atIndex: 0
+            )
+            XCTAssertEqual(placeholder?.0, "url")
+            XCTAssertEqual(placeholder?.1 as? String, "xoul.kr")
+        }();
+        {
+            let placeholder = URLNavigator.placeholderKeyValueFromURLPatternPathComponent(
+                "<url>",
+                URLPathComponents: ["xoul.kr", "resume"],
+                atIndex: 0
+            )
+            XCTAssertEqual(placeholder?.0, "url")
+            XCTAssertEqual(placeholder?.1 as? String, "xoul.kr")
+        }();
+        {
+            let placeholder = URLNavigator.placeholderKeyValueFromURLPatternPathComponent(
+                "<path:url>",
+                URLPathComponents: ["xoul.kr"],
+                atIndex: 0
+            )
+            XCTAssertEqual(placeholder?.0, "url")
+            XCTAssertEqual(placeholder?.1 as? String, "xoul.kr")
+        }();
+        {
+            let placeholder = URLNavigator.placeholderKeyValueFromURLPatternPathComponent(
+                "<path:url>",
+                URLPathComponents: ["xoul.kr", "resume"],
+                atIndex: 0
+            )
+            XCTAssertEqual(placeholder?.0, "url")
+            XCTAssertEqual(placeholder?.1 as? String, "xoul.kr/resume")
+        }();
+        {
+            let placeholder = URLNavigator.placeholderKeyValueFromURLPatternPathComponent(
+                "<path:url>",
+                URLPathComponents: ["google.com", "search?q=test"],
+                atIndex: 0
+            )
+            XCTAssertEqual(placeholder?.0, "url")
+            XCTAssertEqual(placeholder?.1 as? String, "google.com/search?q=test")
+        }();
+        {
+            let placeholder = URLNavigator.placeholderKeyValueFromURLPatternPathComponent(
+                "<path:url>",
+                URLPathComponents: ["google.com", "search", "?q=test"],
+                atIndex: 0
+            )
+            XCTAssertEqual(placeholder?.0, "url")
+            XCTAssertEqual(placeholder?.1 as? String, "google.com/search/?q=test")
+        }();
     }
 
     func testReplaceRegex() {
