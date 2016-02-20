@@ -16,13 +16,13 @@ At a Glance
 
 #### Mapping URL Patterns
 
-URL patterns can contain placeholders. Placeholders will be replaced with matching values from URLs. Use `<` and `>` to make placeholders.
+URL patterns can contain placeholders. Placeholders will be replaced with matching values from URLs. Use `<` and `>` to make placeholders. Placeholders can have types: `string`(default), `int`, `float`, and `path`.
 
-Here's an example of mapping URL patterns with view controllers and a closure. View controllers should conform a protocol `URLNavigable` to be mapped with URL patterns. See [Implementing URLNavigable](#implementing-urlnavigable) section for details.
+Here's an example of mapping URL patterns with view controllers and a closure. View controllers should conform a protocol `URLNavigable` to be mapped wisth URL patterns. See [Implementing URLNavigable](#implementing-urlnavigable) section for details.
 
 ```swift
-Navigator.map("myapp://user/<id>", UserViewController.self)
-Navigator.map("myapp://post/<id>", PostViewController.self)
+Navigator.map("myapp://user/<int:id>", UserViewController.self)
+Navigator.map("myapp://post/<title>", PostViewController.self)
 
 Navigator.map("myapp://alert") { URL, values in
     print(URL.parameters["title"])
@@ -61,7 +61,7 @@ class UserViewController: UIViewController, URLNavigable {
 
     convenience init?(URL: URLConvertible, values: [String : AnyObject]) {
         // User id from URL placeholder is required!
-        guard let userID = values["id"]?.integerValue where id > 0 else {
+        guard let userID = values["id"] as? Int else {
             return nil
         }
         self.init()
@@ -119,8 +119,8 @@ I'd prefer using separated URL map file.
 struct URLNavigationMap {
 
     static func initialize() {
-        Navigator.map("myapp://user/<id>", UserViewController.self)
-        Navigator.map("myapp://post/<id>", PostViewController.self)
+        Navigator.map("myapp://user/<int:id>", UserViewController.self)
+        Navigator.map("myapp://post/<title>", PostViewController.self)
 
         Navigator.map("myapp://alert") { URL, values in
             print(URL.parameters["title"])

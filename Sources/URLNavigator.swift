@@ -29,14 +29,17 @@ import UIKit
 /// a type which defines an custom initializer and `URLOpenHandler` is a closure. Both an initializer and a closure
 /// have URL and values for its parameters.
 ///
+/// URLs can have
+///
 /// Here's an example of mapping URLNaviable-conforming class `UserViewController` to URL:
 ///
-///     Navigator.map("myapp://user/<id>", UserViewController.self)
+///     Navigator.map("myapp://user/<int:id>", UserViewController.self)
+///     Navigator.map("http://<path:_>", MyWebViewController.self)
 ///
 /// This URL can be used to push or present the `UserViewController` by providing URLs:
 ///
 ///     Navigator.pushURL("myapp://user/123")
-///     Navigator.presentURL("myapp://user/123")
+///     Navigator.presentURL("http://xoul.kr")
 ///
 /// This is another example of mapping `URLOpenHandler` to URL:
 ///
@@ -106,10 +109,10 @@ public class URLNavigator {
     ///
     /// For example:
     ///
-    ///     let (URLPattern, values) = URLNavigator.matchURL("myapp://user/123", from: ["myapp://user/<id>"])
+    ///     let (URLPattern, values) = URLNavigator.matchURL("myapp://user/123", from: ["myapp://user/<int:id>"])
     ///
-    /// The value of the `URLPattern` from an example above is `"myapp://user/<id>"` and the value of the `values` is
-    /// `["id": "123"]`.
+    /// The value of the `URLPattern` from an example above is `"myapp://user/<int:id>"` and the value of the `values` 
+    /// is `["id": 123]`.
     ///
     /// - Parameter URL: The placeholder-filled URL.
     /// - Parameter from: The array of URL patterns.
