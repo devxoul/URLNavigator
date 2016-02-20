@@ -120,21 +120,29 @@ public class URLNavigator {
         let URLPathComponents = URLNavigator.normalizedURL(URL).URLStringValue.componentsSeparatedByString("/")
 
         outer: for URLPattern in URLPatterns {
-            // e.g. ["myapp:", "user", "<id>"]
+            // e.g. ["myapp:", "user", "<int:id>"]
             let URLPatternPathComponents = URLPattern.componentsSeparatedByString("/")
-            if URLPatternPathComponents.count != URLPathComponents.count {
+            let containsPathPlaceholder = URLPatternPathComponents.contains({ $0.hasPrefix("<path:") })
+            guard containsPathPlaceholder || URLPatternPathComponents.count == URLPathComponents.count else {
                 continue
             }
 
             var values = [String: AnyObject]()
 
-            // e.g. ["user", "<id>"]
+            // e.g. ["user", "<int:id>"]
             for (i, component) in URLPatternPathComponents.enumerate() {
-                if component.hasPrefix("<") && component.hasSuffix(">") { // e.g. "<id>"
-                    let start = component.startIndex.advancedBy(1)
-                    let end = component.endIndex.advancedBy(-1)
-                    let placeholder = component[start..<end] // e.g. "id"
-                    values[placeholder] = URLPathComponents[i] // e.g. ["id": "123"]
+                guard i < URLPathComponents.count else {
+                    continue outer
+                }
+                let info = self.placeholderKeyValueFromURLPatternPathComponent(component,
+                    URLPathComponents: URLPathComponents,
+                    atIndex: i
+                )
+                if let key = info?.0, value = info?.1 {
+                    values[key] = value // e.g. ["id": 123]
+                    if component.hasPrefix("<path:") {
+                        break // there's no more placeholder after <path:>
+                    }
                 } else if component != URLPathComponents[i] {
                     continue outer
                 }
@@ -264,14 +272,48 @@ public class URLNavigator {
     ///
     /// - Returns: The normalized URL. Returns `nil` if the pecified URL is invalid.
     static func normalizedURL(dirtyURL: URLConvertible) -> URLConvertible {
-        guard let URL = dirtyURL.URLValue else {
+        guard dirtyURL.URLValue != nil else {
             return dirtyURL
         }
-        var URLString = URL.scheme + "://" + (URL.host ?? "") + (URL.path ?? "")
+        var URLString = dirtyURL.URLStringValue
         URLString = self.replaceRegex(":/{3,}", "://", URLString)
         URLString = self.replaceRegex("(?<!:)/{2,}", "/", URLString)
         URLString = self.replaceRegex("/+$", "", URLString)
         return URLString
+    }
+
+    static func placeholderKeyValueFromURLPatternPathComponent(component: String,
+                                                               URLPathComponents: [String],
+                                                               atIndex index: Int) -> (String, AnyObject)? {
+        guard component.hasPrefix("<") && component.hasSuffix(">") else {
+            return nil
+        }
+
+        let start = component.startIndex.advancedBy(1)
+        let end = component.endIndex.advancedBy(-1)
+        let placeholder = component[start..<end] // e.g. "<int:id>" -> "int:id"
+
+        let typeAndKey = placeholder.componentsSeparatedByString(":") // e.g. ["int", "id"]
+        if typeAndKey.count == 0 { // e.g. component is "<>"
+            return nil
+        }
+        if typeAndKey.count == 1 { // untyped placeholder
+            return (placeholder, URLPathComponents[index])
+        }
+
+        let (type, key) = (typeAndKey[0], typeAndKey[1]) // e.g. ("int", "id")
+        let value: AnyObject?
+        switch type {
+        case "int": value = Int(URLPathComponents[index]) // e.g. 123
+        case "float": value = Float(URLPathComponents[index]) // e.g. 123.0
+        case "path": value = URLPathComponents[index..<URLPathComponents.count].joinWithSeparator("/")
+        default: value = URLPathComponents[index]
+        }
+
+        if let value = value {
+            return (key, value)
+        }
+        return nil
     }
 
     static func replaceRegex(pattern: String, _ repl: String, _ string: String) -> String {
