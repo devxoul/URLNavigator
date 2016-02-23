@@ -278,7 +278,7 @@ public class URLNavigator {
         guard dirtyURL.URLValue != nil else {
             return dirtyURL
         }
-        var URLString = dirtyURL.URLStringValue
+        var URLString = dirtyURL.URLStringValue.componentsSeparatedByString("?")[0].componentsSeparatedByString("#")[0]
         URLString = self.replaceRegex(":/{3,}", "://", URLString)
         URLString = self.replaceRegex("(?<!:)/{2,}", "/", URLString)
         URLString = self.replaceRegex("/+$", "", URLString)

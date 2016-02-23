@@ -60,6 +60,12 @@ class URLNavigatorInternalTests: XCTestCase {
             XCTAssertEqual(values as! [String: String], ["id": "1", "object": "posts"])
         }();
         {
+            let from = ["myapp://alert"]
+            let (URLPattern, values) = URLNavigator.matchURL("myapp://alert?title=hello&message=world", from: from)!
+            XCTAssertEqual(URLPattern, "myapp://alert")
+            XCTAssertEqual(values.count, 0)
+        }();
+        {
             let from = ["http://<path:url>"]
             let (URLPattern, values) = URLNavigator.matchURL("http://xoul.kr", from: from)!
             XCTAssertEqual(URLPattern, "http://<path:url>")
@@ -75,20 +81,20 @@ class URLNavigatorInternalTests: XCTestCase {
             let from = ["http://<path:url>"]
             let (URLPattern, values) = URLNavigator.matchURL("http://google.com/search?q=URLNavigator", from: from)!
             XCTAssertEqual(URLPattern, "http://<path:url>")
-            XCTAssertEqual(values as! [String: String], ["url": "google.com/search?q=URLNavigator"])
+            XCTAssertEqual(values as! [String: String], ["url": "google.com/search"])
         }();
         {
             let from = ["http://<path:url>"]
             let (URLPattern, values) = URLNavigator.matchURL("http://google.com/search/?q=URLNavigator", from: from)!
             XCTAssertEqual(URLPattern, "http://<path:url>")
-            XCTAssertEqual(values as! [String: String], ["url": "google.com/search/?q=URLNavigator"])
+            XCTAssertEqual(values as! [String: String], ["url": "google.com/search"])
         }();
     }
 
     func testNormalizedURL() {
         XCTAssertEqual(URLNavigator.normalizedURL("myapp://user/<id>/hello").URLStringValue, "myapp://user/<id>/hello")
         XCTAssertEqual(URLNavigator.normalizedURL("myapp:///////user///<id>//hello/??/#abc=/def").URLStringValue,
-            "myapp://user/<id>/hello/??/#abc=/def")
+            "myapp://user/<id>/hello")
         XCTAssertEqual(URLNavigator.normalizedURL("https://<path:_>").URLStringValue, "https://<path:_>")
     }
 
