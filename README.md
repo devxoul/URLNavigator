@@ -57,14 +57,23 @@ View controllers should conform a protocol `URLNavigable` to be mapped with URLs
 Parameter `URL` is an URL that is passed from `URLNavigator.pushURL()` and `URLNavigator.presentURL()`. Parameter `values` is a dictionary that contains URL placeholder keys and values.
 
 ```swift
-class UserViewController: UIViewController, URLNavigable {
+final class UserViewController: UIViewController, URLNavigable {
+
+    init(userID: Int) {
+        super.init(nibName: nil, bundle: nil)
+        // Initialize here...
+    }
 
     convenience init?(URL: URLConvertible, values: [String : AnyObject]) {
-        // User id from URL placeholder is required!
+        // Let's assume that the user id is required
         guard let userID = values["id"] as? Int else {
             return nil
         }
-        self.init()
+        self.init(userID: userID)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
 }
