@@ -26,7 +26,7 @@ extension UIViewController {
 
     /// Returns the current application's top most view controller.
     class func topMostViewController() -> UIViewController? {
-        let rootViewController = UIApplication.sharedApplication().keyWindow?.rootViewController
+        let rootViewController = UIApplication.sharedApplication().windows.first?.rootViewController
         return self.topMostViewControllerOfViewController(rootViewController)
     }
 
@@ -47,6 +47,13 @@ extension UIViewController {
         // presented view controller
         if let presentedViewController = viewController?.presentedViewController {
             return self.topMostViewControllerOfViewController(presentedViewController)
+        }
+
+        // child view controller
+        for subview in viewController?.view?.subviews ?? [] {
+            if let childViewController = subview.nextResponder() as? UIViewController {
+                return self.topMostViewControllerOfViewController(childViewController)
+            }
         }
 
         return viewController
