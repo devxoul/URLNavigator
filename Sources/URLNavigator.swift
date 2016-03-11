@@ -188,13 +188,27 @@ public class URLNavigator {
     /// - Parameter animated: Whether animates view controller transition or not. `true` by default.
     ///
     /// - Returns: The pushed view controller. Returns `nil` if there's no matching view controller or failed to push
-    ///     a view controller.
+    ///            a view controller.
     public func pushURL(URL: URLConvertible,
                         from: UINavigationController? = nil,
                         animated: Bool = true) -> UIViewController? {
         guard let viewController = self.viewControllerForURL(URL) else {
             return nil
         }
+        return self.push(viewController, from: from, animated: animated)
+    }
+
+    /// Pushes a view controller using `UINavigationController.pushViewController()`.
+    ///
+    /// - Parameter viewController: The `UIViewController` instance to be pushed.
+    /// - Parameter from: The navigation controller which is used to push a view controller. Use application's top-most
+    ///     view controller if `nil` is specified. `nil` by default.
+    /// - Parameter animated: Whether animates view controller transition or not. `true` by default.
+    ///
+    /// - Returns: The pushed view controller. Returns `nil` if failed to push a view controller.
+    public func push(viewController: UIViewController,
+                     from: UINavigationController? = nil,
+                     animated: Bool = true) -> UIViewController? {
         guard let navigationController = from ?? UIViewController.topMostViewController()?.navigationController else {
             return nil
         }
@@ -222,16 +236,37 @@ public class URLNavigator {
     /// - Parameter from: The view controller which is used to present a view controller. Use application's top-most
     ///     view controller if `nil` is specified. `nil` by default.
     /// - Parameter animated: Whether animates view controller transition or not. `true` by default.
+    /// - Parameter completion: Called after the transition has finished.
     ///
     /// - Returns: The presented view controller. Returns `nil` if there's no matching view controller or failed to
     ///     present a view controller.
     public func presentURL(URL: URLConvertible,
                            wrap: Bool = false,
                            from: UIViewController? = nil,
-                           animated: Bool = true) -> UIViewController? {
+                           animated: Bool = true,
+                           completion: (() -> Void)? = nil) -> UIViewController? {
         guard let viewController = self.viewControllerForURL(URL) else {
             return nil
         }
+        return self.present(viewController, wrap: wrap, from: from, animated: animated, completion: completion)
+    }
+
+    /// Presents a view controller using `UIViewController.presentViewController()`.
+    ///
+    /// - Parameter viewController: The `UIViewController` instance to be presented.
+    /// - Parameter wrap: Wraps the view controller with a `UINavigationController` if `true` is specified. `false` by
+    ///     default.
+    /// - Parameter from: The view controller which is used to present a view controller. Use application's top-most
+    ///     view controller if `nil` is specified. `nil` by default.
+    /// - Parameter animated: Whether animates view controller transition or not. `true` by default.
+    /// - Parameter completion: Called after the transition has finished.
+    ///
+    /// - Returns: The presented view controller. Returns `nil` if failed to present a view controller.
+    public func present(viewController: UIViewController,
+                        wrap: Bool = false,
+                        from: UIViewController? = nil,
+                        animated: Bool = true,
+                        completion: (() -> Void)? = nil) -> UIViewController? {
         guard let fromViewController = from ?? UIViewController.topMostViewController() else {
             return nil
         }

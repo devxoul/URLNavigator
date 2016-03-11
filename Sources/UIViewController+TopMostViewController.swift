@@ -25,7 +25,7 @@ import UIKit
 extension UIViewController {
 
     /// Returns the current application's top most view controller.
-    class func topMostViewController() -> UIViewController? {
+    public class func topMostViewController() -> UIViewController? {
         let rootViewController = UIApplication.sharedApplication().windows.first?.rootViewController
         return self.topMostViewControllerOfViewController(rootViewController)
     }
