@@ -211,6 +211,27 @@ func application(application: UIApplication,
 ```
 
 
+#### Using with Storyboard
+
+It's not yet available to initialize view controllers from Storyboard. However, you can map the closures alternatively.
+
+```swift
+Navigator.map("myapp://post/<int:id>") { URL, values in
+    guard let postID = values["id"] as? Int,
+          let postViewController = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController()
+          else { return false }
+    Navigator.push(postViewController)
+    return true
+}
+```
+
+Then use `Navigator.openURL()` instead of `Navigator.pushURL()`:
+
+```swift
+Navigator.openURL("myapp://post/12345")
+```
+
+
 License
 -------
 
