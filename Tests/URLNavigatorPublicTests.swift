@@ -58,6 +58,21 @@ class URLNavigatorPublicTests: XCTestCase {
         XCTAssert(self.navigator.viewControllerForURL("http://google.com/search?q=URLNavigator") is WebViewController)
         XCTAssert(self.navigator.viewControllerForURL("http://google.com/search/?q=URLNavigator") is WebViewController)
     }
+    
+    func testDefaultScheme(){
+        URLNavigator.defaultSchemeString = "myapp"
+        
+        self.navigator.map("myapp://user/<int:id>", UserViewController.self)
+        self.navigator.map("/post/<title>", PostViewController.self)
+
+        XCTAssertNil(self.navigator.viewControllerForURL("invalid://user/1"))
+        XCTAssert(self.navigator.viewControllerForURL("myapp://user/1") is UserViewController)
+        XCTAssert(self.navigator.viewControllerForURL("/user/1") is UserViewController)
+
+        XCTAssert(self.navigator.viewControllerForURL("myapp://post/hello-world") is PostViewController)
+        XCTAssert(self.navigator.viewControllerForURL("/post/hello-world") is PostViewController)
+
+    }
 
     func testPushURL_URLNavigable() {
         self.navigator.map("myapp://user/<int:id>", UserViewController.self)
