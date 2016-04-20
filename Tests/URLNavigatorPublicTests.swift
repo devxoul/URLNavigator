@@ -49,6 +49,11 @@ class URLNavigatorPublicTests: XCTestCase {
         XCTAssertNil(self.navigator.viewControllerForURL("myapp://post/"))
         XCTAssert(self.navigator.viewControllerForURL("myapp://post/123") is PostViewController)
         XCTAssert(self.navigator.viewControllerForURL("myapp://post/hello-world") is PostViewController)
+        
+        let pvc:PostViewController = self.navigator.viewControllerForURL("myapp://post/hello-world?param1=value1") as! PostViewController
+        XCTAssert(pvc.postTitle == "hello-world")
+        XCTAssert(pvc.queryParam == "value1")
+        
 
         XCTAssertNil(self.navigator.viewControllerForURL("http://"))
         XCTAssertNil(self.navigator.viewControllerForURL("https://"))
@@ -147,13 +152,16 @@ private class UserViewController: UIViewController, URLNavigable {
 private class PostViewController: UIViewController, URLNavigable {
 
     var postTitle: String?
+    var queryParam: String?
 
     convenience required init?(URL: URLConvertible, values: [String : AnyObject]) {
-        guard let title = values["title"] as? String else {
-            return nil
-        }
         self.init()
-        self.postTitle = title
+        if let title = values["title"] as? String  {
+            self.postTitle = title
+        }
+        if let param1 = values["param1"] as? String  {
+            self.queryParam = param1
+        }
     }
     
 }
