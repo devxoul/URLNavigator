@@ -71,7 +71,7 @@ final class UserViewController: UIViewController, URLNavigable {
         }
         self.init(userID: userID)
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -115,7 +115,7 @@ Installation
         ]
     )
     ```
-    
+
 
 Tips and Tricks
 ---------------
@@ -156,7 +156,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
                      didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Navigator
         URLNavigationMap.initialize()
-        
+
         // Do something else...
     }
 }
@@ -229,6 +229,20 @@ Then use `Navigator.openURL()` instead of `Navigator.pushURL()`:
 
 ```swift
 Navigator.openURL("myapp://post/12345")
+```
+
+#### Simplify URL mapping with  Global URL Scheme
+Avoid to add URL scheme in all URLs using a global scheme definition
+
+```swift
+URLNavigator.defaultSchemeString = "myapp"
+
+Navigator.map("/user/<int:id>", UserViewController.self)
+Navigator.map("/post/<title>", PostViewController.self)
+
+
+Navigator.openURL("/post/12345")
+
 ```
 
 
