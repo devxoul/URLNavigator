@@ -49,6 +49,11 @@ class URLNavigatorPublicTests: XCTestCase {
         XCTAssertNil(self.navigator.viewControllerForURL("myapp://post/"))
         XCTAssert(self.navigator.viewControllerForURL("myapp://post/123") is PostViewController)
         XCTAssert(self.navigator.viewControllerForURL("myapp://post/hello-world") is PostViewController)
+        
+        let pvc:PostViewController = self.navigator.viewControllerForURL("myapp://post/hello-world?param1=value1") as! PostViewController
+        XCTAssert(pvc.postTitle == "hello-world")
+        XCTAssert(pvc.queryParam == "value1")
+        
 
         XCTAssertNil(self.navigator.viewControllerForURL("http://"))
         XCTAssertNil(self.navigator.viewControllerForURL("https://"))
@@ -57,6 +62,21 @@ class URLNavigatorPublicTests: XCTestCase {
         XCTAssert(self.navigator.viewControllerForURL("http://google.com/search?q=URLNavigator") is WebViewController)
         XCTAssert(self.navigator.viewControllerForURL("http://google.com/search?q=URLNavigator") is WebViewController)
         XCTAssert(self.navigator.viewControllerForURL("http://google.com/search/?q=URLNavigator") is WebViewController)
+    }
+    
+    func testDefaultScheme(){
+        URLNavigator.defaultSchemeString = "myapp"
+        
+        self.navigator.map("myapp://user/<int:id>", UserViewController.self)
+        self.navigator.map("/post/<title>", PostViewController.self)
+
+        XCTAssertNil(self.navigator.viewControllerForURL("invalid://user/1"))
+        XCTAssert(self.navigator.viewControllerForURL("myapp://user/1") is UserViewController)
+        XCTAssert(self.navigator.viewControllerForURL("/user/1") is UserViewController)
+
+        XCTAssert(self.navigator.viewControllerForURL("myapp://post/hello-world") is PostViewController)
+        XCTAssert(self.navigator.viewControllerForURL("/post/hello-world") is PostViewController)
+
     }
 
     func testPushURL_URLNavigable() {
@@ -132,13 +152,16 @@ private class UserViewController: UIViewController, URLNavigable {
 private class PostViewController: UIViewController, URLNavigable {
 
     var postTitle: String?
+    var queryParam: String?
 
     convenience required init?(URL: URLConvertible, values: [String : AnyObject]) {
-        guard let title = values["title"] as? String else {
-            return nil
-        }
         self.init()
-        self.postTitle = title
+        if let title = values["title"] as? String  {
+            self.postTitle = title
+        }
+        if let param1 = values["param1"] as? String  {
+            self.queryParam = param1
+        }
     }
     
 }

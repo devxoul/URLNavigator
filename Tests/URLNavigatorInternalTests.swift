@@ -60,10 +60,16 @@ class URLNavigatorInternalTests: XCTestCase {
             XCTAssertEqual(values as! [String: String], ["id": "1", "object": "posts"])
         }();
         {
+            let from = ["myapp://user/<id>", "myapp://user/<id>/<object>"]
+            let (URLPattern, values) = URLNavigator.matchURL("myapp://user/1/posts?param1=value1", from: from)!
+            XCTAssertEqual(URLPattern, "myapp://user/<id>/<object>")
+            XCTAssertEqual(values as! [String: String], ["id": "1", "object": "posts","param1": "value1"])
+        }();
+        {
             let from = ["myapp://alert"]
             let (URLPattern, values) = URLNavigator.matchURL("myapp://alert?title=hello&message=world", from: from)!
             XCTAssertEqual(URLPattern, "myapp://alert")
-            XCTAssertEqual(values.count, 0)
+            XCTAssertEqual(values.count, 2)
         }();
         {
             let from = ["http://<path:url>"]
@@ -81,21 +87,23 @@ class URLNavigatorInternalTests: XCTestCase {
             let from = ["http://<path:url>"]
             let (URLPattern, values) = URLNavigator.matchURL("http://google.com/search?q=URLNavigator", from: from)!
             XCTAssertEqual(URLPattern, "http://<path:url>")
-            XCTAssertEqual(values as! [String: String], ["url": "google.com/search"])
+            XCTAssertEqual(values as! [String: String], ["url": "google.com/search", "q": "URLNavigator"])
         }();
         {
             let from = ["http://<path:url>"]
             let (URLPattern, values) = URLNavigator.matchURL("http://google.com/search/?q=URLNavigator", from: from)!
             XCTAssertEqual(URLPattern, "http://<path:url>")
-            XCTAssertEqual(values as! [String: String], ["url": "google.com/search"])
+            XCTAssertEqual(values as! [String: String], ["url": "google.com/search", "q": "URLNavigator"])
         }();
     }
 
     func testNormalizedURL() {
+        URLNavigator.defaultSchemeString = "myapp"
         XCTAssertEqual(URLNavigator.normalizedURL("myapp://user/<id>/hello").URLStringValue, "myapp://user/<id>/hello")
         XCTAssertEqual(URLNavigator.normalizedURL("myapp:///////user///<id>//hello/??/#abc=/def").URLStringValue,
             "myapp://user/<id>/hello")
         XCTAssertEqual(URLNavigator.normalizedURL("https://<path:_>").URLStringValue, "https://<path:_>")
+        XCTAssertEqual(URLNavigator.normalizedURL("/user").URLStringValue, "myapp://user")
     }
 
     func testPlaceholderValueFromURLPathComponents() {

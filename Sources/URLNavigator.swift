@@ -65,6 +65,9 @@ public class URLNavigator {
 
     /// A dictionary to store URLOpenHandlers by URL patterns.
     private(set) var URLOpenHandlers = [String: URLOpenHandler]()
+    
+    /// String with the value of the fallback scheme when normalize the url
+    public static var defaultSchemeString:String?
 
 
     // MARK: Initializing
@@ -131,7 +134,7 @@ public class URLNavigator {
             }
 
             var values = [String: AnyObject]()
-
+            
             // e.g. ["user", "<int:id>"]
             for (i, component) in URLPatternPathComponents.enumerate() {
                 guard i < URLPathComponents.count else {
@@ -151,6 +154,15 @@ public class URLNavigator {
                 }
             }
 
+            // Store any parameter from the URL's query
+            let urlComponents = NSURLComponents(string: URL.URLStringValue)
+            if let queryItems = urlComponents?.queryItems {
+                for param:NSURLQueryItem in queryItems {
+                    values[param.name] = param.value
+                }
+            }
+
+            
             return (URLPattern, values)
         }
         return nil
@@ -313,7 +325,13 @@ public class URLNavigator {
         guard dirtyURL.URLValue != nil else {
             return dirtyURL
         }
+
         var URLString = dirtyURL.URLStringValue.componentsSeparatedByString("?")[0].componentsSeparatedByString("#")[0]
+
+        if (dirtyURL.URLValue?.scheme == nil || dirtyURL.URLValue?.scheme == "" ) && self.defaultSchemeString != nil{
+            URLString = "\(self.defaultSchemeString!)://\(URLString)"
+        }
+
         URLString = self.replaceRegex(":/{3,}", "://", URLString)
         URLString = self.replaceRegex("(?<!:)/{2,}", "/", URLString)
         URLString = self.replaceRegex("/+$", "", URLString)
