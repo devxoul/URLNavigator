@@ -135,14 +135,6 @@ public class URLNavigator {
 
             var values = [String: AnyObject]()
             
-            // Store any parameter from the URL's query
-            let urlComponents = NSURLComponents(string: URL.URLStringValue)
-            if let queryItems = urlComponents?.queryItems {
-                for var param:NSURLQueryItem in queryItems {
-                    values[param.name] = param.value
-                }
-            }
-
             // e.g. ["user", "<int:id>"]
             for (i, component) in URLPatternPathComponents.enumerate() {
                 guard i < URLPathComponents.count else {
@@ -162,6 +154,15 @@ public class URLNavigator {
                 }
             }
 
+            // Store any parameter from the URL's query
+            let urlComponents = NSURLComponents(string: URL.URLStringValue)
+            if let queryItems = urlComponents?.queryItems {
+                for param:NSURLQueryItem in queryItems {
+                    values[param.name] = param.value
+                }
+            }
+
+            
             return (URLPattern, values)
         }
         return nil
