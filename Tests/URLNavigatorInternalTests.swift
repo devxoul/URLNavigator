@@ -63,7 +63,7 @@ class URLNavigatorInternalTests: XCTestCase {
             let from = ["myapp://alert"]
             let (URLPattern, values) = URLNavigator.matchURL("myapp://alert?title=hello&message=world", from: from)!
             XCTAssertEqual(URLPattern, "myapp://alert")
-            XCTAssertEqual(values.count, 0)
+            XCTAssertEqual(values.count, 2)
         }();
         {
             let from = ["http://<path:url>"]
@@ -81,13 +81,13 @@ class URLNavigatorInternalTests: XCTestCase {
             let from = ["http://<path:url>"]
             let (URLPattern, values) = URLNavigator.matchURL("http://google.com/search?q=URLNavigator", from: from)!
             XCTAssertEqual(URLPattern, "http://<path:url>")
-            XCTAssertEqual(values as! [String: String], ["url": "google.com/search"])
+            XCTAssertEqual(values as! [String: String], ["url": "google.com/search", "q":"URLNavigator"])
         }();
         {
             let from = ["http://<path:url>"]
             let (URLPattern, values) = URLNavigator.matchURL("http://google.com/search/?q=URLNavigator", from: from)!
             XCTAssertEqual(URLPattern, "http://<path:url>")
-            XCTAssertEqual(values as! [String: String], ["url": "google.com/search"])
+            XCTAssertEqual(values as! [String: String], ["url": "google.com/search", "q":"URLNavigator"])
         }();
     }
 
