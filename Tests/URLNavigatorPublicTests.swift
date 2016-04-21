@@ -57,6 +57,10 @@ class URLNavigatorPublicTests: XCTestCase {
         XCTAssert(self.navigator.viewControllerForURL("http://google.com/search?q=URLNavigator") is WebViewController)
         XCTAssert(self.navigator.viewControllerForURL("http://google.com/search?q=URLNavigator") is WebViewController)
         XCTAssert(self.navigator.viewControllerForURL("http://google.com/search/?q=URLNavigator") is WebViewController)
+        
+        let pvc:PostViewController = self.navigator.viewControllerForURL("myapp://post/hello-world?param1=value1") as! PostViewController
+        XCTAssert(pvc.postTitle == "hello-world")
+        XCTAssert(pvc.queryParam == "value1")
     }
 
     func testPushURL_URLNavigable() {
@@ -132,13 +136,17 @@ private class UserViewController: UIViewController, URLNavigable {
 private class PostViewController: UIViewController, URLNavigable {
 
     var postTitle: String?
+    var queryParam: String?
 
     convenience required init?(URL: URLConvertible, values: [String : AnyObject]) {
         guard let title = values["title"] as? String else {
             return nil
         }
+
         self.init()
+
         self.postTitle = title
+        self.queryParam = values["param1"] as? String
     }
     
 }

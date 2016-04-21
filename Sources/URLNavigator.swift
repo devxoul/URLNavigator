@@ -151,6 +151,13 @@ public class URLNavigator {
                 }
             }
 
+            
+            // Store any parameter from the URL's query
+            let urlComponents = NSURLComponents(string: URL.URLStringValue)
+            urlComponents?.queryItems?.forEach({ (param) in
+                values[param.name] = param.value
+            })
+            
             return (URLPattern, values)
         }
         return nil
