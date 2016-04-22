@@ -232,6 +232,32 @@ Navigator.openURL("myapp://post/12345")
 ```
 
 
+#### Setting Default Scheme
+
+Set `scheme` property on `URLNavigator` instance to get rid of schemes in every URLs.
+
+```swift
+Navigator.scheme = "myapp"
+Navigator.map("/user/<int:id>", UserViewController.self)
+Navigator.push("/user/10")
+```
+
+This is totally equivalent to:
+
+```swift
+Navigator.map("myapp://user/<int:id>", UserViewController.self)
+Navigator.push("myapp://user/10")
+```
+
+Setting `scheme` property will not affect other URLs that already have schemes.
+
+```swift
+Navigator.scheme = "myapp"
+Navigator.map("/user/<int:id>", UserViewController.self) // `myapp://user/<int:id>`
+Navigator.map("http://<path>", MyWebViewController.self) // `http://<path>`
+```
+
+
 License
 -------
 
