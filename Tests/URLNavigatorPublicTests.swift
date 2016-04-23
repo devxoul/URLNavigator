@@ -113,6 +113,107 @@ class URLNavigatorPublicTests: XCTestCase {
         XCTAssertFalse(self.navigator.openURL("myapp://user/1"))
     }
 
+
+    // MARK: Scheme
+
+    func testSetScheme() {
+        self.navigator.scheme = "myapp"
+        XCTAssertEqual(self.navigator.scheme, "myapp")
+        self.navigator.scheme = "myapp://"
+        XCTAssertEqual(self.navigator.scheme, "myapp")
+        self.navigator.scheme = "myapp://123123123"
+        XCTAssertEqual(self.navigator.scheme, "myapp")
+        self.navigator.scheme = "myapp://://"
+        XCTAssertEqual(self.navigator.scheme, "myapp")
+        self.navigator.scheme = "myapp://://://123123"
+        XCTAssertEqual(self.navigator.scheme, "myapp")
+    }
+
+    func testSchemeViewControllerForURL() {
+        self.navigator.scheme = "myapp"
+
+        self.navigator.map("/user/<int:id>", UserViewController.self)
+        self.navigator.map("/post/<title>", PostViewController.self)
+        self.navigator.map("http://<path:_>", WebViewController.self)
+        self.navigator.map("https://<path:_>", WebViewController.self)
+
+        XCTAssertNil(self.navigator.viewControllerForURL("/user/"))
+        XCTAssertNil(self.navigator.viewControllerForURL("/user/awesome"))
+        XCTAssert(self.navigator.viewControllerForURL("/user/1") is UserViewController)
+
+        XCTAssertNil(self.navigator.viewControllerForURL("/post/"))
+        XCTAssert(self.navigator.viewControllerForURL("/post/123") is PostViewController)
+        XCTAssert(self.navigator.viewControllerForURL("/post/hello-world") is PostViewController)
+
+        XCTAssertNil(self.navigator.viewControllerForURL("http://"))
+        XCTAssertNil(self.navigator.viewControllerForURL("https://"))
+        XCTAssert(self.navigator.viewControllerForURL("http://xoul.kr") is WebViewController)
+        XCTAssert(self.navigator.viewControllerForURL("http://xoul.kr/resume") is WebViewController)
+        XCTAssert(self.navigator.viewControllerForURL("http://google.com/search?q=URLNavigator") is WebViewController)
+        XCTAssert(self.navigator.viewControllerForURL("http://google.com/search?q=URLNavigator") is WebViewController)
+        XCTAssert(self.navigator.viewControllerForURL("http://google.com/search/?q=URLNavigator") is WebViewController)
+    }
+
+    func testSchemePushURL_URLNavigable() {
+        self.navigator.scheme = "myapp"
+        self.navigator.map("/user/<int:id>", UserViewController.self)
+        let navigationController = UINavigationController(rootViewController: UIViewController())
+        let viewController = self.navigator.pushURL("/user/1", from: navigationController, animated: false)
+        XCTAssertNotNil(viewController)
+        XCTAssertEqual(navigationController.viewControllers.count, 2)
+    }
+
+    func testSchemePushURL_URLOpenHandler() {
+        self.navigator.scheme = "myapp"
+        self.navigator.map("/ping") { _ in return true }
+        let navigationController = UINavigationController(rootViewController: UIViewController())
+        let viewController = self.navigator.pushURL("/ping", from: navigationController, animated: false)
+        XCTAssertNil(viewController)
+        XCTAssertEqual(navigationController.viewControllers.count, 1)
+    }
+
+    func testSchemePresentURL_URLNavigable() {
+        self.navigator.scheme = "myapp"
+        self.navigator.map("/user/<int:id>", UserViewController.self)
+        ;{
+            let fromViewController = UIViewController()
+            let viewController = self.navigator.presentURL("/user/1", from: fromViewController)
+            XCTAssertNotNil(viewController)
+            XCTAssertNil(viewController?.navigationController)
+        }();
+        {
+            let fromViewController = UIViewController()
+            let viewController = self.navigator.presentURL("/user/1", wrap: true, from: fromViewController)
+            XCTAssertNotNil(viewController)
+            XCTAssertNotNil(viewController?.navigationController)
+        }();
+    }
+
+    func testSchemePresentURL_URLOpenHandler() {
+        self.navigator.scheme = "myapp"
+        self.navigator.map("/ping") { _ in return true }
+        let fromViewController = UIViewController()
+        let viewController = self.navigator.presentURL("/ping", from: fromViewController)
+        XCTAssertNil(viewController)
+    }
+
+    func testSchemeOpenURL_URLOpenHandler() {
+        self.navigator.scheme = "myapp"
+        self.navigator.map("/ping") { URL, values in
+            NSNotificationCenter.defaultCenter().postNotificationName("Ping", object: nil, userInfo: nil)
+            return true
+        }
+        self.expectationForNotification("Ping", object: nil, handler: nil)
+        XCTAssertTrue(self.navigator.openURL("/ping"))
+        self.waitForExpectationsWithTimeout(1, handler: nil)
+    }
+
+    func testSchemeOpenURL_URLNavigable() {
+        self.navigator.scheme = "myapp"
+        self.navigator.map("/user/<id>", UserViewController.self)
+        XCTAssertFalse(self.navigator.openURL("/user/1"))
+    }
+
 }
 
 private class UserViewController: UIViewController, URLNavigable {

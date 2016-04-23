@@ -36,59 +36,120 @@ class URLNavigatorInternalTests: XCTestCase {
             XCTAssertNil(URLNavigator.matchURL("myapp://user/1", from: ["myapp://user/<id>/hello"]))
         }();
         {
+            XCTAssertNil(URLNavigator.matchURL("/user/1", scheme: "myapp", from: []))
+        }();
+        {
+            XCTAssertNil(URLNavigator.matchURL("/user/1", scheme: "myapp", from: ["myapp://comment/<id>"]))
+        }();
+        {
+            XCTAssertNil(URLNavigator.matchURL("/user/1", scheme: "myapp", from: ["myapp://user/<id>/hello"]))
+        }();
+        {
+            XCTAssertNil(URLNavigator.matchURL("myapp://user/1", scheme: "myapp", from: []))
+        }();
+        {
+            XCTAssertNil(URLNavigator.matchURL("myapp://user/1", scheme: "myapp", from: ["myapp://comment/<id>"]))
+        }();
+        {
+            XCTAssertNil(URLNavigator.matchURL("myapp://user/1", scheme: "myapp", from: ["myapp://user/<id>/hello"]))
+        }();
+        {
             let from = ["myapp://hello"]
             let (URLPattern, values) = URLNavigator.matchURL("myapp://hello", from: from)!
             XCTAssertEqual(URLPattern, "myapp://hello")
             XCTAssertEqual(values.count, 0)
+
+            let scheme = URLNavigator.matchURL("/hello", scheme: "myapp", from: from)!
+            XCTAssertEqual(URLPattern, scheme.0)
+            XCTAssertEqual(values as! [String: String], scheme.1 as! [String: String])
         }();
         {
             let from = ["myapp://user/<id>"]
             let (URLPattern, values) = URLNavigator.matchURL("myapp://user/1", from: from)!
             XCTAssertEqual(URLPattern, "myapp://user/<id>")
             XCTAssertEqual(values as! [String: String], ["id": "1"])
+
+            let scheme = URLNavigator.matchURL("/user/1", scheme: "myapp", from: from)!
+            XCTAssertEqual(URLPattern, scheme.0)
+            XCTAssertEqual(values as! [String: String], scheme.1 as! [String: String])
         }();
         {
             let from = ["myapp://user/<id>", "myapp://user/<id>/hello"]
             let (URLPattern, values) = URLNavigator.matchURL("myapp://user/1", from: from)!
             XCTAssertEqual(URLPattern, "myapp://user/<id>")
             XCTAssertEqual(values as! [String: String], ["id": "1"])
+
+            let scheme = URLNavigator.matchURL("/user/1", scheme: "myapp", from: from)!
+            XCTAssertEqual(URLPattern, scheme.0)
+            XCTAssertEqual(values as! [String: String], scheme.1 as! [String: String])
         }();
         {
             let from = ["myapp://user/<id>", "myapp://user/<id>/<object>"]
             let (URLPattern, values) = URLNavigator.matchURL("myapp://user/1/posts", from: from)!
             XCTAssertEqual(URLPattern, "myapp://user/<id>/<object>")
             XCTAssertEqual(values as! [String: String], ["id": "1", "object": "posts"])
+
+            let scheme = URLNavigator.matchURL("/user/1/posts", scheme: "myapp", from: from)!
+            XCTAssertEqual(URLPattern, scheme.0)
+            XCTAssertEqual(values as! [String: String], scheme.1 as! [String: String])
         }();
         {
             let from = ["myapp://alert"]
             let (URLPattern, values) = URLNavigator.matchURL("myapp://alert?title=hello&message=world", from: from)!
             XCTAssertEqual(URLPattern, "myapp://alert")
             XCTAssertEqual(values.count, 0)
+
+            let scheme = URLNavigator.matchURL("/alert?title=hello&message=world", scheme: "myapp", from: from)!
+            XCTAssertEqual(URLPattern, scheme.0)
+            XCTAssertEqual(values as! [String: String], scheme.1 as! [String: String])
         }();
         {
             let from = ["http://<path:url>"]
             let (URLPattern, values) = URLNavigator.matchURL("http://xoul.kr", from: from)!
             XCTAssertEqual(URLPattern, "http://<path:url>")
             XCTAssertEqual(values as! [String: String], ["url": "xoul.kr"])
+
+            let scheme = URLNavigator.matchURL("http://xoul.kr", scheme: "myapp", from: from)!
+            XCTAssertEqual(URLPattern, scheme.0)
+            XCTAssertEqual(values as! [String: String], scheme.1 as! [String: String])
         }();
         {
             let from = ["http://<path:url>"]
             let (URLPattern, values) = URLNavigator.matchURL("http://xoul.kr/resume", from: from)!
             XCTAssertEqual(URLPattern, "http://<path:url>")
             XCTAssertEqual(values as! [String: String], ["url": "xoul.kr/resume"])
+
+            let scheme = URLNavigator.matchURL("http://xoul.kr/resume", scheme: "myapp", from: from)!
+            XCTAssertEqual(URLPattern, scheme.0)
+            XCTAssertEqual(values as! [String: String], scheme.1 as! [String: String])
         }();
         {
             let from = ["http://<path:url>"]
             let (URLPattern, values) = URLNavigator.matchURL("http://google.com/search?q=URLNavigator", from: from)!
             XCTAssertEqual(URLPattern, "http://<path:url>")
             XCTAssertEqual(values as! [String: String], ["url": "google.com/search"])
+
+            let scheme = URLNavigator.matchURL("http://google.com/search?q=URLNavigator", scheme: "myapp", from: from)!
+            XCTAssertEqual(URLPattern, scheme.0)
+            XCTAssertEqual(values as! [String: String], scheme.1 as! [String: String])
         }();
         {
             let from = ["http://<path:url>"]
             let (URLPattern, values) = URLNavigator.matchURL("http://google.com/search/?q=URLNavigator", from: from)!
             XCTAssertEqual(URLPattern, "http://<path:url>")
             XCTAssertEqual(values as! [String: String], ["url": "google.com/search"])
+
+            let scheme = URLNavigator.matchURL("http://google.com/search/?q=URLNavigator",
+                                               scheme: "myapp", from: from)!
+            XCTAssertEqual(URLPattern, scheme.0)
+            XCTAssertEqual(values as! [String: String], scheme.1 as! [String: String])
         }();
+    }
+
+    func testURLWithScheme() {
+        XCTAssertEqual(URLNavigator.URLWithScheme(nil, "myapp://user/1").URLStringValue, "myapp://user/1")
+        XCTAssertEqual(URLNavigator.URLWithScheme("myapp", "/user/1").URLStringValue, "myapp://user/1")
+        XCTAssertEqual(URLNavigator.URLWithScheme("", "/user/1").URLStringValue, "://user/1") // idiot
     }
 
     func testNormalizedURL() {
