@@ -39,6 +39,7 @@ class URLNavigatorPublicTests: XCTestCase {
     func testViewControllerForURL() {
         self.navigator.map("myapp://user/<int:id>", UserViewController.self)
         self.navigator.map("myapp://post/<title>", PostViewController.self)
+        self.navigator.map("myapp://search", SearchViewController.self)
         self.navigator.map("http://<path:_>", WebViewController.self)
         self.navigator.map("https://<path:_>", WebViewController.self)
 
@@ -49,6 +50,15 @@ class URLNavigatorPublicTests: XCTestCase {
         XCTAssertNil(self.navigator.viewControllerForURL("myapp://post/"))
         XCTAssert(self.navigator.viewControllerForURL("myapp://post/123") is PostViewController)
         XCTAssert(self.navigator.viewControllerForURL("myapp://post/hello-world") is PostViewController)
+
+        XCTAssertNil(self.navigator.viewControllerForURL("myapp://search"))
+        XCTAssertNil(self.navigator.viewControllerForURL("myapp://search?"))
+        XCTAssertNil(self.navigator.viewControllerForURL("myapp://search?query"))
+        XCTAssert(self.navigator.viewControllerForURL("myapp://search?query=") is SearchViewController)
+        XCTAssertEqual(
+            (self.navigator.viewControllerForURL("myapp://search?query=Hello") as! SearchViewController).query,
+            "Hello"
+        )
 
         XCTAssertNil(self.navigator.viewControllerForURL("http://"))
         XCTAssertNil(self.navigator.viewControllerForURL("https://"))
@@ -251,6 +261,28 @@ private class WebViewController: UIViewController, URLNavigable {
     convenience required init?(URL: URLConvertible, values: [String : AnyObject]) {
         self.init()
         self.URL = URL
+    }
+
+}
+
+private class SearchViewController: UIViewController, URLNavigable {
+
+    let query: String
+
+    init(query: String) {
+        self.query = query
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    convenience required init?(URL: URLConvertible, values: [String: AnyObject]) {
+        guard let query = URL.queryParameters["query"] else {
+            return nil
+        }
+        self.init(query: query)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
 }
