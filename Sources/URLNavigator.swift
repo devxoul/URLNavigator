@@ -84,6 +84,7 @@ public class URLNavigator {
         }
     }
 
+    public var window:UIWindow?
 
     // MARK: Initializing
 
@@ -317,6 +318,52 @@ public class URLNavigator {
         return false
     }
 
+    // MARK: Make Root
+    public func makeRootURL(URL: URLConvertible,
+                            from: UIWindow? = nil,
+                            animated: Bool = true,
+                            wrap: Bool = false) -> UIViewController?{
+        guard let fromWindow:UIWindow = self.window ?? from else{
+            return nil
+        }
+
+        guard let viewController = self.viewControllerForURL(URL) else {
+            return nil
+        }
+
+        return self.makeRoot(viewController,from: fromWindow, animated:animated, wrap:wrap)
+    }
+
+    public func makeRoot(viewController: UIViewController,
+                         from: UIWindow? = nil,
+                            animated: Bool = true,
+                            wrap: Bool = false) -> UIViewController?{
+        
+
+        var finalViewController = viewController
+        if wrap && !viewController.isKindOfClass(UINavigationController){
+            let navigationController = UINavigationController(rootViewController: viewController)
+            finalViewController = navigationController
+        }
+        
+        guard let snapShot:UIView = self.window?.snapshotViewAfterScreenUpdates(true) else{
+            return nil
+        }
+        
+        finalViewController.view.addSubview(snapShot)
+        self.window?.rootViewController = viewController;
+        UIView.animateWithDuration(animated ? 0.6 : 0 ,
+                                   delay: 0,
+                                   options: UIViewAnimationOptions.CurveEaseInOut,
+                                   animations: { () -> Void in
+                                   snapShot.layer.opacity = 0;
+        }) { (finished) -> Void in
+            snapShot.removeFromSuperview()
+        }
+        
+        return viewController
+        
+    }
 
     // MARK: Utils
 
