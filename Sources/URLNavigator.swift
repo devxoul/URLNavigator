@@ -61,11 +61,13 @@ public class URLNavigator {
     public typealias URLOpenHandler = (URL: URLConvertible, values: [String: AnyObject]) -> Bool
 
     /// A dictionary to store URLNaviables by URL patterns.
-    private(set) var URLMap = [String: URLNavigable.Type]()
+    private(set) var URLMap = [String: URLNavigableFactory]()
 
     /// A dictionary to store URLOpenHandlers by URL patterns.
     private(set) var URLOpenHandlers = [String: URLOpenHandler]()
 
+
+    
     /// A default scheme. If this value is set, it's available to map URL paths without schemes.
     ///
     ///     Navigator.scheme = "myapp"
@@ -107,12 +109,29 @@ public class URLNavigator {
 
     // MARK: URL Mapping
 
-    /// Map an `URLNavigable` to an URL pattern.
-    public func map(URLPattern: URLConvertible, _ navigable: URLNavigable.Type) {
+    
+    /// Map an `URLNavigableFactory` to an URL pattern.
+    public func map(URLPattern: URLConvertible, _ navigable: URLNavigableFactory) {
         let URLString = URLNavigator.normalizedURL(URLPattern, scheme: self.scheme).URLStringValue
         self.URLMap[URLString] = navigable
     }
 
+    /// Map an `URLNavigable` to an URL pattern.
+    public func map(URLPattern: URLConvertible, _ navigable: URLNavigable.Type) {
+        self.map(URLPattern, URLNavigableWithClass(navigable))
+    }
+    
+    /// Map an 'Storyboard' to an URL pattern.
+    public func map(URLPattern: URLConvertible, storyboard:String, identifier:String, bundle:NSBundle? = nil) {
+        self.map(URLPattern, URLNavigableWithStoryboard(storyboard, identifier: identifier, bundle:bundle))
+    }
+
+    /// Map a 'Block' to an URL pattern.
+    public func map(URLPattern: URLConvertible,block:URLNavigableWithBlock.factoryBlockType) {
+        self.map(URLPattern, URLNavigableWithBlock(block))
+    }
+    
+    
     /// Map an `URLOpenHandler` to an URL pattern.
     public func map(URLPattern: URLConvertible, _ handler: URLOpenHandler) {
         let URLString = URLNavigator.normalizedURL(URLPattern, scheme: self.scheme).URLStringValue
@@ -181,8 +200,12 @@ public class URLNavigator {
     /// - Returns: A match view controller or `nil` if not matched.
     public func viewControllerForURL(URL: URLConvertible) -> UIViewController? {
         if let (URLPattern, values) = URLNavigator.matchURL(URL, scheme: self.scheme, from: Array(self.URLMap.keys)) {
-            let navigable = self.URLMap[URLPattern]
-            return navigable?.init(URL: URL, values: values) as? UIViewController
+            //let navigable = self.URLMap[URLPattern]
+            //return navigable?.init(URL: URL, values: values) as? UIViewController
+            guard let navigableFactory = self.URLMap[URLPattern] else {
+                return nil
+            }
+            return navigableFactory.navigableInstance(URL, values: values) as? UIViewController
         }
         return nil
     }
