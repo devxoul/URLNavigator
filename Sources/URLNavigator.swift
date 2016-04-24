@@ -351,7 +351,7 @@ public class URLNavigator {
         }
         
         finalViewController.view.addSubview(snapShot)
-        self.window?.rootViewController = viewController;
+        self.window?.rootViewController = finalViewController;
         UIView.animateWithDuration(animated ? 0.6 : 0 ,
                                    delay: 0,
                                    options: UIViewAnimationOptions.CurveEaseInOut,

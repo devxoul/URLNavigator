@@ -118,8 +118,9 @@ class URLNavigatorPublicTests: XCTestCase {
         self.navigator.window = UIWindow()
         self.navigator.window?.rootViewController = UIViewController()
         self.navigator.map("myapp://user/<int:id>", UserViewController.self)
-        self.navigator.makeRootURL("myapp://user/1",animated:false)
-        XCTAssert(self.navigator.window?.rootViewController is UserViewController)
+        
+        XCTAssert(self.navigator.makeRootURL("myapp://user/1", wrap:true ,animated:false) is UserViewController)
+        XCTAssert(self.navigator.window?.rootViewController is UINavigationController)
     }
 
     
