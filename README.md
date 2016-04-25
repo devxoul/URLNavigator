@@ -25,8 +25,8 @@ Navigator.map("myapp://user/<int:id>", UserViewController.self)
 Navigator.map("myapp://post/<title>", PostViewController.self)
 
 Navigator.map("myapp://alert") { URL, values in
-    print(URL.parameters["title"])
-    print(URL.parameters["message"])
+    print(URL.queryParameters["title"])
+    print(URL.queryParameters["message"])
     return true
 }
 ```
