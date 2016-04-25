@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		03032BB81CCBA94B00F7EBFD /* URLConvertibleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03032BB61CCBA93400F7EBFD /* URLConvertibleTests.swift */; };
 		03107EDD1C6364E700DF2F14 /* URLNavigator.h in Headers */ = {isa = PBXBuildFile; fileRef = 03107EDA1C6364E700DF2F14 /* URLNavigator.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		03107EE01C63653900DF2F14 /* URLNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03107EDF1C63653900DF2F14 /* URLNavigator.swift */; };
 		03107EE21C6365BF00DF2F14 /* URLNavigable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03107EE11C6365BF00DF2F14 /* URLNavigable.swift */; };
@@ -31,6 +32,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		03032BB61CCBA93400F7EBFD /* URLConvertibleTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLConvertibleTests.swift; sourceTree = "<group>"; };
 		03107ECE1C6362E800DF2F14 /* URLNavigator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = URLNavigator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		03107EDA1C6364E700DF2F14 /* URLNavigator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URLNavigator.h; sourceTree = "<group>"; };
 		03107EDC1C6364E700DF2F14 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -110,6 +112,7 @@
 				03107EF71C636A5500DF2F14 /* URLNavigatorInternalTests.swift */,
 				03107EFA1C67288400DF2F14 /* URLNavigatorPublicTests.swift */,
 				EE513F111CCD47730056575F /* TestingStoryboard.storyboard */,
+				03032BB61CCBA93400F7EBFD /* URLConvertibleTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -238,6 +241,7 @@
 			files = (
 				03107EF91C636A7500DF2F14 /* URLNavigatorInternalTests.swift in Sources */,
 				03107EFC1C67289100DF2F14 /* URLNavigatorPublicTests.swift in Sources */,
+				03032BB81CCBA94B00F7EBFD /* URLConvertibleTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
