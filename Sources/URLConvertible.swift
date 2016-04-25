@@ -26,6 +26,39 @@ import Foundation
 public protocol URLConvertible {
     var URLValue: NSURL? { get }
     var URLStringValue: String { get }
+
+    /// Returns URL query parameters. For convenience, this property will never return `nil` even if there's no query
+    /// string in URL. This property doesn't take care of duplicated keys. Use `queryItems` for strictness.
+    ///
+    /// - SeeAlso: `queryItems`
+    var queryParameters: [String: String] { get }
+
+    /// Returns `queryItems` property of `NSURLComponents` instance.
+    ///
+    /// - SeeAlso: `queryParameters`
+    @available(iOS 8, *)
+    var queryItems: [NSURLQueryItem]? { get }
+}
+
+extension URLConvertible {
+    public var queryParameters: [String: String] {
+        var parameters = [String: String]()
+        self.URLValue?.query?.componentsSeparatedByString("&").forEach {
+            let keyAndValue = $0.componentsSeparatedByString("=")
+            if keyAndValue.count == 2 {
+                let key = keyAndValue[0]
+                let value = keyAndValue[1].stringByReplacingOccurrencesOfString("+", withString: " ")
+                                          .stringByRemovingPercentEncoding ?? keyAndValue[1]
+                parameters[key] = value
+            }
+        }
+        return parameters
+    }
+
+    @available(iOS 8, *)
+    public var queryItems: [NSURLQueryItem]? {
+        return NSURLComponents(string: self.URLStringValue)?.queryItems
+    }
 }
 
 extension String: URLConvertible {
