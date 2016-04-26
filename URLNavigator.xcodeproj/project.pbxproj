@@ -16,6 +16,9 @@
 		03107EF01C636A3D00DF2F14 /* URLNavigator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03107ECE1C6362E800DF2F14 /* URLNavigator.framework */; };
 		03107EF91C636A7500DF2F14 /* URLNavigatorInternalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03107EF71C636A5500DF2F14 /* URLNavigatorInternalTests.swift */; };
 		03107EFC1C67289100DF2F14 /* URLNavigatorPublicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03107EFA1C67288400DF2F14 /* URLNavigatorPublicTests.swift */; };
+		EE513F0D1CCCFEEB0056575F /* URLNavigableFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE513F0C1CCCFEEB0056575F /* URLNavigableFactory.swift */; };
+		EE513F121CCD47730056575F /* TestingStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE513F111CCD47730056575F /* TestingStoryboard.storyboard */; };
+		EE513F131CCD47730056575F /* TestingStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE513F111CCD47730056575F /* TestingStoryboard.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +43,8 @@
 		03107EEB1C636A3D00DF2F14 /* URLNavigatorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = URLNavigatorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		03107EF71C636A5500DF2F14 /* URLNavigatorInternalTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLNavigatorInternalTests.swift; sourceTree = "<group>"; };
 		03107EFA1C67288400DF2F14 /* URLNavigatorPublicTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLNavigatorPublicTests.swift; sourceTree = "<group>"; };
+		EE513F0C1CCCFEEB0056575F /* URLNavigableFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLNavigableFactory.swift; sourceTree = "<group>"; };
+		EE513F111CCD47730056575F /* TestingStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TestingStoryboard.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +93,7 @@
 				03107EE11C6365BF00DF2F14 /* URLNavigable.swift */,
 				03107EE31C6365E500DF2F14 /* URLConvertible.swift */,
 				03107EE51C6366F500DF2F14 /* UIViewController+TopMostViewController.swift */,
+				EE513F0C1CCCFEEB0056575F /* URLNavigableFactory.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -105,6 +111,7 @@
 			children = (
 				03107EF71C636A5500DF2F14 /* URLNavigatorInternalTests.swift */,
 				03107EFA1C67288400DF2F14 /* URLNavigatorPublicTests.swift */,
+				EE513F111CCD47730056575F /* TestingStoryboard.storyboard */,
 				03032BB61CCBA93400F7EBFD /* URLConvertibleTests.swift */,
 			);
 			path = Tests;
@@ -201,6 +208,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE513F121CCD47730056575F /* TestingStoryboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -208,6 +216,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE513F131CCD47730056575F /* TestingStoryboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -220,6 +229,7 @@
 			files = (
 				03107EE61C6366F500DF2F14 /* UIViewController+TopMostViewController.swift in Sources */,
 				03107EE01C63653900DF2F14 /* URLNavigator.swift in Sources */,
+				EE513F0D1CCCFEEB0056575F /* URLNavigableFactory.swift in Sources */,
 				03107EE41C6365E500DF2F14 /* URLConvertible.swift in Sources */,
 				03107EE21C6365BF00DF2F14 /* URLNavigable.swift in Sources */,
 			);

@@ -21,7 +21,7 @@
 // SOFTWARE.
 
 import XCTest
-import URLNavigator
+@testable import URLNavigator
 
 class URLNavigatorPublicTests: XCTestCase {
 
@@ -68,6 +68,46 @@ class URLNavigatorPublicTests: XCTestCase {
         XCTAssert(self.navigator.viewControllerForURL("http://google.com/search?q=URLNavigator") is WebViewController)
         XCTAssert(self.navigator.viewControllerForURL("http://google.com/search/?q=URLNavigator") is WebViewController)
     }
+    
+    func testViewControllerForURLWithViewFactory() {
+        /// Class Factory
+
+        self.navigator.map("myapp://user/<int:id>", URLNavigableWithClass(UserViewController.self))
+        XCTAssert(self.navigator.viewControllerForURL("myapp://user/1") is UserViewController)
+
+        
+        self.navigator.map("myapp://user/<int:id>", UserViewController.self)
+        XCTAssert(self.navigator.viewControllerForURL("myapp://user/1") is UserViewController)
+
+        
+        /// Storyboard Factory
+        
+        self.navigator.map("myapp://user/<int:id>", URLNavigableWithStoryboard("TestingStoryboard", identifier: "StoryboardIdentifier", bundle:NSBundle(forClass: self.dynamicType)))
+        XCTAssertNotNil(self.navigator.viewControllerForURL("myapp://user/1"))
+        XCTAssert(self.navigator.viewControllerForURL("myapp://user/1") is UserViewController)
+        
+        
+        
+        self.navigator.map("myapp://user/<int:id>", storyboard: "TestingStoryboard", identifier: "StoryboardIdentifier", bundle:NSBundle(forClass: self.dynamicType))
+        XCTAssert(self.navigator.viewControllerForURL("myapp://user/1") is UserViewController)
+
+        
+        /// Block Factory
+        
+        self.navigator.map("myapp://user/<int:id>", URLNavigableWithBlock{ URL, values -> URLNavigable? in
+            return UserViewController(URL:URL, values:values)
+            })
+        XCTAssertNil(self.navigator.viewControllerForURL("myapp://user/awesome"))
+        XCTAssert(self.navigator.viewControllerForURL("myapp://user/1") is UserViewController)
+
+        self.navigator.map("myapp://user/<int:id>"){ URL, values -> URLNavigable? in
+            return UserViewController(URL:URL, values:values)
+        }
+        XCTAssertNil(self.navigator.viewControllerForURL("myapp://user/awesome"))
+        XCTAssert(self.navigator.viewControllerForURL("myapp://user/1") is UserViewController)
+
+        
+    }
 
     func testPushURL_URLNavigable() {
         self.navigator.map("myapp://user/<int:id>", UserViewController.self)
@@ -109,7 +149,7 @@ class URLNavigatorPublicTests: XCTestCase {
     }
 
     func testOpenURL_URLOpenHandler() {
-        self.navigator.map("myapp://ping") { URL, values in
+        self.navigator.map("myapp://ping") { URL, values -> Bool in
             NSNotificationCenter.defaultCenter().postNotificationName("Ping", object: nil, userInfo: nil)
             return true
         }
@@ -209,7 +249,7 @@ class URLNavigatorPublicTests: XCTestCase {
 
     func testSchemeOpenURL_URLOpenHandler() {
         self.navigator.scheme = "myapp"
-        self.navigator.map("/ping") { URL, values in
+        self.navigator.map("/ping") { URL, values  -> Bool in
             NSNotificationCenter.defaultCenter().postNotificationName("Ping", object: nil, userInfo: nil)
             return true
         }
@@ -226,11 +266,11 @@ class URLNavigatorPublicTests: XCTestCase {
 
 }
 
-private class UserViewController: UIViewController, URLNavigable {
+public class UserViewController: UIViewController, URLNavigable {
 
     var userID: Int?
 
-    convenience required init?(URL: URLConvertible, values: [String : AnyObject]) {
+    convenience required public init?(URL: URLConvertible, values: [String : AnyObject]) {
         guard let id = values["id"] as? Int else {
             return nil
         }
