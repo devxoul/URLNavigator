@@ -21,7 +21,7 @@
 // SOFTWARE.
 
 import XCTest
-import URLNavigator
+@testable import URLNavigator
 
 class URLNavigatorPublicTests: XCTestCase {
 
@@ -94,14 +94,14 @@ class URLNavigatorPublicTests: XCTestCase {
         
         /// Block Factory
         
-        self.navigator.map("myapp://user/<int:id>", URLNavigableWithBlock{ URL, values -> URLNavigable in
-            return UserViewController(URL:URL, values:values)!
+        self.navigator.map("myapp://user/<int:id>", URLNavigableWithBlock{ URL, values -> URLNavigable? in
+            return UserViewController(URL:URL, values:values)
             })
         XCTAssertNil(self.navigator.viewControllerForURL("myapp://user/awesome"))
         XCTAssert(self.navigator.viewControllerForURL("myapp://user/1") is UserViewController)
 
-        self.navigator.map("myapp://user/<int:id>"){ URL, values -> URLNavigable in
-            return UserViewController(URL:URL, values:values)!
+        self.navigator.map("myapp://user/<int:id>"){ URL, values -> URLNavigable? in
+            return UserViewController(URL:URL, values:values)
         }
         XCTAssertNil(self.navigator.viewControllerForURL("myapp://user/awesome"))
         XCTAssert(self.navigator.viewControllerForURL("myapp://user/1") is UserViewController)
