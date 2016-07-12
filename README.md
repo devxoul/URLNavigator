@@ -115,7 +115,18 @@ Installation
         ]
     )
     ```
-    
+
+
+Example
+-------
+
+You can find an example app [here](https://github.com/devxoul/URLNavigator/tree/master/Example).
+
+1. Build and install the example app.
+2. Open Safari app
+3. Enter `navigator://user/devxoul` in the URL bar.
+4. The example app will be launched.
+
 
 Tips and Tricks
 ---------------
