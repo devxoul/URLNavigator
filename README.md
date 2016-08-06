@@ -18,7 +18,7 @@ At a Glance
 
 URL patterns can contain placeholders. Placeholders will be replaced with matching values from URLs. Use `<` and `>` to make placeholders. Placeholders can have types: `string`(default), `int`, `float`, and `path`.
 
-Here's an example of mapping URL patterns with view controllers and a closure. View controllers should conform a protocol `URLNavigable` to be mapped wisth URL patterns. See [Implementing URLNavigable](#implementing-urlnavigable) section for details.
+Here's an example of mapping URL patterns with view controllers and a closure. View controllers should conform a protocol `URLNavigable` to be mapped with URL patterns. See [Implementing URLNavigable](#implementing-urlnavigable) section for details.
 
 ```swift
 Navigator.map("myapp://user/<int:id>", UserViewController.self)
