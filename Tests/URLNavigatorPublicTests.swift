@@ -117,13 +117,23 @@ class URLNavigatorPublicTests: XCTestCase {
         XCTAssertTrue(self.navigator.openURL("myapp://ping"))
         self.waitForExpectationsWithTimeout(1, handler: nil)
     }
-
+    
     func testOpenURL_URLNavigable() {
         self.navigator.map("myapp://user/<id>", UserViewController.self)
         XCTAssertFalse(self.navigator.openURL("myapp://user/1"))
     }
 
+    
+    func testMakeRoot() {
+        self.navigator.window = UIWindow()
+        self.navigator.window?.rootViewController = UIViewController()
+        self.navigator.map("myapp://user/<int:id>", UserViewController.self)
+        
+        XCTAssert(self.navigator.makeRootURL("myapp://user/1", wrap:true ,animated:false) is UserViewController)
+        XCTAssert(self.navigator.window?.rootViewController is UINavigationController)
+    }
 
+    
     // MARK: Scheme
 
     func testSetScheme() {
