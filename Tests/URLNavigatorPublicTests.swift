@@ -109,7 +109,7 @@ class URLNavigatorPublicTests: XCTestCase {
     }
 
     func testOpenURL_URLOpenHandler() {
-        self.navigator.map("myapp://ping") { URL, values in
+        self.navigator.map("myapp://ping") { (URL, values) -> Bool in
             NSNotificationCenter.defaultCenter().postNotificationName("Ping", object: nil, userInfo: nil)
             return true
         }
@@ -209,7 +209,7 @@ class URLNavigatorPublicTests: XCTestCase {
 
     func testSchemeOpenURL_URLOpenHandler() {
         self.navigator.scheme = "myapp"
-        self.navigator.map("/ping") { URL, values in
+        self.navigator.map("/ping") { (URL, values) -> Bool in
             NSNotificationCenter.defaultCenter().postNotificationName("Ping", object: nil, userInfo: nil)
             return true
         }

@@ -59,12 +59,18 @@ public class URLNavigator {
 
     /// A closure type which has URL and values for parameters.
     public typealias URLOpenHandler = (URL: URLConvertible, values: [String: AnyObject]) -> Bool
+    
+    /// A closure type which has URL and values for parameters, and return Optional<UIViewController>
+    public typealias URLMapHandler = (URL: URLConvertible, values: [String: AnyObject]) -> UIViewController?
 
     /// A dictionary to store URLNaviables by URL patterns.
     private(set) var URLMap = [String: URLNavigable.Type]()
 
     /// A dictionary to store URLOpenHandlers by URL patterns.
     private(set) var URLOpenHandlers = [String: URLOpenHandler]()
+    
+    /// A dictionary to store MapHandlers by URL patterns.
+    private(set) var URLMapHandlers = [String: URLMapHandler]()
 
     /// A default scheme. If this value is set, it's available to map URL paths without schemes.
     ///
@@ -118,7 +124,12 @@ public class URLNavigator {
         let URLString = URLNavigator.normalizedURL(URLPattern, scheme: self.scheme).URLStringValue
         self.URLOpenHandlers[URLString] = handler
     }
-
+    
+    /// Map an `URLMapHandler` to an URL pattern.
+    public func map(URLPattern: URLConvertible, _ handler: URLMapHandler) {
+        let URLString = URLNavigator.normalizedURL(URLPattern, scheme: self.scheme).URLStringValue
+        self.URLMapHandlers[URLString] = handler
+    }
 
     // MARK: Matching URLs
 
@@ -183,6 +194,12 @@ public class URLNavigator {
         if let (URLPattern, values) = URLNavigator.matchURL(URL, scheme: self.scheme, from: Array(self.URLMap.keys)) {
             let navigable = self.URLMap[URLPattern]
             return navigable?.init(URL: URL, values: values) as? UIViewController
+        }
+        
+        ///  find in URLMapHandlers
+        if let (URLPattern, values) = URLNavigator.matchURL(URL, scheme: self.scheme, from: Array(self.URLMapHandlers.keys)) {
+            let handler = self.URLMapHandlers[URLPattern]
+            return handler?(URL: URL, values: values)
         }
         return nil
     }
