@@ -42,6 +42,12 @@ public struct URLMatchComponents {
 /// URLMatcher extracts the pattrn and the values from the URL if possible.
 public class URLMatcher {
     
+    /// A closure type which matches a URL value string to a typed value.
+    public typealias URLValueMatcherHandler = (String) -> AnyObject?
+
+    /// A dictionary to store URL value matchers by value type.
+    private var customURLValueMatcherHandlers = [String : URLValueMatcherHandler]()
+
     // MARK: Initialization
     
     public init() {
@@ -121,6 +127,24 @@ public class URLMatcher {
     }
     
     // MARK: Utils
+
+    /// Adds a new handler for matching any custom URL value type.
+    /// If the custom URL type already has a custom handler, this overwrites its handler.
+    ///
+    /// For example:
+    ///
+    ///     URLMatcher.defaultMatcher().addURLValueMatcherHandler("ssn") { (ssnString) -> AnyObject? in
+    ///         return SSN(string: ssnString)
+    ///     }
+    ///
+    /// The value type that this would match against is "ssn" (i.e. Social Security Number), and the
+    /// handler to be used for that type returns a newly created `SSN` object from the ssn string.
+    ///
+    /// - Parameter valueType: The value type (string) to match against.
+    /// - Parameter handler: The handler to use when matching against that value type.
+    public func addURLValueMatcherHandler(valueType: String, handler: URLValueMatcherHandler) {
+        self.customURLValueMatcherHandlers[valueType] = handler
+    }
     
     /// Returns an scheme-appended `URLConvertible` if given `URL` doesn't have its scheme.
     func URLWithScheme(scheme: String?, _ URL: URLConvertible) -> URLConvertible {
@@ -186,7 +210,13 @@ public class URLMatcher {
         case "int": value = Int(URLPathComponents[index]) // e.g. 123
         case "float": value = Float(URLPathComponents[index]) // e.g. 123.0
         case "path": value = URLPathComponents[index..<URLPathComponents.count].joinWithSeparator("/")
-        default: value = URLPathComponents[index]
+        default:
+            if let customURLValueTypeHandler = customURLValueMatcherHandlers[type] {
+                value = customURLValueTypeHandler(URLPathComponents[index])
+            }
+            else {
+                value = URLPathComponents[index]
+            }
         }
         
         if let value = value {

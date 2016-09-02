@@ -26,6 +26,14 @@
 import XCTest
 @testable import URLNavigator
 
+class SSN {
+    let ssnString: String
+    
+    init(ssnString: String) {
+        self.ssnString = ssnString
+    }
+}
+
 class URLMatcherInternalTests: XCTestCase {
     
     var matcher: URLMatcher!
@@ -163,6 +171,19 @@ class URLMatcherInternalTests: XCTestCase {
             )
             XCTAssertEqual(placeholder?.0, "url")
             XCTAssertEqual(placeholder?.1 as? String, "google.com/search/?q=test")
+        }();
+        {
+            matcher.addURLValueMatcherHandler("SSN", handler: { (ssnString) -> AnyObject? in
+                return SSN(ssnString: ssnString)
+            })
+            
+            let placeholder = matcher.placeholderKeyValueFromURLPatternPathComponent(
+                "<SSN:ssn>",
+                URLPathComponents: ["123-45-6789"],
+                atIndex: 0
+            )
+            XCTAssertEqual(placeholder?.0, "ssn")
+            XCTAssertEqual((placeholder?.1 as? SSN)?.ssnString, "123-45-6789")
         }();
     }
     
