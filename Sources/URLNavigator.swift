@@ -109,70 +109,14 @@ public class URLNavigator {
 
     /// Map an `URLNavigable` to an URL pattern.
     public func map(URLPattern: URLConvertible, _ navigable: URLNavigable.Type) {
-        let URLString = URLNavigator.normalizedURL(URLPattern, scheme: self.scheme).URLStringValue
+        let URLString = URLMatcher.defaultMatcher().normalizedURL(URLPattern, scheme: self.scheme).URLStringValue
         self.URLMap[URLString] = navigable
     }
 
     /// Map an `URLOpenHandler` to an URL pattern.
     public func map(URLPattern: URLConvertible, _ handler: URLOpenHandler) {
-        let URLString = URLNavigator.normalizedURL(URLPattern, scheme: self.scheme).URLStringValue
+        let URLString = URLMatcher.defaultMatcher().normalizedURL(URLPattern, scheme: self.scheme).URLStringValue
         self.URLOpenHandlers[URLString] = handler
-    }
-
-
-    // MARK: Matching URLs
-
-    /// Returns a matching URL pattern and placeholder values from specified URL and URL patterns. Returns `nil` if the
-    /// URL is not contained in URL patterns.
-    ///
-    /// For example:
-    ///
-    ///     let (URLPattern, values) = URLNavigator.matchURL("myapp://user/123", from: ["myapp://user/<int:id>"])
-    ///
-    /// The value of the `URLPattern` from an example above is `"myapp://user/<int:id>"` and the value of the `values` 
-    /// is `["id": 123]`.
-    ///
-    /// - Parameter URL: The placeholder-filled URL.
-    /// - Parameter from: The array of URL patterns.
-    ///
-    /// - Returns: A tuple of URL pattern string and a dictionary of URL placeholder values.
-    static func matchURL(URL: URLConvertible, scheme: String? = nil,
-                         from URLPatterns: [String]) -> (String, [String: AnyObject])? {
-        let normalizedURLString = URLNavigator.normalizedURL(URL, scheme: scheme).URLStringValue
-        let URLPathComponents = normalizedURLString.componentsSeparatedByString("/") // e.g. ["myapp:", "user", "123"]
-
-        outer: for URLPattern in URLPatterns {
-            // e.g. ["myapp:", "user", "<int:id>"]
-            let URLPatternPathComponents = URLPattern.componentsSeparatedByString("/")
-            let containsPathPlaceholder = URLPatternPathComponents.contains({ $0.hasPrefix("<path:") })
-            guard containsPathPlaceholder || URLPatternPathComponents.count == URLPathComponents.count else {
-                continue
-            }
-
-            var values = [String: AnyObject]()
-
-            // e.g. ["user", "<int:id>"]
-            for (i, component) in URLPatternPathComponents.enumerate() {
-                guard i < URLPathComponents.count else {
-                    continue outer
-                }
-                let info = self.placeholderKeyValueFromURLPatternPathComponent(component,
-                    URLPathComponents: URLPathComponents,
-                    atIndex: i
-                )
-                if let key = info?.0, value = info?.1 {
-                    values[key] = value // e.g. ["id": 123]
-                    if component.hasPrefix("<path:") {
-                        break // there's no more placeholder after <path:>
-                    }
-                } else if component != URLPathComponents[i] {
-                    continue outer
-                }
-            }
-
-            return (URLPattern, values)
-        }
-        return nil
     }
 
     /// Returns a matched view controller from a specified URL.
@@ -180,13 +124,12 @@ public class URLNavigator {
     /// - Parameter URL: The URL to find view controllers.
     /// - Returns: A match view controller or `nil` if not matched.
     public func viewControllerForURL(URL: URLConvertible) -> UIViewController? {
-        if let (URLPattern, values) = URLNavigator.matchURL(URL, scheme: self.scheme, from: Array(self.URLMap.keys)) {
+        if let (URLPattern, values) = URLMatcher.defaultMatcher().matchURL(URL, scheme: self.scheme, from: Array(self.URLMap.keys)) {
             let navigable = self.URLMap[URLPattern]
             return navigable?.init(URL: URL, values: values) as? UIViewController
         }
         return nil
     }
-
 
     // MARK: Pushing View Controllers with URL
 
@@ -308,7 +251,7 @@ public class URLNavigator {
     /// - Returns: The return value of the matching `URLOpenHandler`. Returns `false` if there's no match.
     public func openURL(URL: URLConvertible) -> Bool {
         let URLOpenHandlersKeys = Array(self.URLOpenHandlers.keys)
-        if let (URLPattern, values) = URLNavigator.matchURL(URL, scheme: self.scheme, from: URLOpenHandlersKeys) {
+        if let (URLPattern, values) = URLMatcher.defaultMatcher().matchURL(URL, scheme: self.scheme, from: URLOpenHandlersKeys) {
             let handler = self.URLOpenHandlers[URLPattern]
             if handler?(URL: URL, values: values) == true {
                 return true
@@ -316,91 +259,6 @@ public class URLNavigator {
         }
         return false
     }
-
-
-    // MARK: Utils
-
-    /// Returns an scheme-appended `URLConvertible` if given `URL` doesn't have its scheme.
-    static func URLWithScheme(scheme: String?, _ URL: URLConvertible) -> URLConvertible {
-        let URLString = URL.URLStringValue
-        if let scheme = scheme where !URLString.containsString("://") {
-            #if DEBUG
-                if !URLPatternString.hasPrefix("/") {
-                    NSLog("[Warning] URL pattern doesn't have leading slash(/): '\(URL)'")
-                }
-            #endif
-            return scheme + ":/" + URLString
-        } else if scheme == nil && !URLString.containsString("://") {
-            assertionFailure("Either navigator or URL should have scheme: '\(URL)'") // assert only in debug build
-        }
-        return URLString
-    }
-
-    /// Returns the URL by
-    ///
-    /// - Removing redundant trailing slash(/) on scheme
-    /// - Removing redundant double-slashes(//)
-    /// - Removing trailing slash(/)
-    ///
-    /// - Parameter URL: The dirty URL to be normalized.
-    ///
-    /// - Returns: The normalized URL. Returns `nil` if the pecified URL is invalid.
-    static func normalizedURL(dirtyURL: URLConvertible, scheme: String? = nil) -> URLConvertible {
-        guard dirtyURL.URLValue != nil else {
-            return dirtyURL
-        }
-        var URLString = URLNavigator.URLWithScheme(scheme, dirtyURL).URLStringValue
-        URLString = URLString.componentsSeparatedByString("?")[0].componentsSeparatedByString("#")[0]
-        URLString = self.replaceRegex(":/{3,}", "://", URLString)
-        URLString = self.replaceRegex("(?<!:)/{2,}", "/", URLString)
-        URLString = self.replaceRegex("/+$", "", URLString)
-        return URLString
-    }
-
-    static func placeholderKeyValueFromURLPatternPathComponent(component: String,
-                                                               URLPathComponents: [String],
-                                                               atIndex index: Int) -> (String, AnyObject)? {
-        guard component.hasPrefix("<") && component.hasSuffix(">") else {
-            return nil
-        }
-
-        let start = component.startIndex.advancedBy(1)
-        let end = component.endIndex.advancedBy(-1)
-        let placeholder = component[start..<end] // e.g. "<int:id>" -> "int:id"
-
-        let typeAndKey = placeholder.componentsSeparatedByString(":") // e.g. ["int", "id"]
-        if typeAndKey.count == 0 { // e.g. component is "<>"
-            return nil
-        }
-        if typeAndKey.count == 1 { // untyped placeholder
-            return (placeholder, URLPathComponents[index])
-        }
-
-        let (type, key) = (typeAndKey[0], typeAndKey[1]) // e.g. ("int", "id")
-        let value: AnyObject?
-        switch type {
-        case "int": value = Int(URLPathComponents[index]) // e.g. 123
-        case "float": value = Float(URLPathComponents[index]) // e.g. 123.0
-        case "path": value = URLPathComponents[index..<URLPathComponents.count].joinWithSeparator("/")
-        default: value = URLPathComponents[index]
-        }
-
-        if let value = value {
-            return (key, value)
-        }
-        return nil
-    }
-
-    static func replaceRegex(pattern: String, _ repl: String, _ string: String) -> String {
-        guard let regex = try? NSRegularExpression(pattern: pattern, options: []) else {
-            return string
-        }
-        let mutableString = NSMutableString(string: string)
-        let range = NSMakeRange(0, string.characters.count)
-        regex.replaceMatchesInString(mutableString, options: [], range: range, withTemplate: repl)
-        return mutableString as String
-    }
-
 }
 
 

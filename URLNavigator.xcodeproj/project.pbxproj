@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		02E016081D79E45E00BB7E25 /* URLMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E016071D79E45E00BB7E25 /* URLMatcher.swift */; };
 		03032BB81CCBA94B00F7EBFD /* URLConvertibleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03032BB61CCBA93400F7EBFD /* URLConvertibleTests.swift */; };
 		03107EDD1C6364E700DF2F14 /* URLNavigator.h in Headers */ = {isa = PBXBuildFile; fileRef = 03107EDA1C6364E700DF2F14 /* URLNavigator.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		03107EE01C63653900DF2F14 /* URLNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03107EDF1C63653900DF2F14 /* URLNavigator.swift */; };
@@ -65,6 +66,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		02E016071D79E45E00BB7E25 /* URLMatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLMatcher.swift; sourceTree = "<group>"; };
 		03032BB61CCBA93400F7EBFD /* URLConvertibleTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLConvertibleTests.swift; sourceTree = "<group>"; };
 		03107ECE1C6362E800DF2F14 /* URLNavigator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = URLNavigator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		03107EDA1C6364E700DF2F14 /* URLNavigator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URLNavigator.h; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 			isa = PBXGroup;
 			children = (
 				03107EDA1C6364E700DF2F14 /* URLNavigator.h */,
+				02E016071D79E45E00BB7E25 /* URLMatcher.swift */,
 				03107EDF1C63653900DF2F14 /* URLNavigator.swift */,
 				03107EE11C6365BF00DF2F14 /* URLNavigable.swift */,
 				03107EE31C6365E500DF2F14 /* URLConvertible.swift */,
@@ -398,6 +401,7 @@
 			files = (
 				03107EE61C6366F500DF2F14 /* UIViewController+TopMostViewController.swift in Sources */,
 				03107EE01C63653900DF2F14 /* URLNavigator.swift in Sources */,
+				02E016081D79E45E00BB7E25 /* URLMatcher.swift in Sources */,
 				03107EE41C6365E500DF2F14 /* URLConvertible.swift in Sources */,
 				03107EE21C6365BF00DF2F14 /* URLNavigable.swift in Sources */,
 			);
