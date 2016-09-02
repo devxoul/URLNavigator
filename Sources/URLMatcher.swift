@@ -39,7 +39,7 @@ public struct URLMatchComponents {
 
 /// URLMatcher provides a way to match URLs against a list of specified patterns.
 ///
-/// URLMather extracts the pattrn and the values from the URL if possible.
+/// URLMatcher extracts the pattrn and the values from the URL if possible.
 public class URLMatcher {
     
     // MARK: Initialization
