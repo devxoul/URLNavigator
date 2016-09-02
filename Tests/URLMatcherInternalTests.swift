@@ -60,6 +60,24 @@ class URLMatcherInternalTests: XCTestCase {
         }();
         {
             let placeholder = matcher.placeholderKeyValueFromURLPatternPathComponent(
+                "<string:id>",
+                URLPathComponents: ["123", "456"],
+                atIndex: 0
+            )
+            XCTAssertEqual(placeholder?.0, "id")
+            XCTAssertEqual(placeholder?.1 as? String, "123")
+        }();
+        {
+            let placeholder = matcher.placeholderKeyValueFromURLPatternPathComponent(
+                "<UUID:uuid>",
+                URLPathComponents: ["123e4567-e89b-12d3-a456-426655440000"],
+                atIndex: 0
+            )
+            XCTAssertEqual(placeholder?.0, "uuid")
+            XCTAssertEqual(placeholder?.1 as? NSUUID, NSUUID(UUIDString: "123e4567-e89b-12d3-a456-426655440000"))
+        }();
+        {
+            let placeholder = matcher.placeholderKeyValueFromURLPatternPathComponent(
                 "<int:id>",
                 URLPathComponents: ["123", "456"],
                 atIndex: 0

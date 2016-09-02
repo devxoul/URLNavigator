@@ -181,6 +181,8 @@ public class URLMatcher {
         let (type, key) = (typeAndKey[0], typeAndKey[1]) // e.g. ("int", "id")
         let value: AnyObject?
         switch type {
+        case "UUID": value = NSUUID(UUIDString: URLPathComponents[index]) // e.g. 123e4567-e89b-12d3-a456-426655440000
+        case "string": value = String(URLPathComponents[index]) // e.g. "123"
         case "int": value = Int(URLPathComponents[index]) // e.g. 123
         case "float": value = Float(URLPathComponents[index]) // e.g. 123.0
         case "path": value = URLPathComponents[index..<URLPathComponents.count].joinWithSeparator("/")
