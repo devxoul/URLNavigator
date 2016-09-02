@@ -77,6 +77,13 @@ public class URLMatcher {
             
             var values = [String: AnyObject]()
             
+            // Query String
+            let urlComponents = NSURLComponents(string: URL.URLStringValue)
+            
+            for queryItem in urlComponents?.queryItems ?? [] {
+                values[queryItem.name] = queryItem.value
+            }
+            
             // e.g. ["user", "<int:id>"]
             for (i, component) in URLPatternPathComponents.enumerate() {
                 guard i < URLPathComponents.count else {
