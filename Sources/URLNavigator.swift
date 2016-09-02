@@ -124,9 +124,9 @@ public class URLNavigator {
     /// - Parameter URL: The URL to find view controllers.
     /// - Returns: A match view controller or `nil` if not matched.
     public func viewControllerForURL(URL: URLConvertible) -> UIViewController? {
-        if let (URLPattern, values) = URLMatcher.defaultMatcher().matchURL(URL, scheme: self.scheme, from: Array(self.URLMap.keys)) {
-            let navigable = self.URLMap[URLPattern]
-            return navigable?.init(URL: URL, values: values) as? UIViewController
+        if let urlMatchComponents = URLMatcher.defaultMatcher().matchURL(URL, scheme: self.scheme, from: Array(self.URLMap.keys)) {
+            let navigable = self.URLMap[urlMatchComponents.pattern]
+            return navigable?.init(URL: URL, values: urlMatchComponents.values) as? UIViewController
         }
         return nil
     }
@@ -251,9 +251,9 @@ public class URLNavigator {
     /// - Returns: The return value of the matching `URLOpenHandler`. Returns `false` if there's no match.
     public func openURL(URL: URLConvertible) -> Bool {
         let URLOpenHandlersKeys = Array(self.URLOpenHandlers.keys)
-        if let (URLPattern, values) = URLMatcher.defaultMatcher().matchURL(URL, scheme: self.scheme, from: URLOpenHandlersKeys) {
-            let handler = self.URLOpenHandlers[URLPattern]
-            if handler?(URL: URL, values: values) == true {
+        if let urlMatchComponents = URLMatcher.defaultMatcher().matchURL(URL, scheme: self.scheme, from: URLOpenHandlersKeys) {
+            let handler = self.URLOpenHandlers[urlMatchComponents.pattern]
+            if handler?(URL: URL, values: urlMatchComponents.values) == true {
                 return true
             }
         }

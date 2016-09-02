@@ -26,6 +26,17 @@
 
 import Foundation
 
+/// URLMatchComponents encapsulates data about a URL match.
+/// It contains the following attributes:
+///     - pattern: The URL pattern that was matched.
+///     - values: The values extracted from the URL.
+///     - queryItems: The query items of the URL.
+public struct URLMatchComponents {
+    let pattern: String
+    let values: [String : AnyObject]
+    let queryItems: [String : AnyObject]
+}
+
 /// URLMatcher provides a way to match URLs against a list of specified patterns.
 ///
 /// URLMather extracts the pattrn and the values from the URL if possible.
@@ -53,7 +64,7 @@ public class URLMatcher {
     ///
     /// For example:
     ///
-    ///     let (URLPattern, values) = URLNavigator.matchURL("myapp://user/123", from: ["myapp://user/<int:id>"])
+    ///     let urlMatchComponents = URLNavigator.matchURL("myapp://user/123", from: ["myapp://user/<int:id>"])
     ///
     /// The value of the `URLPattern` from an example above is `"myapp://user/<int:id>"` and the value of the `values`
     /// is `["id": 123]`.
@@ -61,9 +72,9 @@ public class URLMatcher {
     /// - Parameter URL: The placeholder-filled URL.
     /// - Parameter from: The array of URL patterns.
     ///
-    /// - Returns: A tuple of URL pattern string and a dictionary of URL placeholder values.
+    /// - Returns: A `URLMatchComponents` struct that holds the URL pattern string, a dictionary of URL placeholder values, and any query items.
     public func matchURL(URL: URLConvertible, scheme: String? = nil,
-                         from URLPatterns: [String]) -> (String, [String: AnyObject])? {
+                         from URLPatterns: [String]) -> URLMatchComponents? {
         let normalizedURLString = self.normalizedURL(URL, scheme: scheme).URLStringValue
         let URLPathComponents = normalizedURLString.componentsSeparatedByString("/") // e.g. ["myapp:", "user", "123"]
         
@@ -76,12 +87,13 @@ public class URLMatcher {
             }
             
             var values = [String: AnyObject]()
+            var queryItems = [String: AnyObject]()
             
             // Query String
             let urlComponents = NSURLComponents(string: URL.URLStringValue)
             
             for queryItem in urlComponents?.queryItems ?? [] {
-                values[queryItem.name] = queryItem.value
+                queryItems[queryItem.name] = queryItem.value
             }
             
             // e.g. ["user", "<int:id>"]
@@ -103,7 +115,7 @@ public class URLMatcher {
                 }
             }
             
-            return (URLPattern, values)
+            return URLMatchComponents(pattern: URLPattern, values: values, queryItems: queryItems)
         }
         return nil
     }
