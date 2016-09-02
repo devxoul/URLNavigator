@@ -70,7 +70,7 @@ public class URLMatcher {
     ///
     /// For example:
     ///
-    ///     let urlMatchComponents = URLNavigator.matchURL("myapp://user/123", from: ["myapp://user/<int:id>"])
+    ///     let urlMatchComponents = matcher.matchURL("myapp://user/123", from: ["myapp://user/<int:id>"])
     ///
     /// The value of the `URLPattern` from an example above is `"myapp://user/<int:id>"` and the value of the `values`
     /// is `["id": 123]`.
@@ -133,7 +133,7 @@ public class URLMatcher {
     ///
     /// For example:
     ///
-    ///     URLMatcher.defaultMatcher().addURLValueMatcherHandler("ssn") { (ssnString) -> AnyObject? in
+    ///     matcher.addURLValueMatcherHandler("SSN") { (ssnString) -> AnyObject? in
     ///         return SSN(string: ssnString)
     ///     }
     ///
@@ -157,7 +157,7 @@ public class URLMatcher {
             #endif
             return scheme + ":/" + URLString
         } else if scheme == nil && !URLString.containsString("://") {
-            assertionFailure("Either navigator or URL should have scheme: '\(URL)'") // assert only in debug build
+            assertionFailure("Either matcher or URL should have scheme: '\(URL)'") // assert only in debug build
         }
         return URLString
     }
