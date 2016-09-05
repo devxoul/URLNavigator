@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0245A7291D79E9CB004698A3 /* URLMatcherInternalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0245A7251D79E8CD004698A3 /* URLMatcherInternalTests.swift */; };
+		0245A72A1D79EB0F004698A3 /* URLMatcherPublicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0245A7271D79E8F5004698A3 /* URLMatcherPublicTests.swift */; };
+		02E016081D79E45E00BB7E25 /* URLMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E016071D79E45E00BB7E25 /* URLMatcher.swift */; };
 		03032BB81CCBA94B00F7EBFD /* URLConvertibleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03032BB61CCBA93400F7EBFD /* URLConvertibleTests.swift */; };
 		03107EDD1C6364E700DF2F14 /* URLNavigator.h in Headers */ = {isa = PBXBuildFile; fileRef = 03107EDA1C6364E700DF2F14 /* URLNavigator.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		03107EE01C63653900DF2F14 /* URLNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03107EDF1C63653900DF2F14 /* URLNavigator.swift */; };
@@ -14,7 +17,6 @@
 		03107EE41C6365E500DF2F14 /* URLConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03107EE31C6365E500DF2F14 /* URLConvertible.swift */; };
 		03107EE61C6366F500DF2F14 /* UIViewController+TopMostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03107EE51C6366F500DF2F14 /* UIViewController+TopMostViewController.swift */; };
 		03107EF01C636A3D00DF2F14 /* URLNavigator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03107ECE1C6362E800DF2F14 /* URLNavigator.framework */; };
-		03107EF91C636A7500DF2F14 /* URLNavigatorInternalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03107EF71C636A5500DF2F14 /* URLNavigatorInternalTests.swift */; };
 		03107EFC1C67289100DF2F14 /* URLNavigatorPublicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03107EFA1C67288400DF2F14 /* URLNavigatorPublicTests.swift */; };
 		03D35E781D35289200452731 /* URLNavigator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03107ECE1C6362E800DF2F14 /* URLNavigator.framework */; };
 		03D35E791D35289200452731 /* URLNavigator.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 03107ECE1C6362E800DF2F14 /* URLNavigator.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -65,6 +67,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0245A7251D79E8CD004698A3 /* URLMatcherInternalTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLMatcherInternalTests.swift; sourceTree = "<group>"; };
+		0245A7271D79E8F5004698A3 /* URLMatcherPublicTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLMatcherPublicTests.swift; sourceTree = "<group>"; };
+		02E016071D79E45E00BB7E25 /* URLMatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLMatcher.swift; sourceTree = "<group>"; };
 		03032BB61CCBA93400F7EBFD /* URLConvertibleTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLConvertibleTests.swift; sourceTree = "<group>"; };
 		03107ECE1C6362E800DF2F14 /* URLNavigator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = URLNavigator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		03107EDA1C6364E700DF2F14 /* URLNavigator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URLNavigator.h; sourceTree = "<group>"; };
@@ -74,7 +79,6 @@
 		03107EE31C6365E500DF2F14 /* URLConvertible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLConvertible.swift; sourceTree = "<group>"; };
 		03107EE51C6366F500DF2F14 /* UIViewController+TopMostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+TopMostViewController.swift"; sourceTree = "<group>"; };
 		03107EEB1C636A3D00DF2F14 /* URLNavigatorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = URLNavigatorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		03107EF71C636A5500DF2F14 /* URLNavigatorInternalTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLNavigatorInternalTests.swift; sourceTree = "<group>"; };
 		03107EFA1C67288400DF2F14 /* URLNavigatorPublicTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLNavigatorPublicTests.swift; sourceTree = "<group>"; };
 		03D35E661D35209600452731 /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		03D35E7F1D3528F800452731 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -144,6 +148,7 @@
 			isa = PBXGroup;
 			children = (
 				03107EDA1C6364E700DF2F14 /* URLNavigator.h */,
+				02E016071D79E45E00BB7E25 /* URLMatcher.swift */,
 				03107EDF1C63653900DF2F14 /* URLNavigator.swift */,
 				03107EE11C6365BF00DF2F14 /* URLNavigable.swift */,
 				03107EE31C6365E500DF2F14 /* URLConvertible.swift */,
@@ -163,7 +168,8 @@
 		03107EF61C636A5500DF2F14 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				03107EF71C636A5500DF2F14 /* URLNavigatorInternalTests.swift */,
+				0245A7251D79E8CD004698A3 /* URLMatcherInternalTests.swift */,
+				0245A7271D79E8F5004698A3 /* URLMatcherPublicTests.swift */,
 				03107EFA1C67288400DF2F14 /* URLNavigatorPublicTests.swift */,
 				03032BB61CCBA93400F7EBFD /* URLConvertibleTests.swift */,
 			);
@@ -398,6 +404,7 @@
 			files = (
 				03107EE61C6366F500DF2F14 /* UIViewController+TopMostViewController.swift in Sources */,
 				03107EE01C63653900DF2F14 /* URLNavigator.swift in Sources */,
+				02E016081D79E45E00BB7E25 /* URLMatcher.swift in Sources */,
 				03107EE41C6365E500DF2F14 /* URLConvertible.swift in Sources */,
 				03107EE21C6365BF00DF2F14 /* URLNavigable.swift in Sources */,
 			);
@@ -407,9 +414,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				03107EF91C636A7500DF2F14 /* URLNavigatorInternalTests.swift in Sources */,
 				03107EFC1C67289100DF2F14 /* URLNavigatorPublicTests.swift in Sources */,
 				03032BB81CCBA94B00F7EBFD /* URLConvertibleTests.swift in Sources */,
+				0245A7291D79E9CB004698A3 /* URLMatcherInternalTests.swift in Sources */,
+				0245A72A1D79EB0F004698A3 /* URLMatcherPublicTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
