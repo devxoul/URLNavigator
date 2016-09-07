@@ -19,7 +19,7 @@ struct NavigationMap {
         Navigator.map("navigator://alert", self.alert)
     }
 
-    private static func alert(URL: URLConvertible, values: [String: AnyObject]) -> Bool {
+    private static func alert(URL: URLConvertible, values: [String: AnyObject], queryItems: [NSURLQueryItem]) -> Bool {
         let title = URL.queryParameters["title"]
         let message = URL.queryParameters["message"]
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
