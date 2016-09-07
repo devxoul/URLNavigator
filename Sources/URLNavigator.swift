@@ -58,7 +58,7 @@ import UIKit
 public class URLNavigator {
 
     /// A closure type which has URL and values for parameters.
-    public typealias URLOpenHandler = (URL: URLConvertible, values: [String: AnyObject]) -> Bool
+    public typealias URLOpenHandler = (URL: URLConvertible, values: [String: AnyObject], queryItems: [NSURLQueryItem]) -> Bool
 
     /// A dictionary to store URLNaviables by URL patterns.
     private(set) var URLMap = [String: URLNavigable.Type]()
@@ -253,7 +253,7 @@ public class URLNavigator {
         let URLOpenHandlersKeys = Array(self.URLOpenHandlers.keys)
         if let urlMatchComponents = URLMatcher.defaultMatcher().matchURL(URL, scheme: self.scheme, from: URLOpenHandlersKeys) {
             let handler = self.URLOpenHandlers[urlMatchComponents.pattern]
-            if handler?(URL: URL, values: urlMatchComponents.values) == true {
+            if handler?(URL: URL, values: urlMatchComponents.values, queryItems: urlMatchComponents.queryItems) == true {
                 return true
             }
         }
