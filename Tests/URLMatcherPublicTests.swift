@@ -98,22 +98,24 @@ class URLMatcherPublicTests: XCTestCase {
             let urlMatchComponents = matcher.matchURL("myapp://user/1/posts", from: from)!
             XCTAssertEqual(urlMatchComponents.pattern, "myapp://user/<id>/<object>")
             XCTAssertEqual(urlMatchComponents.values as! [String: String], ["id": "1", "object": "posts"])
+            XCTAssertEqual(urlMatchComponents.queryItems, [])
             
             let scheme = matcher.matchURL("/user/1/posts", scheme: "myapp", from: from)!
             XCTAssertEqual(urlMatchComponents.pattern, scheme.pattern)
             XCTAssertEqual(urlMatchComponents.values as! [String: String], scheme.values as! [String: String])
+            XCTAssertEqual(urlMatchComponents.queryItems, scheme.queryItems)
         }();
         {
             let from = ["myapp://alert"]
             let urlMatchComponents = matcher.matchURL("myapp://alert?title=hello&message=world", from: from)!
             XCTAssertEqual(urlMatchComponents.pattern, "myapp://alert")
             XCTAssertEqual(urlMatchComponents.values.count, 0)
-            XCTAssertEqual(urlMatchComponents.queryItems as! [String: String], ["title": "hello", "message": "world"])
+            XCTAssertEqual(urlMatchComponents.queryItems, [NSURLQueryItem(name:"title", value: "hello"), NSURLQueryItem(name: "message", value: "world")])
             
             let scheme = matcher.matchURL("/alert?title=hello&message=world", scheme: "myapp", from: from)!
             XCTAssertEqual(urlMatchComponents.pattern, scheme.pattern)
             XCTAssertEqual(urlMatchComponents.values as! [String: String], scheme.values as! [String: String])
-            XCTAssertEqual(urlMatchComponents.queryItems as! [String: String], ["title": "hello", "message": "world"])
+            XCTAssertEqual(urlMatchComponents.queryItems, [NSURLQueryItem(name:"title", value: "hello"), NSURLQueryItem(name: "message", value: "world")])
         }();
         {
             let from = ["http://<path:url>"]
@@ -140,25 +142,38 @@ class URLMatcherPublicTests: XCTestCase {
             let urlMatchComponents = matcher.matchURL("http://google.com/search?q=URLNavigator", from: from)!
             XCTAssertEqual(urlMatchComponents.pattern, "http://<path:url>")
             XCTAssertEqual(urlMatchComponents.values as! [String: String], ["url": "google.com/search"])
-            XCTAssertEqual(urlMatchComponents.queryItems as! [String: String], ["q": "URLNavigator"])
+            XCTAssertEqual(urlMatchComponents.queryItems, [NSURLQueryItem(name: "q", value: "URLNavigator")])
             
             let scheme = matcher.matchURL("http://google.com/search?q=URLNavigator", scheme: "myapp", from: from)!
             XCTAssertEqual(urlMatchComponents.pattern, scheme.pattern)
             XCTAssertEqual(urlMatchComponents.values as! [String: String], scheme.values as! [String: String])
-            XCTAssertEqual(urlMatchComponents.queryItems as! [String: String], scheme.queryItems as! [String: String])
+            XCTAssertEqual(urlMatchComponents.queryItems, scheme.queryItems)
         }();
         {
             let from = ["http://<path:url>"]
             let urlMatchComponents = matcher.matchURL("http://google.com/search/?q=URLNavigator", from: from)!
             XCTAssertEqual(urlMatchComponents.pattern, "http://<path:url>")
             XCTAssertEqual(urlMatchComponents.values as! [String: String], ["url": "google.com/search"])
-            XCTAssertEqual(urlMatchComponents.queryItems as! [String: String], ["q": "URLNavigator"])
+            XCTAssertEqual(urlMatchComponents.queryItems, [NSURLQueryItem(name: "q", value: "URLNavigator")])
             
             let scheme = matcher.matchURL("http://google.com/search/?q=URLNavigator",
                                           scheme: "myapp", from: from)!
             XCTAssertEqual(urlMatchComponents.pattern, scheme.pattern)
             XCTAssertEqual(urlMatchComponents.values as! [String: String], scheme.values as! [String: String])
-            XCTAssertEqual(urlMatchComponents.queryItems as! [String: String], scheme.queryItems as! [String: String])
+            XCTAssertEqual(urlMatchComponents.queryItems, scheme.queryItems)
+        }();
+        {
+            let from = ["http://google.com/users/<string:user_id>"]
+            let urlMatchComponents = matcher.matchURL("http://google.com/users/abcd1234?picture=large&name=middle", from: from)!
+            XCTAssertEqual(urlMatchComponents.pattern, "http://google.com/users/<string:user_id>")
+            XCTAssertEqual(urlMatchComponents.values as! [String: String], ["user_id": "abcd1234"])
+            XCTAssertEqual(urlMatchComponents.queryItems, [NSURLQueryItem(name: "picture", value: "large"), NSURLQueryItem(name: "name", value: "middle")])
+            
+            let scheme = matcher.matchURL("http://google.com/users/abcd1234?picture=large&name=middle",
+                                          scheme: "myapp", from: from)!
+            XCTAssertEqual(urlMatchComponents.pattern, scheme.pattern)
+            XCTAssertEqual(urlMatchComponents.values as! [String: String], scheme.values as! [String: String])
+            XCTAssertEqual(urlMatchComponents.queryItems, scheme.queryItems)
         }();
     }
 }
