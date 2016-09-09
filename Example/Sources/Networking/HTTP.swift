@@ -52,7 +52,7 @@ struct HTTP {
     /// Send a simple HTTP GET request
     static func request(URLString: String, completion: (Result<AnyObject> -> Void)? = nil) {
         let URLString = (self.baseURLString ?? "") + URLString
-        guard let URL = NSURL(string: URLString) else { return }
+        guard let URL = URL(string: URLString) else { return }
         let task = NSURLSession.sharedSession().dataTaskWithURL(URL) { data, response, error in
             UIApplication.sharedApplication().networkActivityIndicatorVisible = false
             if let error = error {

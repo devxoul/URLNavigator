@@ -26,14 +26,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Initialize navigation map
         NavigationMap.initialize()
 
-        if let URL = launchOptions?[UIApplicationLaunchOptionsURLKey] as? NSURL {
+        if let URL = launchOptions?[UIApplicationLaunchOptionsURLKey] as? URL {
             Navigator.presentURL(URL)
         }
 
         return true
     }
 
-    func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
+    func application(app: UIApplication, openURL url: URL, options: [String : AnyObject]) -> Bool {
         // Try open URL first
         if Navigator.openURL(url) {
             NSLog("Navigator: Open \(url)")

@@ -26,12 +26,12 @@ extension UIViewController {
 
     /// Returns the current application's top most view controller.
     public class func topMostViewController() -> UIViewController? {
-        let rootViewController = UIApplication.sharedApplication().windows.first?.rootViewController
+        let rootViewController = UIApplication.shared.windows.first?.rootViewController
         return self.topMostViewControllerOfViewController(rootViewController)
     }
 
     /// Returns the top most view controller from given view controller's stack.
-    class func topMostViewControllerOfViewController(viewController: UIViewController?) -> UIViewController? {
+    class func topMostViewControllerOfViewController(_ viewController: UIViewController?) -> UIViewController? {
         // UITabBarController
         if let tabBarController = viewController as? UITabBarController,
            let selectedViewController = tabBarController.selectedViewController {
@@ -51,7 +51,7 @@ extension UIViewController {
 
         // child view controller
         for subview in viewController?.view?.subviews ?? [] {
-            if let childViewController = subview.nextResponder() as? UIViewController {
+            if let childViewController = subview.next as? UIViewController {
                 return self.topMostViewControllerOfViewController(childViewController)
             }
         }

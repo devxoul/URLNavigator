@@ -44,6 +44,6 @@ public protocol URLNavigable {
     /// - Parameter URL: The URL which is used to create an instance.
     /// - Parameter values: The URL pattern placeholder values by placeholder names. For example, if the URL pattern is
     ///     `myapp://user/<id>` and the given URL is `myapp://user/123`, values will be `["id": "123"]`.
-    init?(URL: URLConvertible, values: [String: AnyObject])
+    init?(URL: URLConvertible, values: [String: Any])
 
 }

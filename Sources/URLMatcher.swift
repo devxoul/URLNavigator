@@ -32,7 +32,7 @@ import Foundation
 ///     - values: The values extracted from the URL.
 public struct URLMatchComponents {
     public let pattern: String
-    public let values: [String : AnyObject]
+    public let values: [String: Any]
 }
 
 /// URLMatcher provides a way to match URLs against a list of specified patterns.
@@ -41,7 +41,7 @@ public struct URLMatchComponents {
 public class URLMatcher {
     
     /// A closure type which matches a URL value string to a typed value.
-    public typealias URLValueMatcherHandler = (String) -> AnyObject?
+    public typealias URLValueMatcherHandler = (String) -> Any?
 
     /// A dictionary to store URL value matchers by value type.
     private var customURLValueMatcherHandlers = [String : URLValueMatcherHandler]()
@@ -77,23 +77,23 @@ public class URLMatcher {
     /// - Parameter from: The array of URL patterns.
     ///
     /// - Returns: A `URLMatchComponents` struct that holds the URL pattern string, a dictionary of URL placeholder values, and any query items.
-    public func matchURL(URL: URLConvertible, scheme: String? = nil,
+    public func matchURL(_ URL: URLConvertible, scheme: String? = nil,
                          from URLPatterns: [String]) -> URLMatchComponents? {
         let normalizedURLString = self.normalizedURL(URL, scheme: scheme).URLStringValue
-        let URLPathComponents = normalizedURLString.componentsSeparatedByString("/") // e.g. ["myapp:", "user", "123"]
+        let URLPathComponents = normalizedURLString.components(separatedBy: "/") // e.g. ["myapp:", "user", "123"]
         
         outer: for URLPattern in URLPatterns {
             // e.g. ["myapp:", "user", "<int:id>"]
-            let URLPatternPathComponents = URLPattern.componentsSeparatedByString("/")
-            let containsPathPlaceholder = URLPatternPathComponents.contains({ $0.hasPrefix("<path:") })
+            let URLPatternPathComponents = URLPattern.components(separatedBy: "/")
+            let containsPathPlaceholder = URLPatternPathComponents.contains(where: { $0.hasPrefix("<path:") })
             guard containsPathPlaceholder || URLPatternPathComponents.count == URLPathComponents.count else {
                 continue
             }
             
-            var values = [String: AnyObject]()
+            var values = [String: Any]()
             
             // e.g. ["user", "<int:id>"]
-            for (i, component) in URLPatternPathComponents.enumerate() {
+            for (i, component) in URLPatternPathComponents.enumerated() {
                 guard i < URLPathComponents.count else {
                     continue outer
                 }
@@ -101,7 +101,7 @@ public class URLMatcher {
                                                                                URLPathComponents: URLPathComponents,
                                                                                atIndex: i
                 )
-                if let key = info?.0, value = info?.1 {
+                if let (key, value) = info {
                     values[key] = value // e.g. ["id": 123]
                     if component.hasPrefix("<path:") {
                         break // there's no more placeholder after <path:>
@@ -132,21 +132,21 @@ public class URLMatcher {
     ///
     /// - Parameter valueType: The value type (string) to match against.
     /// - Parameter handler: The handler to use when matching against that value type.
-    public func addURLValueMatcherHandler(valueType: String, handler: URLValueMatcherHandler) {
+    public func addURLValueMatcherHandler(_ valueType: String, handler: @escaping URLValueMatcherHandler) {
         self.customURLValueMatcherHandlers[valueType] = handler
     }
     
     /// Returns an scheme-appended `URLConvertible` if given `URL` doesn't have its scheme.
-    func URLWithScheme(scheme: String?, _ URL: URLConvertible) -> URLConvertible {
+    func URLWithScheme(_ scheme: String?, _ URL: URLConvertible) -> URLConvertible {
         let URLString = URL.URLStringValue
-        if let scheme = scheme where !URLString.containsString("://") {
+        if let scheme = scheme, !URLString.contains("://") {
             #if DEBUG
                 if !URLString.hasPrefix("/") {
                     NSLog("[Warning] URL pattern doesn't have leading slash(/): '\(URL)'")
                 }
             #endif
             return scheme + ":/" + URLString
-        } else if scheme == nil && !URLString.containsString("://") {
+        } else if scheme == nil && !URLString.contains("://") {
             assertionFailure("Either matcher or URL should have scheme: '\(URL)'") // assert only in debug build
         }
         return URLString
@@ -161,45 +161,44 @@ public class URLMatcher {
     /// - Parameter URL: The dirty URL to be normalized.
     ///
     /// - Returns: The normalized URL. Returns `nil` if the pecified URL is invalid.
-    func normalizedURL(dirtyURL: URLConvertible, scheme: String? = nil) -> URLConvertible {
+    func normalizedURL(_ dirtyURL: URLConvertible, scheme: String? = nil) -> URLConvertible {
         guard dirtyURL.URLValue != nil else {
             return dirtyURL
         }
         var URLString = self.URLWithScheme(scheme, dirtyURL).URLStringValue
-        URLString = URLString.componentsSeparatedByString("?")[0].componentsSeparatedByString("#")[0]
+        URLString = URLString.components(separatedBy: "?")[0].components(separatedBy: "#")[0]
         URLString = self.replaceRegex(":/{3,}", "://", URLString)
         URLString = self.replaceRegex("(?<!:)/{2,}", "/", URLString)
         URLString = self.replaceRegex("/+$", "", URLString)
         return URLString
     }
     
-    func placeholderKeyValueFromURLPatternPathComponent(component: String,
+    func placeholderKeyValueFromURLPatternPathComponent(_ component: String,
                                                                URLPathComponents: [String],
-                                                               atIndex index: Int) -> (String, AnyObject)? {
+                                                               atIndex index: Int) -> (String, Any)? {
         guard component.hasPrefix("<") && component.hasSuffix(">") else {
             return nil
         }
-        
-        let start = component.startIndex.advancedBy(1)
-        let end = component.endIndex.advancedBy(-1)
+        let start = component.index(after: component.startIndex)
+        let end = component.index(before: component.endIndex)
         let placeholder = component[start..<end] // e.g. "<int:id>" -> "int:id"
-        
-        let typeAndKey = placeholder.componentsSeparatedByString(":") // e.g. ["int", "id"]
+
+        let typeAndKey = placeholder.components(separatedBy: ":") // e.g. ["int", "id"]
         if typeAndKey.count == 0 { // e.g. component is "<>"
             return nil
         }
         if typeAndKey.count == 1 { // untyped placeholder
             return (placeholder, URLPathComponents[index])
         }
-        
+
         let (type, key) = (typeAndKey[0], typeAndKey[1]) // e.g. ("int", "id")
-        let value: AnyObject?
+        let value: Any?
         switch type {
-        case "UUID": value = NSUUID(UUIDString: URLPathComponents[index]) // e.g. 123e4567-e89b-12d3-a456-426655440000
+        case "UUID": value = NSUUID(uuidString: URLPathComponents[index]) // e.g. 123e4567-e89b-12d3-a456-426655440000
         case "string": value = String(URLPathComponents[index]) // e.g. "123"
         case "int": value = Int(URLPathComponents[index]) // e.g. 123
         case "float": value = Float(URLPathComponents[index]) // e.g. 123.0
-        case "path": value = URLPathComponents[index..<URLPathComponents.count].joinWithSeparator("/")
+        case "path": value = URLPathComponents[index..<URLPathComponents.count].joined(separator: "/")
         default:
             if let customURLValueTypeHandler = customURLValueMatcherHandlers[type] {
                 value = customURLValueTypeHandler(URLPathComponents[index])
@@ -208,20 +207,20 @@ public class URLMatcher {
                 value = URLPathComponents[index]
             }
         }
-        
+
         if let value = value {
             return (key, value)
         }
         return nil
     }
-    
-    func replaceRegex(pattern: String, _ repl: String, _ string: String) -> String {
+
+    func replaceRegex(_ pattern: String, _ repl: String, _ string: String) -> String {
         guard let regex = try? NSRegularExpression(pattern: pattern, options: []) else {
             return string
         }
         let mutableString = NSMutableString(string: string)
         let range = NSMakeRange(0, string.characters.count)
-        regex.replaceMatchesInString(mutableString, options: [], range: range, withTemplate: repl)
+        regex.replaceMatches(in: mutableString, options: [], range: range, withTemplate: repl)
         return mutableString as String
     }
 }
