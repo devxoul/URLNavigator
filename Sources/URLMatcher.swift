@@ -30,11 +30,9 @@ import Foundation
 /// It contains the following attributes:
 ///     - pattern: The URL pattern that was matched.
 ///     - values: The values extracted from the URL.
-///     - queryItems: The query items of the URL.
 public struct URLMatchComponents {
     let pattern: String
     let values: [String : AnyObject]
-    let queryItems: [String : AnyObject]
 }
 
 /// URLMatcher provides a way to match URLs against a list of specified patterns.
@@ -93,14 +91,6 @@ public class URLMatcher {
             }
             
             var values = [String: AnyObject]()
-            var queryItems = [String: AnyObject]()
-            
-            // Query String
-            let urlComponents = NSURLComponents(string: URL.URLStringValue)
-            
-            for queryItem in urlComponents?.queryItems ?? [] {
-                queryItems[queryItem.name] = queryItem.value
-            }
             
             // e.g. ["user", "<int:id>"]
             for (i, component) in URLPatternPathComponents.enumerate() {
@@ -121,7 +111,7 @@ public class URLMatcher {
                 }
             }
             
-            return URLMatchComponents(pattern: URLPattern, values: values, queryItems: queryItems)
+            return URLMatchComponents(pattern: URLPattern, values: values)
         }
         return nil
     }
