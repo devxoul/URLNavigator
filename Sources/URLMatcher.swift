@@ -31,8 +31,8 @@ import Foundation
 ///     - pattern: The URL pattern that was matched.
 ///     - values: The values extracted from the URL.
 public struct URLMatchComponents {
-    let pattern: String
-    let values: [String : AnyObject]
+    public let pattern: String
+    public let values: [String : AnyObject]
 }
 
 /// URLMatcher provides a way to match URLs against a list of specified patterns.
