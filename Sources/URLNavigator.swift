@@ -55,7 +55,7 @@ import UIKit
 /// - note: Use `UIApplication.openURL()` method to launch other applications or to open URLs in application level.
 ///
 /// - seealso: `URLNavigable`
-public class URLNavigator {
+open class URLNavigator {
 
     /// A closure type which has URL and values for parameters.
     public typealias URLOpenHandler = (_ url: URLConvertible, _ values: [String: Any]) -> Bool
@@ -76,7 +76,7 @@ public class URLNavigator {
     ///
     ///     Navigator.map("myapp://user/<int:id>", UserViewController.self)
     ///     Navigator.map("myapp://post/<title>", PostViewController.self)
-    public var scheme: String? {
+    open var scheme: String? {
         didSet {
             if let scheme = self.scheme, scheme.contains("://") {
                 self.scheme = scheme.components(separatedBy: "://")[0]
@@ -90,7 +90,7 @@ public class URLNavigator {
     /// Returns a default navigator. A global constant `Navigator` is a shortcut of `URLNavigator.default`.
     ///
     /// - seealso: `Navigator`
-    public static let `default` = URLNavigator()
+    open static let `default` = URLNavigator()
 
 
     // MARK: Initializing
@@ -103,13 +103,13 @@ public class URLNavigator {
     // MARK: URL Mapping
 
     /// Map an `URLNavigable` to an URL pattern.
-    public func map(_ urlPattern: URLConvertible, _ navigable: URLNavigable.Type) {
+    open func map(_ urlPattern: URLConvertible, _ navigable: URLNavigable.Type) {
         let URLString = URLMatcher.default.normalized(urlPattern, scheme: self.scheme).urlStringValue
         self.urlMap[URLString] = navigable
     }
 
     /// Map an `URLOpenHandler` to an URL pattern.
-    public func map(_ urlPattern: URLConvertible, _ handler: @escaping URLOpenHandler) {
+    open func map(_ urlPattern: URLConvertible, _ handler: @escaping URLOpenHandler) {
         let URLString = URLMatcher.default.normalized(urlPattern, scheme: self.scheme).urlStringValue
         self.urlOpenHandlers[URLString] = handler
     }
@@ -118,7 +118,7 @@ public class URLNavigator {
     ///
     /// - parameter url: The URL to find view controllers.
     /// - returns: A match view controller or `nil` if not matched.
-    public func viewController(for url: URLConvertible) -> UIViewController? {
+    open func viewController(for url: URLConvertible) -> UIViewController? {
         if let urlMatchComponents = URLMatcher.default.match(url, scheme: self.scheme, from: Array(self.urlMap.keys)) {
             let navigable = self.urlMap[urlMatchComponents.pattern]
             return navigable?.init(url: url, values: urlMatchComponents.values) as? UIViewController
@@ -147,9 +147,9 @@ public class URLNavigator {
     /// - returns: The pushed view controller. Returns `nil` if there's no matching view controller or failed to push
     ///            a view controller.
     @discardableResult
-    public func push(_ url: URLConvertible,
-                     from: UINavigationController? = nil,
-                     animated: Bool = true) -> UIViewController? {
+    open func push(_ url: URLConvertible,
+                   from: UINavigationController? = nil,
+                   animated: Bool = true) -> UIViewController? {
         guard let viewController = self.viewController(for: url) else {
             return nil
         }
@@ -165,9 +165,9 @@ public class URLNavigator {
     ///
     /// - returns: The pushed view controller. Returns `nil` if failed to push a view controller.
     @discardableResult
-    public func push(_ viewController: UIViewController,
-                     from: UINavigationController? = nil,
-                     animated: Bool = true) -> UIViewController? {
+    open func push(_ viewController: UIViewController,
+                   from: UINavigationController? = nil,
+                   animated: Bool = true) -> UIViewController? {
         guard let navigationController = from ?? UIViewController.topMost?.navigationController else {
             return nil
         }
@@ -200,11 +200,11 @@ public class URLNavigator {
     /// - returns: The presented view controller. Returns `nil` if there's no matching view controller or failed to
     ///     present a view controller.
     @discardableResult
-    public func present(_ url: URLConvertible,
-                        wrap: Bool = false,
-                        from: UIViewController? = nil,
-                        animated: Bool = true,
-                        completion: (() -> Void)? = nil) -> UIViewController? {
+    open func present(_ url: URLConvertible,
+                      wrap: Bool = false,
+                      from: UIViewController? = nil,
+                      animated: Bool = true,
+                      completion: (() -> Void)? = nil) -> UIViewController? {
         guard let viewController = self.viewController(for: url) else { return nil }
         return self.present(viewController, wrap: wrap, from: from, animated: animated, completion: completion)
     }
@@ -221,11 +221,11 @@ public class URLNavigator {
     ///
     /// - returns: The presented view controller. Returns `nil` if failed to present a view controller.
     @discardableResult
-    public func present(_ viewController: UIViewController,
-                        wrap: Bool = false,
-                        from: UIViewController? = nil,
-                        animated: Bool = true,
-                        completion: (() -> Void)? = nil) -> UIViewController? {
+    open func present(_ viewController: UIViewController,
+                      wrap: Bool = false,
+                      from: UIViewController? = nil,
+                      animated: Bool = true,
+                      completion: (() -> Void)? = nil) -> UIViewController? {
         guard let fromViewController = from ?? UIViewController.topMost else { return nil }
         if wrap {
             let navigationController = UINavigationController(rootViewController: viewController)
@@ -245,7 +245,7 @@ public class URLNavigator {
     ///
     /// - returns: The return value of the matching `URLOpenHandler`. Returns `false` if there's no match.
     @discardableResult
-    public func open(_ url: URLConvertible) -> Bool {
+    open func open(_ url: URLConvertible) -> Bool {
         let urlOpenHandlersKeys = Array(self.urlOpenHandlers.keys)
         if let urlMatchComponents = URLMatcher.default.match(url, scheme: self.scheme, from: urlOpenHandlersKeys) {
             let handler = self.urlOpenHandlers[urlMatchComponents.pattern]

@@ -39,7 +39,7 @@ public struct URLMatchComponents {
 /// URLMatcher provides a way to match URLs against a list of specified patterns.
 ///
 /// URLMatcher extracts the pattern and the values from the URL if possible.
-public class URLMatcher {
+open class URLMatcher {
 
     /// A closure type which matches a URL value string to a typed value.
     public typealias URLValueMatcherHandler = (String) -> Any?
@@ -50,7 +50,7 @@ public class URLMatcher {
 
     // MARK: Singleton
 
-    public static let `default` = URLMatcher()
+    open static let `default` = URLMatcher()
 
 
     // MARK: Initialization
@@ -77,7 +77,7 @@ public class URLMatcher {
     ///
     /// - returns: A `URLMatchComponents` struct that holds the URL pattern string, a dictionary of URL placeholder
     ///            values, and any query items.
-    public func match(_ url: URLConvertible, scheme: String? = nil, from urlPatterns: [String]) -> URLMatchComponents? {
+    open func match(_ url: URLConvertible, scheme: String? = nil, from urlPatterns: [String]) -> URLMatchComponents? {
         let normalizedURLString = self.normalized(url, scheme: scheme).urlStringValue
         let urlPathComponents = normalizedURLString.components(separatedBy: "/") // e.g. ["myapp:", "user", "123"]
 
@@ -130,7 +130,7 @@ public class URLMatcher {
     ///
     /// - parameter valueType: The value type (string) to match against.
     /// - parameter handler: The handler to use when matching against that value type.
-    public func addURLValueMatcherHandler(for valueType: String, handler: @escaping URLValueMatcherHandler) {
+    open func addURLValueMatcherHandler(for valueType: String, handler: @escaping URLValueMatcherHandler) {
         self.customURLValueMatcherHandlers[valueType] = handler
     }
 
