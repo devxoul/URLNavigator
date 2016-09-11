@@ -38,8 +38,8 @@ import UIKit
 ///
 /// This URL can be used to push or present the `UserViewController` by providing URLs:
 ///
-///     Navigator.pushURL("myapp://user/123")
-///     Navigator.presentURL("http://xoul.kr")
+///     Navigator.push("myapp://user/123")
+///     Navigator.present("http://xoul.kr")
 ///
 /// This is another example of mapping `URLOpenHandler` to URL:
 ///
@@ -52,19 +52,19 @@ import UIKit
 ///
 ///     Navigator.openURL("myapp://say-hello") // prints "Hello, world!"
 ///
-/// - Note: Use `UIApplication.openURL()` method to launch other applications or to open URLs in application level.
+/// - note: Use `UIApplication.openURL()` method to launch other applications or to open URLs in application level.
 ///
-/// - SeeAlso: `URLNavigable`
+/// - seealso: `URLNavigable`
 public class URLNavigator {
 
     /// A closure type which has URL and values for parameters.
-    public typealias URLOpenHandler = (_ URL: URLConvertible, _ values: [String: Any]) -> Bool
+    public typealias URLOpenHandler = (_ url: URLConvertible, _ values: [String: Any]) -> Bool
 
     /// A dictionary to store URLNaviables by URL patterns.
-    private(set) var URLMap = [String: URLNavigable.Type]()
+    private(set) var urlMap = [String: URLNavigable.Type]()
 
     /// A dictionary to store URLOpenHandlers by URL patterns.
-    private(set) var URLOpenHandlers = [String: URLOpenHandler]()
+    private(set) var urlOpenHandlers = [String: URLOpenHandler]()
 
     /// A default scheme. If this value is set, it's available to map URL paths without schemes.
     ///
@@ -85,6 +85,14 @@ public class URLNavigator {
     }
 
 
+    // MARK: Singleton
+
+    /// Returns a default navigator. A global constant `Navigator` is a shortcut of `URLNavigator.default`.
+    ///
+    /// - seealso: `Navigator`
+    public static let `default` = URLNavigator()
+
+
     // MARK: Initializing
 
     public init() {
@@ -92,41 +100,28 @@ public class URLNavigator {
     }
 
 
-    // MARK: Singleton
-
-    /// Returns a default navigator. A global constant `Navigator` is a shortcut of `URLNavigator.defaultNavigator()`.
-    ///
-    /// - SeeAlso: `Navigator`
-    public static func defaultNavigator() -> URLNavigator {
-        struct Shared {
-            static let defaultNavigator = URLNavigator()
-        }
-        return Shared.defaultNavigator
-    }
-
-
     // MARK: URL Mapping
 
     /// Map an `URLNavigable` to an URL pattern.
-    public func map(_ URLPattern: URLConvertible, _ navigable: URLNavigable.Type) {
-        let URLString = URLMatcher.defaultMatcher().normalizedURL(URLPattern, scheme: self.scheme).URLStringValue
-        self.URLMap[URLString] = navigable
+    public func map(_ urlPattern: URLConvertible, _ navigable: URLNavigable.Type) {
+        let URLString = URLMatcher.default.normalized(urlPattern, scheme: self.scheme).urlStringValue
+        self.urlMap[URLString] = navigable
     }
 
     /// Map an `URLOpenHandler` to an URL pattern.
-    public func map(_ URLPattern: URLConvertible, _ handler: @escaping URLOpenHandler) {
-        let URLString = URLMatcher.defaultMatcher().normalizedURL(URLPattern, scheme: self.scheme).URLStringValue
-        self.URLOpenHandlers[URLString] = handler
+    public func map(_ urlPattern: URLConvertible, _ handler: @escaping URLOpenHandler) {
+        let URLString = URLMatcher.default.normalized(urlPattern, scheme: self.scheme).urlStringValue
+        self.urlOpenHandlers[URLString] = handler
     }
 
     /// Returns a matched view controller from a specified URL.
     ///
-    /// - Parameter URL: The URL to find view controllers.
-    /// - Returns: A match view controller or `nil` if not matched.
-    public func viewControllerForURL(_ URL: URLConvertible) -> UIViewController? {
-        if let urlMatchComponents = URLMatcher.defaultMatcher().matchURL(URL, scheme: self.scheme, from: Array(self.URLMap.keys)) {
-            let navigable = self.URLMap[urlMatchComponents.pattern]
-            return navigable?.init(URL: URL, values: urlMatchComponents.values) as? UIViewController
+    /// - parameter url: The URL to find view controllers.
+    /// - returns: A match view controller or `nil` if not matched.
+    public func viewController(for url: URLConvertible) -> UIViewController? {
+        if let urlMatchComponents = URLMatcher.default.match(url, scheme: self.scheme, from: Array(self.urlMap.keys)) {
+            let navigable = self.urlMap[urlMatchComponents.pattern]
+            return navigable?.init(url: url, values: urlMatchComponents.values) as? UIViewController
         }
         return nil
     }
@@ -137,24 +132,24 @@ public class URLNavigator {
     ///
     /// This is an example of pushing a view controller to the top-most view contoller:
     ///
-    ///     Navigator.pushURL("myapp://user/123")
+    ///     Navigator.push("myapp://user/123")
     ///
     /// Use the return value to access a view controller.
     ///
-    ///     let userViewController = Navigator.pushURL("myapp://user/123")
+    ///     let userViewController = Navigator.push("myapp://user/123")
     ///     userViewController?.doSomething()
     ///
-    /// - Parameter URL: The URL to find view controllers.
-    /// - Parameter from: The navigation controller which is used to push a view controller. Use application's top-most
+    /// - parameter url: The URL to find view controllers.
+    /// - parameter from: The navigation controller which is used to push a view controller. Use application's top-most
     ///     view controller if `nil` is specified. `nil` by default.
-    /// - Parameter animated: Whether animates view controller transition or not. `true` by default.
+    /// - parameter animated: Whether animates view controller transition or not. `true` by default.
     ///
-    /// - Returns: The pushed view controller. Returns `nil` if there's no matching view controller or failed to push
+    /// - returns: The pushed view controller. Returns `nil` if there's no matching view controller or failed to push
     ///            a view controller.
-    public func pushURL(_ URL: URLConvertible,
-                        from: UINavigationController? = nil,
-                        animated: Bool = true) -> UIViewController? {
-        guard let viewController = self.viewControllerForURL(URL) else {
+    public func push(_ url: URLConvertible,
+                     from: UINavigationController? = nil,
+                     animated: Bool = true) -> UIViewController? {
+        guard let viewController = self.viewController(for: url) else {
             return nil
         }
         return self.push(viewController, from: from, animated: animated)
@@ -162,16 +157,16 @@ public class URLNavigator {
 
     /// Pushes a view controller using `UINavigationController.pushViewController()`.
     ///
-    /// - Parameter viewController: The `UIViewController` instance to be pushed.
-    /// - Parameter from: The navigation controller which is used to push a view controller. Use application's top-most
+    /// - parameter viewController: The `UIViewController` instance to be pushed.
+    /// - parameter from: The navigation controller which is used to push a view controller. Use application's top-most
     ///     view controller if `nil` is specified. `nil` by default.
-    /// - Parameter animated: Whether animates view controller transition or not. `true` by default.
+    /// - parameter animated: Whether animates view controller transition or not. `true` by default.
     ///
-    /// - Returns: The pushed view controller. Returns `nil` if failed to push a view controller.
+    /// - returns: The pushed view controller. Returns `nil` if failed to push a view controller.
     public func push(_ viewController: UIViewController,
                      from: UINavigationController? = nil,
                      animated: Bool = true) -> UIViewController? {
-        guard let navigationController = from ?? UIViewController.topMostViewController()?.navigationController else {
+        guard let navigationController = from ?? UIViewController.topMost?.navigationController else {
             return nil
         }
         navigationController.pushViewController(viewController, animated: animated)
@@ -185,53 +180,49 @@ public class URLNavigator {
     ///
     /// This is an example of presenting a view controller to the top-most view contoller:
     ///
-    ///     Navigator.presentURL("myapp://user/123")
+    ///     Navigator.present("myapp://user/123")
     ///
     /// Use the return value to access a view controller.
     ///
-    ///     let userViewController = Navigator.presentURL("myapp://user/123")
+    ///     let userViewController = Navigator.present("myapp://user/123")
     ///     userViewController?.doSomething()
     ///
-    /// - Parameter URL: The URL to find view controllers.
-    /// - Parameter wrap: Wraps the view controller with a `UINavigationController` if `true` is specified. `false` by 
+    /// - parameter url: The URL to find view controllers.
+    /// - parameter wrap: Wraps the view controller with a `UINavigationController` if `true` is specified. `false` by 
     ///     default.
-    /// - Parameter from: The view controller which is used to present a view controller. Use application's top-most
+    /// - parameter from: The view controller which is used to present a view controller. Use application's top-most
     ///     view controller if `nil` is specified. `nil` by default.
-    /// - Parameter animated: Whether animates view controller transition or not. `true` by default.
-    /// - Parameter completion: Called after the transition has finished.
+    /// - parameter animated: Whether animates view controller transition or not. `true` by default.
+    /// - parameter completion: Called after the transition has finished.
     ///
-    /// - Returns: The presented view controller. Returns `nil` if there's no matching view controller or failed to
+    /// - returns: The presented view controller. Returns `nil` if there's no matching view controller or failed to
     ///     present a view controller.
-    public func presentURL(_ URL: URLConvertible,
-                           wrap: Bool = false,
-                           from: UIViewController? = nil,
-                           animated: Bool = true,
-                           completion: (() -> Void)? = nil) -> UIViewController? {
-        guard let viewController = self.viewControllerForURL(URL) else {
-            return nil
-        }
+    public func present(_ url: URLConvertible,
+                        wrap: Bool = false,
+                        from: UIViewController? = nil,
+                        animated: Bool = true,
+                        completion: (() -> Void)? = nil) -> UIViewController? {
+        guard let viewController = self.viewController(for: url) else { return nil }
         return self.present(viewController, wrap: wrap, from: from, animated: animated, completion: completion)
     }
 
     /// Presents a view controller using `UIViewController.presentViewController()`.
     ///
-    /// - Parameter viewController: The `UIViewController` instance to be presented.
-    /// - Parameter wrap: Wraps the view controller with a `UINavigationController` if `true` is specified. `false` by
+    /// - parameter viewController: The `UIViewController` instance to be presented.
+    /// - parameter wrap: Wraps the view controller with a `UINavigationController` if `true` is specified. `false` by
     ///     default.
-    /// - Parameter from: The view controller which is used to present a view controller. Use application's top-most
+    /// - parameter from: The view controller which is used to present a view controller. Use application's top-most
     ///     view controller if `nil` is specified. `nil` by default.
-    /// - Parameter animated: Whether animates view controller transition or not. `true` by default.
-    /// - Parameter completion: Called after the transition has finished.
+    /// - parameter animated: Whether animates view controller transition or not. `true` by default.
+    /// - parameter completion: Called after the transition has finished.
     ///
-    /// - Returns: The presented view controller. Returns `nil` if failed to present a view controller.
+    /// - returns: The presented view controller. Returns `nil` if failed to present a view controller.
     public func present(_ viewController: UIViewController,
                         wrap: Bool = false,
                         from: UIViewController? = nil,
                         animated: Bool = true,
                         completion: (() -> Void)? = nil) -> UIViewController? {
-        guard let fromViewController = from ?? UIViewController.topMostViewController() else {
-            return nil
-        }
+        guard let fromViewController = from ?? UIViewController.topMost else { return nil }
         if wrap {
             let navigationController = UINavigationController(rootViewController: viewController)
             fromViewController.present(navigationController, animated: animated, completion: nil)
@@ -246,14 +237,14 @@ public class URLNavigator {
 
     /// Executes the registered `URLOpenHandler`.
     ///
-    /// - Parameter URL: The URL to find `URLOpenHandler`s.
+    /// - parameter url: The URL to find `URLOpenHandler`s.
     ///
-    /// - Returns: The return value of the matching `URLOpenHandler`. Returns `false` if there's no match.
-    public func openURL(_ URL: URLConvertible) -> Bool {
-        let URLOpenHandlersKeys = Array(self.URLOpenHandlers.keys)
-        if let urlMatchComponents = URLMatcher.defaultMatcher().matchURL(URL, scheme: self.scheme, from: URLOpenHandlersKeys) {
-            let handler = self.URLOpenHandlers[urlMatchComponents.pattern]
-            if handler?(URL, urlMatchComponents.values) == true {
+    /// - returns: The return value of the matching `URLOpenHandler`. Returns `false` if there's no match.
+    public func open(_ url: URLConvertible) -> Bool {
+        let urlOpenHandlersKeys = Array(self.urlOpenHandlers.keys)
+        if let urlMatchComponents = URLMatcher.default.match(url, scheme: self.scheme, from: urlOpenHandlersKeys) {
+            let handler = self.urlOpenHandlers[urlMatchComponents.pattern]
+            if handler?(url, urlMatchComponents.values) == true {
                 return true
             }
         }
@@ -264,4 +255,4 @@ public class URLNavigator {
 
 // MARK: - Default Navigator
 
-public let Navigator = URLNavigator.defaultNavigator()
+public let Navigator = URLNavigator.default

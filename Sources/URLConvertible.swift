@@ -24,18 +24,18 @@ import Foundation
 
 /// A type which can be converted to URL string.
 public protocol URLConvertible {
-    var URLValue: URL? { get }
-    var URLStringValue: String { get }
+    var urlValue: URL? { get }
+    var urlStringValue: String { get }
 
     /// Returns URL query parameters. For convenience, this property will never return `nil` even if there's no query
     /// string in URL. This property doesn't take care of duplicated keys. Use `queryItems` for strictness.
     ///
-    /// - SeeAlso: `queryItems`
+    /// - seealso: `queryItems`
     var queryParameters: [String: String] { get }
 
     /// Returns `queryItems` property of `URLComponents` instance.
     ///
-    /// - SeeAlso: `queryParameters`
+    /// - seealso: `queryParameters`
     @available(iOS 8, *)
     var queryItems: [URLQueryItem]? { get }
 }
@@ -43,7 +43,7 @@ public protocol URLConvertible {
 extension URLConvertible {
     public var queryParameters: [String: String] {
         var parameters = [String: String]()
-        self.URLValue?.query?.components(separatedBy: "&").forEach {
+        self.urlValue?.query?.components(separatedBy: "&").forEach {
             let keyAndValue = $0.components(separatedBy: "=")
             if keyAndValue.count == 2 {
                 let key = keyAndValue[0]
@@ -57,14 +57,14 @@ extension URLConvertible {
 
     @available(iOS 8, *)
     public var queryItems: [URLQueryItem]? {
-        return URLComponents(string: self.URLStringValue)?.queryItems
+        return URLComponents(string: self.urlStringValue)?.queryItems
     }
 }
 
 extension String: URLConvertible {
-    public var URLValue: URL? {
-        if let URL = URL(string: self) {
-            return URL
+    public var urlValue: URL? {
+        if let url = URL(string: self) {
+            return url
         }
         var set = CharacterSet()
         set.formUnion(.urlHostAllowed)
@@ -74,17 +74,17 @@ extension String: URLConvertible {
         return self.addingPercentEncoding(withAllowedCharacters: set).flatMap { URL(string: $0) }
     }
 
-    public var URLStringValue: String {
+    public var urlStringValue: String {
         return self
     }
 }
 
 extension URL: URLConvertible {
-    public var URLValue: URL? {
+    public var urlValue: URL? {
         return self
     }
 
-    public var URLStringValue: String {
+    public var urlStringValue: String {
         return self.absoluteString
     }
 }

@@ -24,7 +24,7 @@ import Foundation
 
 /// A type that can be initialized with URLs and values.
 ///
-/// - SeeAlso: `URLNavigator`
+/// - seealso: `URLNavigator`
 public protocol URLNavigable {
 
     /// Creates an instance with specified URL and returns it. Returns `nil` if the URL and the values are not met the
@@ -32,8 +32,8 @@ public protocol URLNavigable {
     ///
     /// For example, to validate whether a value of `id` is an `Int`:
     ///
-    ///     convenience init?(URL: URLConvertible, values: [String: AnyObject]) {
-    ///         guard let id = values["id"]?.integerValue else {
+    ///     convenience init?(url: URLConvertible, values: [String: Any]) {
+    ///         guard let id = values["id"] as? Int else {
     ///             return nil
     ///         }
     ///         self.init(id: id)
@@ -41,9 +41,9 @@ public protocol URLNavigable {
     ///
     /// Do not call this initializer directly. It is recommended to use with `URLNavigator`.
     ///
-    /// - Parameter URL: The URL which is used to create an instance.
-    /// - Parameter values: The URL pattern placeholder values by placeholder names. For example, if the URL pattern is
-    ///     `myapp://user/<id>` and the given URL is `myapp://user/123`, values will be `["id": "123"]`.
-    init?(URL: URLConvertible, values: [String: Any])
+    /// - parameter url: The URL which is used to create an instance.
+    /// - parameter values: The URL pattern placeholder values by placeholder names. For example, if the URL pattern is
+    ///     `myapp://user/<int:id>` and the given URL is `myapp://user/123`, values will be `["id": 123]`.
+    init?(url: URLConvertible, values: [String: Any])
 
 }
