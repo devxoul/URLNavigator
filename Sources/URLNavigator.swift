@@ -146,6 +146,7 @@ public class URLNavigator {
     ///
     /// - returns: The pushed view controller. Returns `nil` if there's no matching view controller or failed to push
     ///            a view controller.
+    @discardableResult
     public func push(_ url: URLConvertible,
                      from: UINavigationController? = nil,
                      animated: Bool = true) -> UIViewController? {
@@ -163,6 +164,7 @@ public class URLNavigator {
     /// - parameter animated: Whether animates view controller transition or not. `true` by default.
     ///
     /// - returns: The pushed view controller. Returns `nil` if failed to push a view controller.
+    @discardableResult
     public func push(_ viewController: UIViewController,
                      from: UINavigationController? = nil,
                      animated: Bool = true) -> UIViewController? {
@@ -197,6 +199,7 @@ public class URLNavigator {
     ///
     /// - returns: The presented view controller. Returns `nil` if there's no matching view controller or failed to
     ///     present a view controller.
+    @discardableResult
     public func present(_ url: URLConvertible,
                         wrap: Bool = false,
                         from: UIViewController? = nil,
@@ -217,6 +220,7 @@ public class URLNavigator {
     /// - parameter completion: Called after the transition has finished.
     ///
     /// - returns: The presented view controller. Returns `nil` if failed to present a view controller.
+    @discardableResult
     public func present(_ viewController: UIViewController,
                         wrap: Bool = false,
                         from: UIViewController? = nil,
@@ -240,6 +244,7 @@ public class URLNavigator {
     /// - parameter url: The URL to find `URLOpenHandler`s.
     ///
     /// - returns: The return value of the matching `URLOpenHandler`. Returns `false` if there's no match.
+    @discardableResult
     public func open(_ url: URLConvertible) -> Bool {
         let urlOpenHandlersKeys = Array(self.urlOpenHandlers.keys)
         if let urlMatchComponents = URLMatcher.default.match(url, scheme: self.scheme, from: urlOpenHandlersKeys) {
