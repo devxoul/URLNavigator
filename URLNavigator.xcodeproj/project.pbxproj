@@ -67,7 +67,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0245A7251D79E8CD004698A3 /* URLMatcherInternalTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLMatcherInternalTests.swift; sourceTree = "<group>"; };
+		0245A7251D79E8CD004698A3 /* URLMatcherInternalTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = URLMatcherInternalTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		0245A7271D79E8F5004698A3 /* URLMatcherPublicTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLMatcherPublicTests.swift; sourceTree = "<group>"; };
 		02E016071D79E45E00BB7E25 /* URLMatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLMatcher.swift; sourceTree = "<group>"; };
 		03032BB61CCBA93400F7EBFD /* URLConvertibleTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLConvertibleTests.swift; sourceTree = "<group>"; };
