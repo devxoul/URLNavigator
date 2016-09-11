@@ -10,36 +10,36 @@ import Foundation
 import UIKit
 
 enum Result<T> {
-    case Success(T)
-    case Failure(ErrorType)
+    case success(T)
+    case failure(Error)
 
     var value: T? {
         switch self {
-        case .Success(let value):
+        case .success(let value):
             return value
 
-        case .Failure:
+        case .failure:
             return nil
         }
     }
 
-    func map<R>(selector: T -> R) -> Result<R> {
+    func map<R>(_ selector: (T) -> R) -> Result<R> {
         switch self {
-        case .Success(let value):
-            return .Success(selector(value))
+        case .success(let value):
+            return .success(selector(value))
 
-        case .Failure(let error):
-            return .Failure(error)
+        case .failure(let error):
+            return .failure(error)
         }
     }
 
-    func flatMap<R>(selector: T -> Result<R>) -> Result<R> {
+    func flatMap<R>(_ selector: (T) -> Result<R>) -> Result<R> {
         switch self {
-        case .Success(let value):
+        case .success(let value):
             return selector(value)
 
-        case .Failure(let error):
-            return .Failure(error)
+        case .failure(let error):
+            return .failure(error)
         }
     }
 
@@ -50,33 +50,33 @@ struct HTTP {
     static var baseURLString: String? = "https://api.github.com"
 
     /// Send a simple HTTP GET request
-    static func request(URLString: String, completion: (Result<AnyObject> -> Void)? = nil) {
+    static func request(_ URLString: String, completion: ((Result<Any>) -> Void)? = nil) {
         let URLString = (self.baseURLString ?? "") + URLString
         guard let URL = URL(string: URLString) else { return }
-        let task = NSURLSession.sharedSession().dataTaskWithURL(URL) { data, response, error in
-            UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+        let task = URLSession.shared.dataTask(with: URL) { data, response, error in
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
             if let error = error {
                 NSLog("FAILURE: GET \(URLString) error=\(error)")
-                dispatch_async(dispatch_get_main_queue()) {
-                    completion?(.Failure(error))
+                DispatchQueue.main.async {
+                    completion?(.failure(error))
                 }
                 return
             }
             NSLog("SUCCESS: GET \(URLString)")
             if let data = data,
-               let JSONObject = try? NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments) {
-                dispatch_async(dispatch_get_main_queue()) {
-                    completion?(.Success(JSONObject))
+               let JSONObject = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) {
+                DispatchQueue.main.async {
+                    completion?(.success(JSONObject))
                 }
             } else {
                 let JSONObject = [String: AnyObject]()
-                dispatch_async(dispatch_get_main_queue()) {
-                    completion?(.Success(JSONObject))
+                DispatchQueue.main.async {
+                    completion?(.success(JSONObject))
                 }
             }
         }
         task.resume()
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
         NSLog("REQUEST: GET \(URLString)")
     }
 

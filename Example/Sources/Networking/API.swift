@@ -10,7 +10,7 @@ import Foundation
 
 struct API {
 
-    static func repos(username: String, completion: Result<[Repo]> -> Void) {
+    static func repos(username: String, completion: @escaping (Result<[Repo]>) -> Void) {
         HTTP.request("/users/\(username)/repos?sort=updated") { result in
             let newResult = result.map { value -> [Repo] in
                 let repoDicts = value as? [[String: AnyObject]] ?? []

@@ -22,8 +22,8 @@ struct NavigationMap {
     private static func alert(URL: URLConvertible, values: [String: Any]) -> Bool {
         let title = URL.queryParameters["title"]
         let message = URL.queryParameters["message"]
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-        alertController.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         Navigator.present(alertController)
         return true
     }

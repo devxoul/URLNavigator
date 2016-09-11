@@ -16,7 +16,7 @@ final class WebViewController: UIViewController {
     // MARK: UI Properties
 
     let webView = WKWebView()
-    let activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
+    let activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
 
 
     // MARK: View Life Cycle
@@ -28,13 +28,13 @@ final class WebViewController: UIViewController {
         self.view.addSubview(self.activityIndicatorView)
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if self.navigationController?.viewControllers.count > 1 { // pushed
+        if self.navigationController?.viewControllers.count ?? 0 > 1 { // pushed
             self.navigationItem.leftBarButtonItem = nil
         } else if self.presentingViewController != nil { // presented
             self.navigationItem.leftBarButtonItem = UIBarButtonItem(
-                barButtonSystemItem: .Done,
+                barButtonSystemItem: .done,
                 target: self,
                 action: #selector(doneButtonDidTap)
             )
@@ -55,7 +55,7 @@ final class WebViewController: UIViewController {
     // MARK: Actions
 
     dynamic func doneButtonDidTap() {
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
 
 }
@@ -65,11 +65,11 @@ final class WebViewController: UIViewController {
 
 extension WebViewController: URLNavigable {
 
-    convenience init?(URL: URLConvertible, values: [String: AnyObject]) {
-        guard let URLVaue = URL.URLValue else { return nil }
+    convenience init?(url: URLConvertible, values: [String: Any]) {
+        guard let URLVaue = url.urlValue else { return nil }
         self.init()
-        let request = NSURLRequest(URL: URLVaue)
-        self.webView.loadRequest(request)
+        let request = URLRequest(url: URLVaue)
+        self.webView.load(request)
     }
 
 }
@@ -79,15 +79,15 @@ extension WebViewController: URLNavigable {
 
 extension WebViewController: WKNavigationDelegate {
 
-    func webView(webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation) {
         self.activityIndicatorView.startAnimating()
     }
 
-    func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         self.activityIndicatorView.stopAnimating()
     }
 
-    func webView(webView: WKWebView, didFailNavigation navigation: WKNavigation!, withError error: NSError) {
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation, withError error: Error) {
         self.activityIndicatorView.stopAnimating()
     }
 

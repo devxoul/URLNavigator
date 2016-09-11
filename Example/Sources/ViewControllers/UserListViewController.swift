@@ -29,7 +29,7 @@ class UserListViewController: UIViewController {
 
     // MARK: Initializing
 
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         self.title = "GitHub Users"
     }
@@ -46,7 +46,7 @@ class UserListViewController: UIViewController {
         self.view.addSubview(self.tableView)
         self.tableView.dataSource = self
         self.tableView.delegate = self
-        self.tableView.registerClass(UserCell.self, forCellReuseIdentifier: "user")
+        self.tableView.register(UserCell.self, forCellReuseIdentifier: "user")
     }
 
 
@@ -64,17 +64,17 @@ class UserListViewController: UIViewController {
 
 extension UserListViewController: UITableViewDataSource {
 
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.users.count
     }
 
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("user", forIndexPath: indexPath) as! UserCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "user", for: indexPath) as! UserCell
         let username = self.users[indexPath.row]
         cell.textLabel?.text = username
         cell.detailTextLabel?.text = "navigator://user/\(username)"
-        cell.detailTextLabel?.textColor = .grayColor()
-        cell.accessoryType = .DisclosureIndicator
+        cell.detailTextLabel?.textColor = .gray
+        cell.accessoryType = .disclosureIndicator
         return cell
     }
 
@@ -85,13 +85,13 @@ extension UserListViewController: UITableViewDataSource {
 
 extension UserListViewController: UITableViewDelegate {
 
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: false)
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath : IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: false)
 
         // This is just an example. Don't use like this. Create a new `UserViewController` instance instead.
         let username = self.users[indexPath.row]
         let URL = "navigator://user/\(username)"
-        Navigator.pushURL(URL)
+        Navigator.push(URL)
         NSLog("Navigator: Push \(URL)")
     }
 
