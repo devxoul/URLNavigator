@@ -25,17 +25,17 @@ import URLNavigator
 
 class URLConvertibleTests: XCTestCase {
 
-    func testParameters() {
-        XCTAssertTrue("myapp://alert".queryParameters.isEmpty)
-        XCTAssertTrue("myapp://alert?".queryParameters.isEmpty)
-        XCTAssertTrue("myapp://alert?title".queryParameters.isEmpty)
-        XCTAssertEqual("myapp://alert?title=".queryParameters, ["title": ""])
-        XCTAssertEqual("myapp://alert?title=Hello+World!".queryParameters, ["title": "Hello World!"])
-        XCTAssertEqual("myapp://alert?title=Hello%20World!".queryParameters, ["title": "Hello World!"])
-        XCTAssertEqual("myapp://alert?title=Hello+World!&message=Nice+to+meet+you+:)".queryParameters,
-                       ["title": "Hello World!", "message": "Nice to meet you :)"])
-        XCTAssertEqual("myapp://alert?title=Hello%20World!&message=Nice%20to%20meet%20you%20:)".queryParameters,
-                       ["title": "Hello World!", "message": "Nice to meet you :)"])
-    }
+  func testParameters() {
+    XCTAssertTrue("myapp://alert".queryParameters.isEmpty)
+    XCTAssertTrue("myapp://alert?".queryParameters.isEmpty)
+    XCTAssertTrue("myapp://alert?title".queryParameters.isEmpty)
+    XCTAssertEqual("myapp://alert?title=".queryParameters, ["title": ""])
+    XCTAssertEqual("myapp://alert?title=Hello+World!".queryParameters, ["title": "Hello World!"])
+    XCTAssertEqual("myapp://alert?title=Hello%20World!".queryParameters, ["title": "Hello World!"])
+    XCTAssertEqual("myapp://alert?title=Hello+World!&message=Nice+to+meet+you+:)".queryParameters,
+                   ["title": "Hello World!", "message": "Nice to meet you :)"])
+    XCTAssertEqual("myapp://alert?title=Hello%20World!&message=Nice%20to%20meet%20you%20:)".queryParameters,
+                   ["title": "Hello World!", "message": "Nice to meet you :)"])
+  }
 
 }

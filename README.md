@@ -25,9 +25,9 @@ Navigator.map("myapp://user/<int:id>", UserViewController.self)
 Navigator.map("myapp://post/<title>", PostViewController.self)
 
 Navigator.map("myapp://alert") { url, values in
-    print(url.queryParameters["title"])
-    print(url.queryParameters["message"])
-    return true
+  print(url.queryParameters["title"])
+  print(url.queryParameters["message"])
+  return true
 }
 ```
 
@@ -59,20 +59,20 @@ Parameter `url` is an URL that is passed from `URLNavigator.push()` and `URLNavi
 ```swift
 final class UserViewController: UIViewController, URLNavigable {
 
-    init(userID: Int) {
-        super.init(nibName: nil, bundle: nil)
-        // Initialize here...
-    }
+  init(userID: Int) {
+    super.init(nibName: nil, bundle: nil)
+    // Initialize here...
+  }
 
-    convenience init?(url: URLConvertible, values: [String: Any]) {
-        // Let's assume that the user id is required
-        guard let userID = values["id"] as? Int else { return nil }
-        self.init(userID: userID)
-    }
+  convenience init?(url: URLConvertible, values: [String: Any]) {
+    // Let's assume that the user id is required
+    guard let userID = values["id"] as? Int else { return nil }
+    self.init(userID: userID)
+  }
     
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+  required init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
 
 }
 ```
@@ -107,10 +107,10 @@ Installation
     import PackageDescription
 
     let package = Package(
-        name: "MyAwesomeApp",
-        dependencies: [
-            .Package(url: "https://github.com/devxoul/URLNavigator", "0.7.2"),
-        ]
+      name: "MyAwesomeApp",
+      dependencies: [
+        .Package(url: "https://github.com/devxoul/URLNavigator", "0.7.1"),
+      ]
     )
     ```
 
@@ -136,21 +136,21 @@ I'd prefer using separated URL map file.
 ```swift
 struct URLNavigationMap {
 
-    static func initialize() {
-        Navigator.map("myapp://user/<int:id>", UserViewController.self)
-        Navigator.map("myapp://post/<title>", PostViewController.self)
+  static func initialize() {
+    Navigator.map("myapp://user/<int:id>", UserViewController.self)
+    Navigator.map("myapp://post/<title>", PostViewController.self)
 
-        Navigator.map("myapp://alert") { url, values in
-            print(url.queryParameters["title"])
-            print(url.queryParameters["message"])
-            self.someUtilityMethod()
-            return true
-        }
+    Navigator.map("myapp://alert") { url, values in
+      print(url.queryParameters["title"])
+      print(url.queryParameters["message"])
+      self.someUtilityMethod()
+      return true
     }
+  }
 
-    private static func someUtilityMethod() {
-        print("This method is really useful")
-    }
+  private static func someUtilityMethod() {
+    print("This method is really useful")
+  }
 
 }
 ```
@@ -161,13 +161,15 @@ Then call `initialize()` at `AppDelegate`'s `application:didFinishLaunchingWithO
 @UIApplicationMain
 final class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    func application(_ application: UIApplication,
-                     didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Navigator
-        URLNavigationMap.initialize()
-        
-        // Do something else...
-    }
+  func application(
+    _ application: UIApplication,
+    didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?
+  ) -> Bool {
+    // Navigator
+    URLNavigationMap.initialize()
+    
+    // Do something else...
+  }
 }
 ```
 
@@ -177,16 +179,18 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
 It's available to open your app with URLs if custom schemes are registered. In order to navigate to view controllers with URLs, you'll have to implement `application:didFinishLaunchingWithOptions:` method.
 
 ```swift
-func application(_ application: UIApplication,
-                 didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-    // ...
-    if let url = launchOptions?[.url] as? URL {
-        if let opened = Navigator.open(url)
-        if !opened {
-            Navigator.push(url)
-        }
+func application(
+  _ application: UIApplication,
+  didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?
+) -> Bool {
+  // ...
+  if let url = launchOptions?[.url] as? URL {
+    if let opened = Navigator.open(url)
+    if !opened {
+      Navigator.push(url)
     }
-    return true
+  }
+  return true
 }
 
 ```
@@ -198,23 +202,23 @@ You'll might want to implement custom URL open handler. Here's an example of usi
 
 ```swift
 func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
-    // If you're using Facebook SDK
-    let fb = FBSDKApplicationDelegate.sharedInstance()
-    if fb.application(application, open: url, sourceApplication: sourceApplication, annotation: annotation) {
-        return true
-    }
+  // If you're using Facebook SDK
+  let fb = FBSDKApplicationDelegate.sharedInstance()
+  if fb.application(application, open: url, sourceApplication: sourceApplication, annotation: annotation) {
+    return true
+  }
 
-    // URLNavigator Handler
-    if Navigator.open(url) {
-        return true
-    }
+  // URLNavigator Handler
+  if Navigator.open(url) {
+    return true
+  }
 
-    // URLNavigator View Controller
-    if Navigator.present(url, wrap: true) != nil {
-        return true
-    }
+  // URLNavigator View Controller
+  if Navigator.present(url, wrap: true) != nil {
+    return true
+  }
 
-    return false
+  return false
 }
 ```
 
@@ -225,11 +229,11 @@ It's not yet available to initialize view controllers from Storyboard. However, 
 
 ```swift
 Navigator.map("myapp://post/<int:id>") { url, values in
-    guard let postID = values["id"] as? Int,
-          let postViewController = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController()
-          else { return false }
-    Navigator.push(postViewController)
-    return true
+  guard let postID = values["id"] as? Int,
+    let postViewController = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController()
+    else { return false }
+  Navigator.push(postViewController)
+  return true
 }
 ```
 
