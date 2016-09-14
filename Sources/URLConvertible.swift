@@ -85,6 +85,6 @@ extension NSURL: URLConvertible {
     }
 
     public var URLStringValue: String {
-        return self.absoluteString
+        return self.absoluteString!
     }
 }
