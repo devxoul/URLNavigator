@@ -7,8 +7,8 @@
 //
 
 struct Repo {
-    var name: String
-    var descriptionText: String?
-    var starCount: Int
-    var URLString: String
+  var name: String
+  var descriptionText: String?
+  var starCount: Int
+  var URLString: String
 }

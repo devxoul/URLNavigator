@@ -12,74 +12,74 @@ import URLNavigator
 
 final class UserViewController: UIViewController {
 
-    // MARK: Properties
+  // MARK: Properties
 
-    let username: String
-    var repos = [Repo]()
-
-
-    // MARK: UI Properties
-
-    let tableView = UITableView()
+  let username: String
+  var repos = [Repo]()
 
 
-    // MARK: Initializing
+  // MARK: UI Properties
 
-    init(username: String) {
-        self.username = username
-        super.init(nibName: nil, bundle: nil)
-        self.title = "\(username)'s Repositories"
+  let tableView = UITableView()
+
+
+  // MARK: Initializing
+
+  init(username: String) {
+    self.username = username
+    super.init(nibName: nil, bundle: nil)
+    self.title = "\(username)'s Repositories"
+  }
+
+  required init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+
+
+  // MARK: View Life Cycle
+
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    self.view.addSubview(self.tableView)
+
+    self.tableView.dataSource = self
+    self.tableView.delegate = self
+    self.tableView.register(RepoCell.self, forCellReuseIdentifier: "repo")
+
+    API.repos(username: self.username) { [weak self] result in
+      guard let `self` = self else { return }
+      self.repos = (result.value ?? []).sorted { $0.starCount > $1.starCount }
+      self.tableView.reloadData()
     }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+  }
+
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    if self.navigationController?.viewControllers.count ?? 0 > 1 { // pushed
+      self.navigationItem.leftBarButtonItem = nil
+    } else if self.presentingViewController != nil { // presented
+      self.navigationItem.leftBarButtonItem = UIBarButtonItem(
+        barButtonSystemItem: .done,
+        target: self,
+        action: #selector(doneButtonDidTap)
+      )
     }
+  }
 
 
-    // MARK: View Life Cycle
+  // MARK: Layout
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.view.addSubview(self.tableView)
-
-        self.tableView.dataSource = self
-        self.tableView.delegate = self
-        self.tableView.registerClass(RepoCell.self, forCellReuseIdentifier: "repo")
-
-        API.repos(self.username) { [weak self] result in
-            guard let `self` = self else { return }
-            self.repos = (result.value ?? []).sort { $0.starCount > $1.starCount }
-            self.tableView.reloadData()
-        }
-    }
-
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        if self.navigationController?.viewControllers.count > 1 { // pushed
-            self.navigationItem.leftBarButtonItem = nil
-        } else if self.presentingViewController != nil { // presented
-            self.navigationItem.leftBarButtonItem = UIBarButtonItem(
-                barButtonSystemItem: .Done,
-                target: self,
-                action: #selector(doneButtonDidTap)
-            )
-        }
-    }
+  override func viewDidLayoutSubviews() {
+    super.viewDidLayoutSubviews()
+    self.tableView.frame = self.view.bounds
+  }
 
 
-    // MARK: Layout
+  // MARK: Actions
 
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        self.tableView.frame = self.view.bounds
-    }
-
-
-    // MARK: Actions
-
-    dynamic func doneButtonDidTap() {
-        self.dismissViewControllerAnimated(true, completion: nil)
-    }
+  dynamic func doneButtonDidTap() {
+    self.dismiss(animated: true, completion: nil)
+  }
 
 }
 
@@ -88,19 +88,19 @@ final class UserViewController: UIViewController {
 
 extension UserViewController: UITableViewDataSource {
 
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.repos.count
-    }
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return self.repos.count
+  }
 
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("repo", forIndexPath: indexPath) as! RepoCell
-        let repo = self.repos[indexPath.row]
-        cell.textLabel?.text = repo.name
-        cell.detailTextLabel?.text = repo.descriptionText
-        cell.detailTextLabel?.textColor = .grayColor()
-        cell.accessoryType = .DisclosureIndicator
-        return cell
-    }
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    let cell = tableView.dequeueReusableCell(withIdentifier: "repo", for: indexPath) as! RepoCell
+    let repo = self.repos[indexPath.row]
+    cell.textLabel?.text = repo.name
+    cell.detailTextLabel?.text = repo.descriptionText
+    cell.detailTextLabel?.textColor = .gray
+    cell.accessoryType = .disclosureIndicator
+    return cell
+  }
 
 }
 
@@ -109,13 +109,13 @@ extension UserViewController: UITableViewDataSource {
 
 extension UserViewController: UITableViewDelegate {
 
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: false)
-        let repo = self.repos[indexPath.row]
-        let webViewController = Navigator.presentURL(repo.URLString, wrap: true)
-        webViewController?.title = "\(self.username)/\(repo.name)"
-        NSLog("Navigator: Present \(repo.URLString)")
-    }
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    tableView.deselectRow(at: indexPath, animated: false)
+    let repo = self.repos[indexPath.row]
+    let webViewController = Navigator.present(repo.URLString, wrap: true)
+    webViewController?.title = "\(self.username)/\(repo.name)"
+    NSLog("Navigator: Present \(repo.URLString)")
+  }
 
 }
 
@@ -124,9 +124,9 @@ extension UserViewController: UITableViewDelegate {
 
 extension UserViewController: URLNavigable {
 
-    convenience init?(URL: URLConvertible, values: [String: AnyObject]) {
-        guard let username = values["username"] as? String else { return nil }
-        self.init(username: username)
-    }
+  convenience init?(url: URLConvertible, values: [String: Any]) {
+    guard let username = values["username"] as? String else { return nil }
+    self.init(username: username)
+  }
 
 }

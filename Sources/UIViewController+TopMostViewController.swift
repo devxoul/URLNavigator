@@ -24,39 +24,39 @@ import UIKit
 
 extension UIViewController {
 
-    /// Returns the current application's top most view controller.
-    public class func topMostViewController() -> UIViewController? {
-        let rootViewController = UIApplication.sharedApplication().windows.first?.rootViewController
-        return self.topMostViewControllerOfViewController(rootViewController)
+  /// Returns the current application's top most view controller.
+  open class var topMost: UIViewController? {
+    let rootViewController = UIApplication.shared.windows.first?.rootViewController
+    return self.topMost(of: rootViewController)
+  }
+
+  /// Returns the top most view controller from given view controller's stack.
+  class func topMost(of viewController: UIViewController?) -> UIViewController? {
+    // UITabBarController
+    if let tabBarController = viewController as? UITabBarController,
+      let selectedViewController = tabBarController.selectedViewController {
+      return self.topMost(of: selectedViewController)
     }
 
-    /// Returns the top most view controller from given view controller's stack.
-    class func topMostViewControllerOfViewController(viewController: UIViewController?) -> UIViewController? {
-        // UITabBarController
-        if let tabBarController = viewController as? UITabBarController,
-           let selectedViewController = tabBarController.selectedViewController {
-            return self.topMostViewControllerOfViewController(selectedViewController)
-        }
-
-        // UINavigationController
-        if let navigationController = viewController as? UINavigationController,
-           let visibleViewController = navigationController.visibleViewController {
-            return self.topMostViewControllerOfViewController(visibleViewController)
-        }
-
-        // presented view controller
-        if let presentedViewController = viewController?.presentedViewController {
-            return self.topMostViewControllerOfViewController(presentedViewController)
-        }
-
-        // child view controller
-        for subview in viewController?.view?.subviews ?? [] {
-            if let childViewController = subview.nextResponder() as? UIViewController {
-                return self.topMostViewControllerOfViewController(childViewController)
-            }
-        }
-
-        return viewController
+    // UINavigationController
+    if let navigationController = viewController as? UINavigationController,
+      let visibleViewController = navigationController.visibleViewController {
+      return self.topMost(of: visibleViewController)
     }
+
+    // presented view controller
+    if let presentedViewController = viewController?.presentedViewController {
+      return self.topMost(of: presentedViewController)
+    }
+
+    // child view controller
+    for subview in viewController?.view?.subviews ?? [] {
+      if let childViewController = subview.next as? UIViewController {
+        return self.topMost(of: childViewController)
+      }
+    }
+
+    return viewController
+  }
 
 }

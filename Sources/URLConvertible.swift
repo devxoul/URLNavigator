@@ -24,67 +24,67 @@ import Foundation
 
 /// A type which can be converted to URL string.
 public protocol URLConvertible {
-    var URLValue: NSURL? { get }
-    var URLStringValue: String { get }
+  var urlValue: URL? { get }
+  var urlStringValue: String { get }
 
-    /// Returns URL query parameters. For convenience, this property will never return `nil` even if there's no query
-    /// string in URL. This property doesn't take care of duplicated keys. Use `queryItems` for strictness.
-    ///
-    /// - SeeAlso: `queryItems`
-    var queryParameters: [String: String] { get }
+  /// Returns URL query parameters. For convenience, this property will never return `nil` even if there's no query
+  /// string in URL. This property doesn't take care of duplicated keys. Use `queryItems` for strictness.
+  ///
+  /// - seealso: `queryItems`
+  var queryParameters: [String: String] { get }
 
-    /// Returns `queryItems` property of `NSURLComponents` instance.
-    ///
-    /// - SeeAlso: `queryParameters`
-    @available(iOS 8, *)
-    var queryItems: [NSURLQueryItem]? { get }
+  /// Returns `queryItems` property of `URLComponents` instance.
+  ///
+  /// - seealso: `queryParameters`
+  @available(iOS 8, *)
+  var queryItems: [URLQueryItem]? { get }
 }
 
 extension URLConvertible {
-    public var queryParameters: [String: String] {
-        var parameters = [String: String]()
-        self.URLValue?.query?.componentsSeparatedByString("&").forEach {
-            let keyAndValue = $0.componentsSeparatedByString("=")
-            if keyAndValue.count == 2 {
-                let key = keyAndValue[0]
-                let value = keyAndValue[1].stringByReplacingOccurrencesOfString("+", withString: " ")
-                                          .stringByRemovingPercentEncoding ?? keyAndValue[1]
-                parameters[key] = value
-            }
-        }
-        return parameters
+  public var queryParameters: [String: String] {
+    var parameters = [String: String]()
+    self.urlValue?.query?.components(separatedBy: "&").forEach {
+      let keyAndValue = $0.components(separatedBy: "=")
+      if keyAndValue.count == 2 {
+        let key = keyAndValue[0]
+        let value = keyAndValue[1].replacingOccurrences(of: "+", with: " ").removingPercentEncoding
+          ?? keyAndValue[1]
+        parameters[key] = value
+      }
     }
+    return parameters
+  }
 
-    @available(iOS 8, *)
-    public var queryItems: [NSURLQueryItem]? {
-        return NSURLComponents(string: self.URLStringValue)?.queryItems
-    }
+  @available(iOS 8, *)
+  public var queryItems: [URLQueryItem]? {
+    return URLComponents(string: self.urlStringValue)?.queryItems
+  }
 }
 
 extension String: URLConvertible {
-    public var URLValue: NSURL? {
-        if let URL = NSURL(string: self) {
-            return URL
-        }
-        let set = NSMutableCharacterSet()
-        set.formUnionWithCharacterSet(.URLHostAllowedCharacterSet())
-        set.formUnionWithCharacterSet(.URLPathAllowedCharacterSet())
-        set.formUnionWithCharacterSet(.URLQueryAllowedCharacterSet())
-        set.formUnionWithCharacterSet(.URLFragmentAllowedCharacterSet())
-        return self.stringByAddingPercentEncodingWithAllowedCharacters(set).flatMap { NSURL(string: $0) }
+  public var urlValue: URL? {
+    if let url = URL(string: self) {
+      return url
     }
+    var set = CharacterSet()
+    set.formUnion(.urlHostAllowed)
+    set.formUnion(.urlPathAllowed)
+    set.formUnion(.urlQueryAllowed)
+    set.formUnion(.urlFragmentAllowed)
+    return self.addingPercentEncoding(withAllowedCharacters: set).flatMap { URL(string: $0) }
+  }
 
-    public var URLStringValue: String {
-        return self
-    }
+  public var urlStringValue: String {
+    return self
+  }
 }
 
-extension NSURL: URLConvertible {
-    public var URLValue: NSURL? {
-        return self
-    }
+extension URL: URLConvertible {
+  public var urlValue: URL? {
+    return self
+  }
 
-    public var URLStringValue: String {
-        return self.absoluteString
-    }
+  public var urlStringValue: String {
+    return self.absoluteString
+  }
 }

@@ -1,4 +1,4 @@
 language: objective-c
-osx_image: xcode7
+osx_image: xcode8
 script:
-    - xctool -scheme 'URLNavigator' -sdk iphonesimulator CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO test -parallelize
+    - xcodebuild -scheme 'URLNavigator' -sdk iphonesimulator CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO test | xcpretty -c
