@@ -60,8 +60,8 @@ class URLNavigatorPublicTests: XCTestCase {
       "Hello"
     )
 
-    XCTAssertNil(self.navigator.viewController(for: "http://"))
-    XCTAssertNil(self.navigator.viewController(for: "https://"))
+    XCTAssert(self.navigator.viewController(for: "http://") is WebViewController)
+    XCTAssert(self.navigator.viewController(for: "https://") is WebViewController)
     XCTAssert(self.navigator.viewController(for: "http://xoul.kr") is WebViewController)
     XCTAssert(self.navigator.viewController(for: "http://xoul.kr/resume") is WebViewController)
     XCTAssert(self.navigator.viewController(for: "http://google.com/search?q=URLNavigator") is WebViewController)
@@ -155,8 +155,8 @@ class URLNavigatorPublicTests: XCTestCase {
     XCTAssert(self.navigator.viewController(for: "/post/123") is PostViewController)
     XCTAssert(self.navigator.viewController(for: "/post/hello-world") is PostViewController)
 
-    XCTAssertNil(self.navigator.viewController(for: "http://"))
-    XCTAssertNil(self.navigator.viewController(for: "https://"))
+    XCTAssert(self.navigator.viewController(for: "http://") is WebViewController)
+    XCTAssert(self.navigator.viewController(for: "https://") is WebViewController)
     XCTAssert(self.navigator.viewController(for: "http://xoul.kr") is WebViewController)
     XCTAssert(self.navigator.viewController(for: "http://xoul.kr/resume") is WebViewController)
     XCTAssert(self.navigator.viewController(for: "http://google.com/search?q=URLNavigator") is WebViewController)

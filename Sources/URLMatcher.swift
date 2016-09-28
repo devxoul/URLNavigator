@@ -154,7 +154,7 @@ open class URLMatcher {
   ///
   /// - Removing redundant trailing slash(/) on scheme
   /// - Removing redundant double-slashes(//)
-  /// - Removing trailing slash(/)
+  /// - Removing trailing slash(/) aside from slashes directly following the scheme
   ///
   /// - parameter dirtyURL: The dirty URL to be normalized.
   ///
@@ -167,7 +167,7 @@ open class URLMatcher {
     urlString = urlString.components(separatedBy: "?")[0].components(separatedBy: "#")[0]
     urlString = self.replaceRegex(":/{3,}", "://", urlString)
     urlString = self.replaceRegex("(?<!:)/{2,}", "/", urlString)
-    urlString = self.replaceRegex("/+$", "", urlString)
+    urlString = self.replaceRegex("(?<!:|:/)/+$", "", urlString)
     return urlString
   }
 
