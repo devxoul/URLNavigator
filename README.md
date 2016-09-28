@@ -48,7 +48,7 @@ Navigator.present("myapp://post/54321", wrap: true)
 Navigator.open("myapp://alert?title=Hello&message=World")
 ```
 
-For full documentation, see [URLNavigator Class Reference](http://cocoadocs.org/docsets/URLNavigator/1.0.0/Classes/URLNavigator.html).
+For full documentation, see [URLNavigator Class Reference](http://cocoadocs.org/docsets/URLNavigator/1.0.1/Classes/URLNavigator.html).
 
 #### 3. Implementing URLNavigable
 
@@ -98,7 +98,7 @@ Installation
 - **For iOS 7 projects** with [CocoaSeeds](https://github.com/devxoul/CocoaSeeds):
 
     ```ruby
-    github 'devxoul/URLNavigator', '1.0.0', :files => 'Sources/*.swift'
+    github 'devxoul/URLNavigator', '1.0.1', :files => 'Sources/*.swift'
     ```
 
 - **Using [Swift Package Manager](https://swift.org/package-manager)**:
@@ -109,7 +109,7 @@ Installation
     let package = Package(
       name: "MyAwesomeApp",
       dependencies: [
-        .Package(url: "https://github.com/devxoul/URLNavigator", "1.0.0"),
+        .Package(url: "https://github.com/devxoul/URLNavigator", "1.0.1"),
       ]
     )
     ```
