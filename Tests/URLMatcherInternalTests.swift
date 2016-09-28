@@ -54,6 +54,7 @@ class URLMatcherInternalTests: XCTestCase {
     XCTAssertEqual(matcher.normalized("myapp:///////user///<id>//hello/??/#abc=/def").urlStringValue,
                    "myapp://user/<id>/hello")
     XCTAssertEqual(matcher.normalized("https://<path:_>").urlStringValue, "https://<path:_>")
+    XCTAssertEqual(matcher.normalized("https://").urlStringValue, "https://")
   }
 
   func testPlaceholderValueFromURLPathComponents() {
