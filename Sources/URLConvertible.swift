@@ -61,6 +61,16 @@ extension URLConvertible {
   }
 }
 
+extension URLConvertible {
+  /// Compare URLConvertible with `self` by urlStringValue
+  ///
+  /// - Parameter url: given URLConvertible for comparing
+  /// - Returns: true if both `urlStringValue`'s are equal
+  public func compare(with url: URLConvertible?) -> Bool {
+    return url?.urlStringValue == self.urlStringValue
+  }
+}
+
 extension String: URLConvertible {
   public var urlValue: URL? {
     if let url = URL(string: self) {
