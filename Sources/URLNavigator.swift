@@ -121,7 +121,9 @@ open class URLNavigator {
   open func viewController(for url: URLConvertible) -> UIViewController? {
     if let urlMatchComponents = URLMatcher.default.match(url, scheme: self.scheme, from: Array(self.urlMap.keys)) {
       let navigable = self.urlMap[urlMatchComponents.pattern]
-      return navigable?.init(url: url, values: urlMatchComponents.values) as? UIViewController
+      let viewController = navigable?.init(url: url, values: urlMatchComponents.values) as? UIViewController
+      (viewController as? URLNavigable)?.set(url: url)
+      return viewController
     }
     return nil
   }
