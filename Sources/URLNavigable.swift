@@ -25,7 +25,7 @@ import Foundation
 /// A type that can be initialized with URLs and values.
 ///
 /// - seealso: `URLNavigator`
-public protocol URLNavigable {
+public protocol URLNavigable: class {
 
   /// Creates an instance with specified URL and returns it. Returns `nil` if the URL and the values are not met the
   /// condition to create an instance.
@@ -51,11 +51,17 @@ public protocol URLNavigable {
   /// May be used for validating the sender and preventing creating a routing cycle
   var URL: URLConvertible? { get set }
   
+  func set(url: URLConvertible?)
+  
 }
 
 /// Extension for allowing URL to be nil and optionally implemented
 public extension URLNavigable {
   
   var URL: URLConvertible? { get { return nil } set (new) { URL = new } }
+  
+  func set(url: URLConvertible?) {
+    URL = url
+  }
   
 }
