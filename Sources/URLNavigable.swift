@@ -45,5 +45,17 @@ public protocol URLNavigable {
   /// - parameter values: The URL pattern placeholder values by placeholder names. For example, if the URL pattern is
   ///     `myapp://user/<int:id>` and the given URL is `myapp://user/123`, values will be `["id": 123]`.
   init?(url: URLConvertible, values: [String: Any])
+    
+  /// Holds the URL of the conforming class.
+  ///
+  /// May be used for validating the sender and preventing creating a routing cycle
+  var URL: URLConvertible? { get set }
+  
+}
 
+/// Extension for allowing URL to be nil and optionally implemented
+public extension URLNavigable {
+  
+  var URL: URLConvertible? { get { return nil } set (new) { URL = new } }
+  
 }

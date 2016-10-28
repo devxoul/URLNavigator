@@ -16,6 +16,7 @@ final class UserViewController: UIViewController {
 
   let username: String
   var repos = [Repo]()
+  var URL: URLConvertible?
 
 
   // MARK: UI Properties
