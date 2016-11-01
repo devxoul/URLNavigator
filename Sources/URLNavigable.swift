@@ -58,10 +58,7 @@ public protocol URLNavigable: class {
 /// Extension for allowing URL to be nil and optionally implemented
 public extension URLNavigable {
   
-  var URL: URLConvertible? { get { return nil } set (new) { URL = new } }
-  
   func set(url: URLConvertible?) {
     URL = url
   }
-  
 }
