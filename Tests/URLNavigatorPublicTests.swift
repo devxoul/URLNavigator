@@ -74,6 +74,7 @@ class URLNavigatorPublicTests: XCTestCase {
     let navigationController = UINavigationController(rootViewController: UIViewController())
     let viewController = self.navigator.push("myapp://user/1", from: navigationController, animated: false)
     XCTAssertNotNil(viewController)
+    XCTAssertNotNil((viewController as? URLNavigable)?.URL)
     XCTAssertEqual(navigationController.viewControllers.count, 2)
   }
 
@@ -84,6 +85,16 @@ class URLNavigatorPublicTests: XCTestCase {
     XCTAssertNil(viewController)
     XCTAssertEqual(navigationController.viewControllers.count, 1)
   }
+  
+  func testPushSameURL_URLNavigable() {
+    self.navigator.map("myapp://user/<int:id>", UserViewController.self)
+    let navigationController = UINavigationController(rootViewController: UIViewController())
+    let viewController = self.navigator.push("myapp://user/1", from: navigationController, animated: false)
+    let sameViewController = self.navigator.push("myapp://user/1", animated: false)
+    XCTAssertNotNil(viewController)
+    XCTAssertNil(sameViewController)
+    XCTAssertEqual(navigationController.viewControllers.count, 2)
+  }
 
   func testPresentURL_URLNavigable() {
     self.navigator.map("myapp://user/<int:id>", UserViewController.self)
@@ -91,12 +102,14 @@ class URLNavigatorPublicTests: XCTestCase {
       let fromViewController = UIViewController()
       let viewController = self.navigator.present("myapp://user/1", from: fromViewController)
       XCTAssertNotNil(viewController)
+      XCTAssertNotNil((viewController as? URLNavigable)?.URL)
       XCTAssertNil(viewController?.navigationController)
     }();
     {
       let fromViewController = UIViewController()
       let viewController = self.navigator.present("myapp://user/1", wrap: true, from: fromViewController)
       XCTAssertNotNil(viewController)
+      XCTAssertNotNil((viewController as? URLNavigable)?.URL)
       XCTAssertNotNil(viewController?.navigationController)
     }();
   }
@@ -105,6 +118,16 @@ class URLNavigatorPublicTests: XCTestCase {
     self.navigator.map("myapp://ping") { _ in return true }
     let fromViewController = UIViewController()
     let viewController = self.navigator.present("myapp://ping", from: fromViewController)
+    XCTAssertNil(viewController)
+  }
+  
+  func testPresentSameURL_URLNavigable() {
+    self.navigator.map("myapp://user/<int:id>", UserViewController.self)
+    let navigationController = UINavigationController(rootViewController: UIViewController())
+    let fromViewController = self.navigator.push("myapp://user/1", from: navigationController, animated: false)
+    
+    let viewController = self.navigator.present("myapp://user/1", from: fromViewController)
+    
     XCTAssertNil(viewController)
   }
 
@@ -229,6 +252,7 @@ class URLNavigatorPublicTests: XCTestCase {
 private class UserViewController: UIViewController, URLNavigable {
 
   var userID: Int?
+  var URL: URLConvertible?
 
   convenience required init?(url: URLConvertible, values: [String: Any]) {
     guard let id = values["id"] as? Int else {
@@ -243,6 +267,7 @@ private class UserViewController: UIViewController, URLNavigable {
 private class PostViewController: UIViewController, URLNavigable {
 
   var postTitle: String?
+  var URL: URLConvertible?
 
   convenience required init?(url: URLConvertible, values: [String: Any]) {
     guard let title = values["title"] as? String else {
@@ -257,6 +282,7 @@ private class PostViewController: UIViewController, URLNavigable {
 private class WebViewController: UIViewController, URLNavigable {
 
   var url: URLConvertible?
+  var URL: URLConvertible?
 
   convenience required init?(url: URLConvertible, values: [String: Any]) {
     self.init()
@@ -268,6 +294,7 @@ private class WebViewController: UIViewController, URLNavigable {
 private class SearchViewController: UIViewController, URLNavigable {
 
   let query: String
+  var URL: URLConvertible?
 
   init(query: String) {
     self.query = query

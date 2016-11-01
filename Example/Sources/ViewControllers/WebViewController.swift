@@ -13,6 +13,10 @@ import URLNavigator
 
 final class WebViewController: UIViewController {
 
+  // MARK: Navigable
+  
+  var URL: URLConvertible?
+
   // MARK: UI Properties
 
   let webView = WKWebView()
@@ -64,7 +68,7 @@ final class WebViewController: UIViewController {
 // MARK: - URLNavigable
 
 extension WebViewController: URLNavigable {
-
+  
   convenience init?(url: URLConvertible, values: [String: Any]) {
     guard let URLVaue = url.urlValue else { return nil }
     self.init()

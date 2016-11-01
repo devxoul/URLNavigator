@@ -121,7 +121,9 @@ open class URLNavigator {
   open func viewController(for url: URLConvertible) -> UIViewController? {
     if let urlMatchComponents = URLMatcher.default.match(url, scheme: self.scheme, from: Array(self.urlMap.keys)) {
       let navigable = self.urlMap[urlMatchComponents.pattern]
-      return navigable?.init(url: url, values: urlMatchComponents.values) as? UIViewController
+      let viewController = navigable?.init(url: url, values: urlMatchComponents.values) as? UIViewController
+      (viewController as? URLNavigable)?.set(url: url)
+      return viewController
     }
     return nil
   }
@@ -172,7 +174,8 @@ open class URLNavigator {
     from: UINavigationController? = nil,
     animated: Bool = true
   ) -> UIViewController? {
-    guard let navigationController = from ?? UIViewController.topMost?.navigationController else {
+    guard let navigationController = from ?? UIViewController.topMost?.navigationController,
+      shouldOpen(viewController: viewController, from: navigationController) else {
       return nil
     }
     navigationController.pushViewController(viewController, animated: animated)
@@ -234,7 +237,8 @@ open class URLNavigator {
     animated: Bool = true,
     completion: (() -> Void)? = nil
   ) -> UIViewController? {
-    guard let fromViewController = from ?? UIViewController.topMost else { return nil }
+    guard let fromViewController = from ?? UIViewController.topMost,
+      shouldOpen(viewController: viewController, from: fromViewController) else { return nil }
     if wrap {
       let navigationController = UINavigationController(rootViewController: viewController)
       fromViewController.present(navigationController, animated: animated, completion: nil)
@@ -265,6 +269,35 @@ open class URLNavigator {
   }
 }
 
+// MARK: - Opening controller helpers
+private extension URLNavigator {
+  
+  
+  /// Validates if a UIViewController shouldOpen from a given URLConvertible; `viewController` needs to conform to *URLNavigable* protocol. This prevents opening/pushing/presenting the same URLNavigable.
+  ///
+  /// - parameter viewController: The opening UIViewController
+  /// - parameter url: The URLConvertible to compare with
+  ///
+  /// - returns: true if url isn't equal to `viewController`'s URLConvertible
+  func shouldOpen(viewController: UIViewController, from url: URLConvertible) -> Bool {
+    guard let navigable = viewController as? URLNavigable else { return false }
+    guard let result = navigable.URL?.compare(with: url), result == false
+      else { return false }
+    return !result
+  }
+  
+  
+  /// Validates if a UIViewController shouldOpen comming from a given UIViewController; Both UIViewController's need to conform to *URLNavigable* protocol. This prevents opening/pushing/presenting the same URLNavigable
+  ///
+  /// - parameter viewController: The opening UIViewController
+  /// - parameter from: The UIViewController it is trying to open from
+  ///
+  /// - returns: true if both UIViewController's URLConvertible don't match
+  func shouldOpen(viewController: UIViewController, from: UIViewController) -> Bool {
+    guard let from = from as? URLNavigable, let url = from.URL else { return true }
+    return shouldOpen(viewController: viewController, from: url)
+  }
+}
 
 // MARK: - Default Navigator
 
