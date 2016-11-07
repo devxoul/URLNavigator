@@ -11,48 +11,46 @@ import UIKit
 import URLNavigator
 
 final class UserViewController: UIViewController {
-
+  
   // MARK: Properties
-
+  
   let username: String
   var repos = [Repo]()
-
-
+  var userInfo: [AnyHashable: Any]?
+  
   // MARK: UI Properties
-
+  
   let tableView = UITableView()
-
-
+  
   // MARK: Initializing
-
+  
   init(username: String) {
     self.username = username
     super.init(nibName: nil, bundle: nil)
     self.title = "\(username)'s Repositories"
   }
-
+  
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
-
-
+  
   // MARK: View Life Cycle
-
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     self.view.addSubview(self.tableView)
-
+    
     self.tableView.dataSource = self
     self.tableView.delegate = self
     self.tableView.register(RepoCell.self, forCellReuseIdentifier: "repo")
-
+    
     API.repos(username: self.username) { [weak self] result in
       guard let `self` = self else { return }
       self.repos = (result.value ?? []).sorted { $0.starCount > $1.starCount }
       self.tableView.reloadData()
     }
   }
-
+  
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     if self.navigationController?.viewControllers.count ?? 0 > 1 { // pushed
@@ -65,33 +63,30 @@ final class UserViewController: UIViewController {
       )
     }
   }
-
-
+  
   // MARK: Layout
-
+  
   override func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
     self.tableView.frame = self.view.bounds
   }
-
-
+  
   // MARK: Actions
-
+  
   dynamic func doneButtonDidTap() {
     self.dismiss(animated: true, completion: nil)
   }
-
+  
 }
-
 
 // MARK: - UITableViewDataSource
 
 extension UserViewController: UITableViewDataSource {
-
+  
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return self.repos.count
   }
-
+  
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: "repo", for: indexPath) as! RepoCell
     let repo = self.repos[indexPath.row]
@@ -101,14 +96,13 @@ extension UserViewController: UITableViewDataSource {
     cell.accessoryType = .disclosureIndicator
     return cell
   }
-
+  
 }
-
 
 // MARK: - UITableViewDelegate
 
 extension UserViewController: UITableViewDelegate {
-
+  
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     tableView.deselectRow(at: indexPath, animated: false)
     let repo = self.repos[indexPath.row]
@@ -116,17 +110,17 @@ extension UserViewController: UITableViewDelegate {
     webViewController?.title = "\(self.username)/\(repo.name)"
     NSLog("Navigator: Present \(repo.URLString)")
   }
-
+  
 }
-
 
 // MARK: - URLNavigable
 
 extension UserViewController: URLNavigable {
-
-  convenience init?(url: URLConvertible, values: [String: Any]) {
+  
+  convenience init?(url: URLConvertible, values: [String: Any], userInfo: [AnyHashable: Any]?) {
     guard let username = values["username"] as? String else { return nil }
     self.init(username: username)
+    self.userInfo = userInfo
   }
-
+  
 }

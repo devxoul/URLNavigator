@@ -40,28 +40,25 @@ public struct URLMatchComponents {
 ///
 /// URLMatcher extracts the pattern and the values from the URL if possible.
 open class URLMatcher {
-
+  
   /// A closure type which matches a URL value string to a typed value.
   public typealias URLValueMatcherHandler = (String) -> Any?
-
+  
   /// A dictionary to store URL value matchers by value type.
   private var customURLValueMatcherHandlers = [String: URLValueMatcherHandler]()
-
-
+  
   // MARK: Singleton
-
+  
   open static let `default` = URLMatcher()
-
-
+  
   // MARK: Initialization
-
+  
   public init() {
     // 🔄 I'm a URLMatcher!
   }
-
-
+  
   // MARK: Matching
-
+  
   /// Returns a matching URL pattern and placeholder values from specified URL and URL patterns. Returns `nil` if the
   /// URL is not contained in URL patterns.
   ///
@@ -80,7 +77,7 @@ open class URLMatcher {
   open func match(_ url: URLConvertible, scheme: String? = nil, from urlPatterns: [String]) -> URLMatchComponents? {
     let normalizedURLString = self.normalized(url, scheme: scheme).urlStringValue
     let urlPathComponents = normalizedURLString.components(separatedBy: "/") // e.g. ["myapp:", "user", "123"]
-
+    
     outer: for urlPattern in urlPatterns {
       // e.g. ["myapp:", "user", "<int:id>"]
       let urlPatternPathComponents = urlPattern.components(separatedBy: "/")
@@ -88,9 +85,9 @@ open class URLMatcher {
       guard containsPathPlaceholder || urlPatternPathComponents.count == urlPathComponents.count else {
         continue
       }
-
+      
       var values = [String: Any]()
-
+      
       // e.g. ["user", "<int:id>"]
       for (i, component) in urlPatternPathComponents.enumerated() {
         guard i < urlPathComponents.count else {
@@ -108,14 +105,14 @@ open class URLMatcher {
           continue outer
         }
       }
-
+      
       return URLMatchComponents(pattern: urlPattern, values: values)
     }
     return nil
   }
-
+  
   // MARK: Utils
-
+  
   /// Adds a new handler for matching any custom URL value type.
   /// If the custom URL type already has a custom handler, this overwrites its handler.
   ///
@@ -133,7 +130,7 @@ open class URLMatcher {
   open func addURLValueMatcherHandler(for valueType: String, handler: @escaping URLValueMatcherHandler) {
     self.customURLValueMatcherHandlers[valueType] = handler
   }
-
+  
   /// Returns an scheme-appended `URLConvertible` if given `url` doesn't have its scheme.
   func url(withScheme scheme: String?, _ url: URLConvertible) -> URLConvertible {
     let urlString = url.urlStringValue
@@ -149,7 +146,7 @@ open class URLMatcher {
     }
     return urlString
   }
-
+  
   /// Returns the URL by
   ///
   /// - Removing redundant trailing slash(/) on scheme
@@ -170,18 +167,18 @@ open class URLMatcher {
     urlString = self.replaceRegex("(?<!:|:/)/+$", "", urlString)
     return urlString
   }
-
+  
   func placeholderKeyValueFrom(
     urlPatternPathComponent component: String,
     urlPathComponents: [String],
     atIndex index: Int
-  ) -> (String, Any)? {
+    ) -> (String, Any)? {
     guard component.hasPrefix("<") && component.hasSuffix(">") else { return nil }
-
+    
     let start = component.index(after: component.startIndex)
     let end = component.index(before: component.endIndex)
     let placeholder = component[start..<end] // e.g. "<int:id>" -> "int:id"
-
+    
     let typeAndKey = placeholder.components(separatedBy: ":") // e.g. ["int", "id"]
     if typeAndKey.count == 0 { // e.g. component is "<>"
       return nil
@@ -189,7 +186,7 @@ open class URLMatcher {
     if typeAndKey.count == 1 { // untyped placeholder
       return (placeholder, urlPathComponents[index])
     }
-
+    
     let (type, key) = (typeAndKey[0], typeAndKey[1]) // e.g. ("int", "id")
     let value: Any?
     switch type {
@@ -206,13 +203,13 @@ open class URLMatcher {
         value = urlPathComponents[index]
       }
     }
-
+    
     if let value = value {
       return (key, value)
     }
     return nil
   }
-
+  
   func replaceRegex(_ pattern: String, _ repl: String, _ string: String) -> String {
     guard let regex = try? NSRegularExpression(pattern: pattern, options: []) else { return string }
     let range = NSMakeRange(0, string.characters.count)

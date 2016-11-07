@@ -26,13 +26,13 @@ import Foundation
 public protocol URLConvertible {
   var urlValue: URL? { get }
   var urlStringValue: String { get }
-
+  
   /// Returns URL query parameters. For convenience, this property will never return `nil` even if there's no query
   /// string in URL. This property doesn't take care of duplicated keys. Use `queryItems` for strictness.
   ///
   /// - seealso: `queryItems`
   var queryParameters: [String: String] { get }
-
+  
   /// Returns `queryItems` property of `URLComponents` instance.
   ///
   /// - seealso: `queryParameters`
@@ -54,7 +54,7 @@ extension URLConvertible {
     }
     return parameters
   }
-
+  
   @available(iOS 8, *)
   public var queryItems: [URLQueryItem]? {
     return URLComponents(string: self.urlStringValue)?.queryItems
@@ -73,7 +73,7 @@ extension String: URLConvertible {
     set.formUnion(.urlFragmentAllowed)
     return self.addingPercentEncoding(withAllowedCharacters: set).flatMap { URL(string: $0) }
   }
-
+  
   public var urlStringValue: String {
     return self
   }
@@ -83,7 +83,7 @@ extension URL: URLConvertible {
   public var urlValue: URL? {
     return self
   }
-
+  
   public var urlStringValue: String {
     return self.absoluteString
   }
