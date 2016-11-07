@@ -61,7 +61,7 @@ final class WebViewController: UIViewController {
 
 extension WebViewController: URLNavigable {
   
-  convenience init?(url: URLConvertible, values: [String: Any], userInfo: [AnyHashable: Any]?) {
+  convenience init?(url: URLConvertible, values: [String: Any]) {
     guard let URLVaue = url.urlValue else { return nil }
     self.init()
     let request = URLRequest(url: URLVaue)
