@@ -18,7 +18,7 @@ class UserListViewController: UIViewController {
     "devxoul",
     "apple",
     "google",
-    "facebook",
+    "facebook"
     ]
 
 
@@ -91,7 +91,7 @@ extension UserListViewController: UITableViewDelegate {
     // This is just an example. Don't use like this. Create a new `UserViewController` instance instead.
     let username = self.users[indexPath.row]
     let URL = "navigator://user/\(username)"
-    Navigator.push(URL)
+		Navigator.push(URL, ["backedMessage": { print($0) }])
     NSLog("Navigator: Push \(URL)")
   }
 
