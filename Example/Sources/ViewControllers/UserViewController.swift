@@ -16,7 +16,7 @@ final class UserViewController: UIViewController {
 
   let username: String
   var repos = [Repo]()
-
+	var userInfo: [AnyHashable: Any]?
 
   // MARK: UI Properties
 
@@ -126,12 +126,10 @@ typealias NavigableFunction = (Any) ->Void
 
 extension UserViewController: URLNavigable {
 
-  convenience init?(url: URLConvertible, values: [String: Any]) {
+	convenience init?(url: URLConvertible, values: [String: Any], userInfo: [AnyHashable: Any]?) {
     guard let username = values["username"] as? String else { return nil }
     self.init(username: username)
-		
-		let callBack = values["backedMessage"] as! NavigableFunction
-		callBack("Hello world!")
+		self.userInfo = userInfo
   }
 
 }

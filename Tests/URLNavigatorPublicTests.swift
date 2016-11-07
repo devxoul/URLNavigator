@@ -76,6 +76,21 @@ class URLNavigatorPublicTests: XCTestCase {
     XCTAssertNotNil(viewController)
     XCTAssertEqual(navigationController.viewControllers.count, 2)
   }
+	
+	func testPushURLWithUserInfo_URLNavigable() {
+		self.navigator.map("myapp://user/<int:id>", UserViewController.self)
+		let navigationController = UINavigationController(rootViewController: UIViewController())
+		let passedValue = "abcde"
+		let passedObject = NSObject()
+		let userInfo: [AnyHashable: Any] = ["info": passedValue, "object": passedObject]
+		let viewController = self.navigator.push("myapp://user/1", userInfo, from: navigationController, animated: false) as! UserViewController
+		XCTAssertNotNil(viewController)
+		XCTAssertEqual(navigationController.viewControllers.count, 2)
+		XCTAssertNotNil(viewController.userInfo)
+		let getedValue = viewController.userInfo!
+		XCTAssertEqual(getedValue["info"] as! String, passedValue)
+		XCTAssertEqual(getedValue["object"] as! NSObject, passedObject)
+	}
 
   func testPushURL_URLOpenHandler() {
     self.navigator.map("myapp://ping") { _ in return true }
@@ -107,6 +122,19 @@ class URLNavigatorPublicTests: XCTestCase {
     let viewController = self.navigator.present("myapp://ping", from: fromViewController)
     XCTAssertNil(viewController)
   }
+	
+	func testPresentURLWithUserInfo_URLOpenHandler() {
+		self.navigator.map("myapp://user/<int:id>", UserViewController.self)
+		let navigationController = UINavigationController(rootViewController: UIViewController())
+		let passedValue = "abcde"
+		let passedObject = NSObject()
+		let userInfo: [AnyHashable: Any] = ["info": passedValue, "object": passedObject]
+		let viewController = self.navigator.present("myapp://user/1", userInfo, wrap: true, from: navigationController, animated: false, completion: nil) as! UserViewController
+		XCTAssertNotNil(viewController.userInfo)
+		let getedValue = viewController.userInfo!
+		XCTAssertEqual(getedValue["info"] as! String, passedValue)
+		XCTAssertEqual(getedValue["object"] as! NSObject, passedObject)
+	}
 
   func testOpenURL_URLOpenHandler() {
     self.navigator.map("myapp://ping") { URL, values in
@@ -229,13 +257,15 @@ class URLNavigatorPublicTests: XCTestCase {
 private class UserViewController: UIViewController, URLNavigable {
 
   var userID: Int?
+	var userInfo: [AnyHashable: Any]?
 
-  convenience required init?(url: URLConvertible, values: [String: Any]) {
+	convenience required init?(url: URLConvertible, values: [String: Any], userInfo: [AnyHashable: Any]?) {
     guard let id = values["id"] as? Int else {
       return nil
     }
     self.init()
     self.userID = id
+		self.userInfo = userInfo
   }
 
 }
@@ -244,7 +274,7 @@ private class PostViewController: UIViewController, URLNavigable {
 
   var postTitle: String?
 
-  convenience required init?(url: URLConvertible, values: [String: Any]) {
+  convenience required init?(url: URLConvertible, values: [String: Any], userInfo: [AnyHashable: Any]?) {
     guard let title = values["title"] as? String else {
       return nil
     }
@@ -258,7 +288,7 @@ private class WebViewController: UIViewController, URLNavigable {
 
   var url: URLConvertible?
 
-  convenience required init?(url: URLConvertible, values: [String: Any]) {
+  convenience required init?(url: URLConvertible, values: [String: Any], userInfo: [AnyHashable: Any]?) {
     self.init()
     self.url = url
   }
@@ -274,7 +304,7 @@ private class SearchViewController: UIViewController, URLNavigable {
     super.init(nibName: nil, bundle: nil)
   }
 
-  convenience required init?(url: URLConvertible, values: [String: Any]) {
+  convenience required init?(url: URLConvertible, values: [String: Any], userInfo: [AnyHashable: Any]?) {
     guard let query = url.queryParameters["query"] else {
       return nil
     }

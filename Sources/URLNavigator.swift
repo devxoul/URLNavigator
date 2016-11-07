@@ -118,14 +118,10 @@ open class URLNavigator {
   ///
   /// - parameter url: The URL to find view controllers.
   /// - returns: A match view controller or `nil` if not matched.
-	open func viewController(for url: URLConvertible, with parameters: [String: Any]? = nil) -> UIViewController? {
+	open func viewController(for url: URLConvertible, with userInfo: [AnyHashable: Any]? = nil) -> UIViewController? {
     if let urlMatchComponents = URLMatcher.default.match(url, scheme: self.scheme, from: Array(self.urlMap.keys)) {
       let navigable = self.urlMap[urlMatchComponents.pattern]
-			var passedValues = urlMatchComponents.values
-			if (parameters != nil) {
-				parameters?.forEach { passedValues[$0] = $1 }
-			}
-      return navigable?.init(url: url, values: passedValues) as? UIViewController
+      return navigable?.init(url: url, values: urlMatchComponents.values, userInfo: userInfo) as? UIViewController
     }
     return nil
   }
@@ -188,11 +184,11 @@ open class URLNavigator {
 	@discardableResult
 	open func push(
 		_ url: URLConvertible,
-		_ parameters: [String: Any]?,
+		_ userInfo: [AnyHashable: Any]?,
 		from: UINavigationController? = nil,
 		animated: Bool = true
 		) ->UIViewController? {
-		guard let viewController = self.viewController(for: url, with: parameters) else {
+		guard let viewController = self.viewController(for: url, with: userInfo) else {
 			return nil
 		}
 		return self.push(viewController, from: from, animated: animated)
@@ -283,13 +279,13 @@ open class URLNavigator {
 	@discardableResult
 	open func present(
 		_ url: URLConvertible,
-		_ parameters: [String: Any]?,
+		_ userInfo: [AnyHashable: Any]?,
 		wrap: Bool = false,
 		from: UIViewController? = nil,
 		animated: Bool = true,
 		completion: (() -> Void)? = nil
   ) -> UIViewController? {
-		guard let viewController = self.viewController(for: url, with: parameters) else { return nil }
+		guard let viewController = self.viewController(for: url, with: userInfo) else { return nil }
 		return self.present(viewController, wrap: wrap, from: from, animated: animated, completion: completion)
 	}
 
