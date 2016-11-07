@@ -11,7 +11,7 @@ import UIKit
 import URLNavigator
 
 class UserListViewController: UIViewController {
-  
+
   // MARK: Properties
   
   let users = [
