@@ -26,25 +26,25 @@ import Foundation
 ///
 /// - seealso: `URLNavigator`
 public protocol URLNavigable {
-	
-	/// Creates an instance with specified URL and returns it. Returns `nil` if the URL and the values are not met the
-	/// condition to create an instance.
-	///
-	/// For example, to validate whether a value of `id` is an `Int`:
-	///
-	///     convenience init?(url: URLConvertible, values: [String: Any]) {
-	///       guard let id = values["id"] as? Int else {
-	///         return nil
-	///       }
-	///       self.init(id: id)
-	///     }
-	///
-	/// Do not call this initializer directly. It is recommended to use with `URLNavigator`.
-	///
-	/// - parameter url: The URL which is used to create an instance.
-	/// - parameter values: The URL pattern placeholder values by placeholder names. For example, if the URL pattern is
-	///     `myapp://user/<int:id>` and the given URL is `myapp://user/123`, values will be `["id": 123]`.
-	/// - parameter userInfo: The extra parameters that you want to send when initialize this controller.
-	init?(url: URLConvertible, values: [String: Any], userInfo: [AnyHashable: Any]?)
-	
+  
+  /// Creates an instance with specified URL and returns it. Returns `nil` if the URL and the values are not met the
+  /// condition to create an instance.
+  ///
+  /// For example, to validate whether a value of `id` is an `Int`:
+  ///
+  ///     convenience init?(url: URLConvertible, values: [String: Any]) {
+  ///       guard let id = values["id"] as? Int else {
+  ///         return nil
+  ///       }
+  ///       self.init(id: id)
+  ///     }
+  ///
+  /// Do not call this initializer directly. It is recommended to use with `URLNavigator`.
+  ///
+  /// - parameter url: The URL which is used to create an instance.
+  /// - parameter values: The URL pattern placeholder values by placeholder names. For example, if the URL pattern is
+  ///     `myapp://user/<int:id>` and the given URL is `myapp://user/123`, values will be `["id": 123]`.
+  /// - parameter userInfo: The extra parameters that you want to send when initialize this controller.
+  init?(url: URLConvertible, values: [String: Any], userInfo: [AnyHashable: Any]?)
+  
 }
