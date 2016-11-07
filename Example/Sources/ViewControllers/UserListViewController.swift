@@ -21,11 +21,9 @@ class UserListViewController: UIViewController {
     "facebook"
   ]
   
-  
   // MARK: UI Properties
   
   let tableView = UITableView()
-  
   
   // MARK: Initializing
   
@@ -38,7 +36,6 @@ class UserListViewController: UIViewController {
     fatalError("init(coder:) has not been implemented")
   }
   
-  
   // MARK: View Life Cycle
   
   override func viewDidLoad() {
@@ -49,7 +46,6 @@ class UserListViewController: UIViewController {
     self.tableView.register(UserCell.self, forCellReuseIdentifier: "user")
   }
   
-  
   // MARK: Layout
   
   override func viewDidLayoutSubviews() {
@@ -58,7 +54,6 @@ class UserListViewController: UIViewController {
   }
   
 }
-
 
 // MARK: - UITableViewDataSource
 
@@ -80,7 +75,6 @@ extension UserListViewController: UITableViewDataSource {
   
 }
 
-
 // MARK: - UITableViewDelegate
 
 extension UserListViewController: UITableViewDelegate {
@@ -91,7 +85,7 @@ extension UserListViewController: UITableViewDelegate {
     // This is just an example. Don't use like this. Create a new `UserViewController` instance instead.
     let username = self.users[indexPath.row]
     let URL = "navigator://user/\(username)"
-    Navigator.push(URL, ["backedMessage": { print($0) }])
+    Navigator.push(URL, ["object": NSObject()])
     NSLog("Navigator: Push \(URL)")
   }
   

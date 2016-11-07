@@ -84,7 +84,6 @@ open class URLNavigator {
     }
   }
   
-  
   // MARK: Singleton
   
   /// Returns a default navigator. A global constant `Navigator` is a shortcut of `URLNavigator.default`.
@@ -92,13 +91,11 @@ open class URLNavigator {
   /// - seealso: `Navigator`
   open static let `default` = URLNavigator()
   
-  
   // MARK: Initializing
   
   public init() {
     // ⛵ I'm an URLNavigator!
   }
-  
   
   // MARK: URL Mapping
   
@@ -318,7 +315,6 @@ open class URLNavigator {
     return viewController
   }
   
-  
   // MARK: Opening URL
   
   /// Executes the registered `URLOpenHandler`.
@@ -338,7 +334,6 @@ open class URLNavigator {
     return false
   }
 }
-
 
 // MARK: - Default Navigator
 

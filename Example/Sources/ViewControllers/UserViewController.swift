@@ -22,7 +22,6 @@ final class UserViewController: UIViewController {
   
   let tableView = UITableView()
   
-  
   // MARK: Initializing
   
   init(username: String) {
@@ -34,7 +33,6 @@ final class UserViewController: UIViewController {
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
-  
   
   // MARK: View Life Cycle
   
@@ -66,14 +64,12 @@ final class UserViewController: UIViewController {
     }
   }
   
-  
   // MARK: Layout
   
   override func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
     self.tableView.frame = self.view.bounds
   }
-  
   
   // MARK: Actions
   
@@ -82,7 +78,6 @@ final class UserViewController: UIViewController {
   }
   
 }
-
 
 // MARK: - UITableViewDataSource
 
@@ -104,7 +99,6 @@ extension UserViewController: UITableViewDataSource {
   
 }
 
-
 // MARK: - UITableViewDelegate
 
 extension UserViewController: UITableViewDelegate {
@@ -119,10 +113,7 @@ extension UserViewController: UITableViewDelegate {
   
 }
 
-
 // MARK: - URLNavigable
-
-typealias NavigableFunction = (Any) ->Void
 
 extension UserViewController: URLNavigable {
   

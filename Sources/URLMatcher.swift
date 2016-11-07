@@ -47,18 +47,15 @@ open class URLMatcher {
   /// A dictionary to store URL value matchers by value type.
   private var customURLValueMatcherHandlers = [String: URLValueMatcherHandler]()
   
-  
   // MARK: Singleton
   
   open static let `default` = URLMatcher()
-  
   
   // MARK: Initialization
   
   public init() {
     // 🔄 I'm a URLMatcher!
   }
-  
   
   // MARK: Matching
   

@@ -18,7 +18,6 @@ final class WebViewController: UIViewController {
   let webView = WKWebView()
   let activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
   
-  
   // MARK: View Life Cycle
   
   override func viewDidLoad() {
@@ -41,7 +40,6 @@ final class WebViewController: UIViewController {
     }
   }
   
-  
   // MARK: Layout
   
   override func viewDidLayoutSubviews() {
@@ -51,7 +49,6 @@ final class WebViewController: UIViewController {
     self.activityIndicatorView.center.y = self.view.frame.height / 2
   }
   
-  
   // MARK: Actions
   
   dynamic func doneButtonDidTap() {
@@ -59,7 +56,6 @@ final class WebViewController: UIViewController {
   }
   
 }
-
 
 // MARK: - URLNavigable
 
@@ -73,7 +69,6 @@ extension WebViewController: URLNavigable {
   }
   
 }
-
 
 // MARK: - WKNavigationDelegate
 
