@@ -117,11 +117,12 @@ open class URLNavigator {
   /// Returns a matched view controller from a specified URL.
   ///
   /// - parameter url: The URL to find view controllers.
+  /// - parameter userInfo: The user extra parameters you want add.
   /// - returns: A match view controller or `nil` if not matched.
-  open func viewController(for url: URLConvertible) -> UIViewController? {
+  open func viewController(for url: URLConvertible, with userInfo: [AnyHashable: Any]? = nil) -> UIViewController? {
     if let urlMatchComponents = URLMatcher.default.match(url, scheme: self.scheme, from: Array(self.urlMap.keys)) {
       let navigable = self.urlMap[urlMatchComponents.pattern]
-      return navigable?.init(url: url, values: urlMatchComponents.values) as? UIViewController
+      return navigable?.init(url: url, values: urlMatchComponents.values, userInfo: userInfo) as? UIViewController
     }
     return nil
   }
@@ -179,6 +180,42 @@ open class URLNavigator {
     return viewController
   }
 
+  /// Pushes a view controller using `UINavigationController.pushViewController()`.
+  ///
+  /// This is an example of pushing a view controller to the top-most view contoller:
+  ///
+  ///     Navigator.push("myapp://user/123")
+  ///
+  /// Use the return value to access a view controller.
+  ///
+  ///     let userViewController = Navigator.push("myapp://user/123")
+  ///     userViewController?.doSomething()
+  ///
+  /// Add extra `parameters: [String: Any]`:
+  ///
+  ///     let userViewController = Navigator.push("myapp://user/123", ["callBackBlock": YourHandler, "object": YourModel])
+  ///
+  /// - parameter url: The URL to find view controllers.
+  /// - parameter parameters: The parameters that you want to added.
+  /// - parameter from: The navigation controller which is used to push a view controller. Use application's top-most
+  ///     view controller if `nil` is specified. `nil` by default.
+  /// - parameter animated: Whether animates view controller transition or not. `true` by default.
+  ///
+  /// - returns: The pushed view controller. Returns `nil` if there's no matching view controller or failed to push
+  ///            a view controller.
+  @discardableResult
+  open func push(
+    _ url: URLConvertible,
+    _ userInfo: [AnyHashable: Any]?,
+    from: UINavigationController? = nil,
+    animated: Bool = true
+    ) ->UIViewController? {
+    guard let viewController = self.viewController(for: url, with: userInfo) else {
+      return nil
+    }
+    return self.push(viewController, from: from, animated: animated)
+  }
+
 
   // MARK: Presenting View Controllers with URL
 
@@ -212,6 +249,45 @@ open class URLNavigator {
     completion: (() -> Void)? = nil
   ) -> UIViewController? {
     guard let viewController = self.viewController(for: url) else { return nil }
+    return self.present(viewController, wrap: wrap, from: from, animated: animated, completion: completion)
+  }
+
+  /// Presents a view controller using `UIViewController.presentViewController()`.
+  ///
+  /// This is an example of presenting a view controller to the top-most view contoller:
+  ///
+  ///     Navigator.present("myapp://user/123")
+  ///
+  /// Use the return value to access a view controller.
+  ///
+  ///     let userViewController = Navigator.present("myapp://user/123")
+  ///     userViewController?.doSomething()
+  ///
+  /// Add extra `parameters: [String: Any]`:
+  ///
+  ///     let userViewController = Navigator.present("myapp://user/123", ["callBackBlock": YourHandler, "object": YourModel])
+  ///
+  /// - parameter url: The URL to find view controllers.
+  /// - parameter parameters: The parameters that you want to added.
+  /// - parameter wrap: Wraps the view controller with a `UINavigationController` if `true` is specified. `false` by
+  ///     default.
+  /// - parameter from: The view controller which is used to present a view controller. Use application's top-most
+  ///     view controller if `nil` is specified. `nil` by default.
+  /// - parameter animated: Whether animates view controller transition or not. `true` by default.
+  /// - parameter completion: Called after the transition has finished.
+  ///
+  /// - returns: The presented view controller. Returns `nil` if there's no matching view controller or failed to
+  ///     present a view controller.
+  @discardableResult
+  open func present(
+    _ url: URLConvertible,
+    _ userInfo: [AnyHashable: Any]?,
+    wrap: Bool = false,
+    from: UIViewController? = nil,
+    animated: Bool = true,
+    completion: (() -> Void)? = nil
+    ) -> UIViewController? {
+    guard let viewController = self.viewController(for: url, with: userInfo) else { return nil }
     return self.present(viewController, wrap: wrap, from: from, animated: animated, completion: completion)
   }
 
