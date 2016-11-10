@@ -83,7 +83,7 @@ class URLNavigatorPublicTests: XCTestCase {
     let passedValue = "abcde"
     let passedObject = NSObject()
     let userInfo: [AnyHashable: Any] = ["info": passedValue, "object": passedObject]
-    let viewController = self.navigator.push("myapp://user/1", userInfo, from: navigationController, animated: false) as! UserViewController
+    let viewController = self.navigator.push("myapp://user/1", userInfo: userInfo, from: navigationController, animated: false) as! UserViewController
     XCTAssertNotNil(viewController)
     XCTAssertEqual(navigationController.viewControllers.count, 2)
     XCTAssertNotNil(viewController.userInfo)
@@ -129,7 +129,7 @@ class URLNavigatorPublicTests: XCTestCase {
     let passedValue = "abcde"
     let passedObject = NSObject()
     let userInfo: [AnyHashable: Any] = ["info": passedValue, "object": passedObject]
-    let viewController = self.navigator.present("myapp://user/1", userInfo, wrap: true, from: navigationController, animated: false, completion: nil) as! UserViewController
+    let viewController = self.navigator.present("myapp://user/1", userInfo: userInfo, wrap: true, from: navigationController, animated: false, completion: nil) as! UserViewController
     XCTAssertNotNil(viewController.userInfo)
     let getedValue = viewController.userInfo!
     XCTAssertEqual(getedValue["info"] as! String, passedValue)
