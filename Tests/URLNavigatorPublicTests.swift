@@ -77,7 +77,7 @@ class URLNavigatorPublicTests: XCTestCase {
     XCTAssertEqual(navigationController.viewControllers.count, 2)
   }
 
-  func testPushURLWithUserInfo_URLNavigable() {
+  func testPushURL_userInfo() {
     self.navigator.map("myapp://user/<int:id>", UserViewController.self)
     let navigationController = UINavigationController(rootViewController: UIViewController())
     let passedValue = "abcde"
@@ -123,7 +123,7 @@ class URLNavigatorPublicTests: XCTestCase {
     XCTAssertNil(viewController)
   }
 
-  func testPresentURLWithUserInfo_URLOpenHandler() {
+  func testPresentURL_userInfo() {
     self.navigator.map("myapp://user/<int:id>", UserViewController.self)
     let navigationController = UINavigationController(rootViewController: UIViewController())
     let passedValue = "abcde"
