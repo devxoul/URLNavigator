@@ -77,6 +77,21 @@ class URLNavigatorPublicTests: XCTestCase {
     XCTAssertEqual(navigationController.viewControllers.count, 2)
   }
 
+  func testPushURL_userInfo() {
+    self.navigator.map("myapp://user/<int:id>", UserViewController.self)
+    let navigationController = UINavigationController(rootViewController: UIViewController())
+    let passedValue = "abcde"
+    let passedObject = NSObject()
+    let userInfo: [AnyHashable: Any] = ["info": passedValue, "object": passedObject]
+    let viewController = self.navigator.push("myapp://user/1", userInfo: userInfo, from: navigationController, animated: false) as! UserViewController
+    XCTAssertNotNil(viewController)
+    XCTAssertEqual(navigationController.viewControllers.count, 2)
+    XCTAssertNotNil(viewController.userInfo)
+    let getedValue = viewController.userInfo!
+    XCTAssertEqual(getedValue["info"] as! String, passedValue)
+    XCTAssertEqual(getedValue["object"] as! NSObject, passedObject)
+  }
+
   func testPushURL_URLOpenHandler() {
     self.navigator.map("myapp://ping") { _ in return true }
     let navigationController = UINavigationController(rootViewController: UIViewController())
@@ -106,6 +121,19 @@ class URLNavigatorPublicTests: XCTestCase {
     let fromViewController = UIViewController()
     let viewController = self.navigator.present("myapp://ping", from: fromViewController)
     XCTAssertNil(viewController)
+  }
+
+  func testPresentURL_userInfo() {
+    self.navigator.map("myapp://user/<int:id>", UserViewController.self)
+    let navigationController = UINavigationController(rootViewController: UIViewController())
+    let passedValue = "abcde"
+    let passedObject = NSObject()
+    let userInfo: [AnyHashable: Any] = ["info": passedValue, "object": passedObject]
+    let viewController = self.navigator.present("myapp://user/1", userInfo: userInfo, wrap: true, from: navigationController, animated: false, completion: nil) as! UserViewController
+    XCTAssertNotNil(viewController.userInfo)
+    let getedValue = viewController.userInfo!
+    XCTAssertEqual(getedValue["info"] as! String, passedValue)
+    XCTAssertEqual(getedValue["object"] as! NSObject, passedObject)
   }
 
   func testOpenURL_URLOpenHandler() {
@@ -229,6 +257,16 @@ class URLNavigatorPublicTests: XCTestCase {
 private class UserViewController: UIViewController, URLNavigable {
 
   var userID: Int?
+  var userInfo: [AnyHashable: Any]?
+
+  convenience required init?(url: URLConvertible, values: [String: Any], userInfo: [AnyHashable: Any]?) {
+    guard let id = values["id"] as? Int else {
+      return nil
+    }
+    self.init()
+    self.userID = id
+    self.userInfo = userInfo
+  }
 
   convenience required init?(url: URLConvertible, values: [String: Any]) {
     guard let id = values["id"] as? Int else {
