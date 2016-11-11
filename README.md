@@ -52,9 +52,9 @@ For full documentation, see [URLNavigator Class Reference](http://cocoadocs.org/
 
 #### 3. Implementing URLNavigable
 
-View controllers should conform a protocol `URLNavigable` to be mapped with URLs. A protocol `URLNavigable` defines an failable initializer with parameter: `url` and `values`.
+View controllers should conform a protocol `URLNavigable` to be mapped with URLs. A protocol `URLNavigable` defines an failable initializer with parameter: `url`, `values` and `userInfo`.
 
-Parameter `url` is an URL that is passed from `URLNavigator.push()` and `URLNavigator.present()`. Parameter `values` is a dictionary that contains URL placeholder keys and values.
+Parameter `url` is an URL that is passed from `URLNavigator.push()` and `URLNavigator.present()`. Parameter `values` is a dictionary that contains URL placeholder keys and values. Parameter `userInfo` is a dictionary which contains extra values passed from `push()` or `present()`.
 
 ```swift
 final class UserViewController: UIViewController, URLNavigable {
@@ -64,7 +64,7 @@ final class UserViewController: UIViewController, URLNavigable {
     // Initialize here...
   }
 
-  convenience init?(url: URLConvertible, values: [String: Any]) {
+  convenience init?(url: URLConvertible, values: [String: Any], userInfo: [AnyHashable: Any]?) {
     // Let's assume that the user id is required
     guard let userID = values["id"] as? Int else { return nil }
     self.init(userID: userID)
@@ -267,6 +267,17 @@ Setting `scheme` property will not affect other URLs that already have schemes.
 Navigator.scheme = "myapp"
 Navigator.map("/user/<int:id>", UserViewController.self) // `myapp://user/<int:id>`
 Navigator.map("http://<path>", MyWebViewController.self) // `http://<path>`
+```
+
+
+#### Passing Extra Values when Pushing or Presenting
+
+```swift
+let userInfo: [AnyHashable: Any] = [
+  "fromViewController": self
+]
+Navigator.push("myapp://user/10", userInfo: userInfo)
+Navigator.present("myapp://user/10", userInfo: userInfo)
 ```
 
 

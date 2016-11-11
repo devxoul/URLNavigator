@@ -268,21 +268,13 @@ private class UserViewController: UIViewController, URLNavigable {
     self.userInfo = userInfo
   }
 
-  convenience required init?(url: URLConvertible, values: [String: Any]) {
-    guard let id = values["id"] as? Int else {
-      return nil
-    }
-    self.init()
-    self.userID = id
-  }
-
 }
 
 private class PostViewController: UIViewController, URLNavigable {
 
   var postTitle: String?
 
-  convenience required init?(url: URLConvertible, values: [String: Any]) {
+  convenience required init?(url: URLConvertible, values: [String: Any], userInfo: [AnyHashable: Any]?) {
     guard let title = values["title"] as? String else {
       return nil
     }
@@ -296,7 +288,7 @@ private class WebViewController: UIViewController, URLNavigable {
 
   var url: URLConvertible?
 
-  convenience required init?(url: URLConvertible, values: [String: Any]) {
+  convenience required init?(url: URLConvertible, values: [String: Any], userInfo: [AnyHashable: Any]?) {
     self.init()
     self.url = url
   }
@@ -312,7 +304,7 @@ private class SearchViewController: UIViewController, URLNavigable {
     super.init(nibName: nil, bundle: nil)
   }
 
-  convenience required init?(url: URLConvertible, values: [String: Any]) {
+  convenience required init?(url: URLConvertible, values: [String: Any], userInfo: [AnyHashable: Any]?) {
     guard let query = url.queryParameters["query"] else {
       return nil
     }
