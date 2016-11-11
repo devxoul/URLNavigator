@@ -124,7 +124,7 @@ extension UserViewController: UITableViewDelegate {
 
 extension UserViewController: URLNavigable {
 
-  convenience init?(url: URLConvertible, values: [String: Any]) {
+  convenience init?(url: URLConvertible, values: [String: Any], userInfo: [AnyHashable: Any]?) {
     guard let username = values["username"] as? String else { return nil }
     self.init(username: username)
   }
