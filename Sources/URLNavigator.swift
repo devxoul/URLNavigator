@@ -22,6 +22,9 @@
 
 import UIKit
 
+/// A typealias for avoiding namespace conflict.
+public typealias _URLConvertible = URLConvertible
+
 /// URLNavigator provides an elegant way to navigate through view controllers by URLs. URLs should be mapped by using
 /// `URLNavigator.map(_:_:)` function.
 ///
@@ -56,6 +59,9 @@ import UIKit
 ///
 /// - seealso: `URLNavigable`
 open class URLNavigator {
+
+  /// A typealias for avoiding namespace conflict.
+  public typealias URLConvertible = _URLConvertible
 
   /// A closure type which has URL and values for parameters.
   public typealias URLOpenHandler = (_ url: URLConvertible, _ values: [String: Any]) -> Bool
