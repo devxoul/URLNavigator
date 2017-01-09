@@ -60,6 +60,9 @@ public typealias _URLConvertible = URLConvertible
 /// - seealso: `URLNavigable`
 open class URLNavigator {
 
+  /// The delegate
+  public weak var delegate: URLNavigatorDelegate?
+    
   /// A typealias for avoiding namespace conflict.
   public typealias URLConvertible = _URLConvertible
 
@@ -163,6 +166,7 @@ open class URLNavigator {
     guard let viewController = self.viewController(for: url, userInfo: userInfo) else {
       return nil
     }
+    delegate?.willPush(url: url, userInfo: userInfo, from: from, animated: animated)
     return self.push(viewController, from: from, animated: animated)
   }
 
@@ -183,6 +187,7 @@ open class URLNavigator {
     guard let navigationController = from ?? UIViewController.topMost?.navigationController else {
       return nil
     }
+    delegate?.willPush(viewController: viewController, from: from, animated: animated)
     navigationController.pushViewController(viewController, animated: animated)
     return viewController
   }
@@ -221,6 +226,7 @@ open class URLNavigator {
     completion: (() -> Void)? = nil
   ) -> UIViewController? {
     guard let viewController = self.viewController(for: url, userInfo: userInfo) else { return nil }
+    delegate?.willPresent(url: url, userInfo: userInfo, wrap: wrap, from: from, animated: animated)
     return self.present(viewController, wrap: wrap, from: from, animated: animated, completion: completion)
   }
 
@@ -244,6 +250,7 @@ open class URLNavigator {
     completion: (() -> Void)? = nil
   ) -> UIViewController? {
     guard let fromViewController = from ?? UIViewController.topMost else { return nil }
+    delegate?.willPresent(viewController: viewController, wrap: wrap, from: from, animated: animated)
     if wrap {
       let navigationController = UINavigationController(rootViewController: viewController)
       fromViewController.present(navigationController, animated: animated, completion: nil)
@@ -263,6 +270,7 @@ open class URLNavigator {
   /// - returns: The return value of the matching `URLOpenHandler`. Returns `false` if there's no match.
   @discardableResult
   open func open(_ url: URLConvertible) -> Bool {
+    delegate?.willOpen(url: url)
     let urlOpenHandlersKeys = Array(self.urlOpenHandlers.keys)
     if let urlMatchComponents = URLMatcher.default.match(url, scheme: self.scheme, from: urlOpenHandlersKeys) {
       let handler = self.urlOpenHandlers[urlMatchComponents.pattern]
