@@ -73,7 +73,7 @@ public protocol URLNavigatorDelegate: class {
     func willOpen(url: URLConvertible)
 }
 
-extension URLNavigatorDelegate {
+public extension URLNavigatorDelegate {
     
     func willPush(url: URLConvertible, userInfo: [AnyHashable: Any]?, from: UINavigationController?, animated: Bool) {
         
