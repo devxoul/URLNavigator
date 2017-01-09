@@ -72,3 +72,26 @@ public protocol URLNavigatorDelegate: class {
     /// - parameter url: The URL to find `URLOpenHandler`s.
     func willOpen(url: URLConvertible)
 }
+
+extension URLNavigatorDelegate {
+    
+    func willPush(url: URLConvertible, userInfo: [AnyHashable: Any]?, from: UINavigationController?, animated: Bool) {
+        
+    }
+
+    func willPush(viewController: UIViewController, from: UINavigationController?, animated: Bool) {
+        
+    }
+    
+    func willPresent(url: URLConvertible, userInfo: [AnyHashable: Any]?, wrap: Bool, from: UIViewController?, animated: Bool) {
+        
+    }
+    
+    func willPresent(viewController: UIViewController, wrap: Bool, from: UIViewController?, animated: Bool) {
+        
+    }
+    
+    func willOpen(url: URLConvertible) {
+        
+    }
+}
