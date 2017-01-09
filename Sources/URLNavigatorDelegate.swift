@@ -6,7 +6,7 @@
 //  Copyright © 2017 Suyeol Jeon. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 ///
 /// Delegate methods to be called prior to opening a URL or presenting a view controller.
