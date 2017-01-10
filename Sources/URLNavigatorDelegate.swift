@@ -176,7 +176,7 @@ public extension URLNavigatorDelegate {
     return true
   }
     
-  func willOpen(url: URLConvertible) -> Bool {
+  func shouldOpen(url: URLConvertible) -> Bool {
     return true
   }
 }
