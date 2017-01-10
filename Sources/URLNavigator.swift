@@ -163,9 +163,10 @@ open class URLNavigator {
     from: UINavigationController? = nil,
     animated: Bool = true
   ) -> UIViewController? {
-    guard let viewController = self.viewController(for: url, userInfo: userInfo) else {
-      return nil
+    if let delegate = delegate {
+        guard delegate.shouldPush(url: url, userInfo: userInfo, from: from, animated: animated) else { return nil }
     }
+    guard let viewController = self.viewController(for: url, userInfo: userInfo) else { return nil }
     delegate?.willPush(url: url, userInfo: userInfo, from: from, animated: animated)
     return self.push(viewController, from: from, animated: animated)
   }
@@ -184,9 +185,10 @@ open class URLNavigator {
     from: UINavigationController? = nil,
     animated: Bool = true
   ) -> UIViewController? {
-    guard let navigationController = from ?? UIViewController.topMost?.navigationController else {
-      return nil
+    if let delegate = delegate {
+      guard delegate.shouldPush(viewController: viewController, from: from, animated: animated) else { return nil }
     }
+    guard let navigationController = from ?? UIViewController.topMost?.navigationController else { return nil }
     delegate?.willPush(viewController: viewController, from: from, animated: animated)
     navigationController.pushViewController(viewController, animated: animated)
     return viewController
@@ -225,6 +227,9 @@ open class URLNavigator {
     animated: Bool = true,
     completion: (() -> Void)? = nil
   ) -> UIViewController? {
+    if let delegate = delegate {
+      guard delegate.shouldPresent(url: url, userInfo: userInfo, wrap: wrap, from: from, animated: animated) else { return nil }
+    }
     guard let viewController = self.viewController(for: url, userInfo: userInfo) else { return nil }
     delegate?.willPresent(url: url, userInfo: userInfo, wrap: wrap, from: from, animated: animated)
     return self.present(viewController, wrap: wrap, from: from, animated: animated, completion: completion)
@@ -249,6 +254,9 @@ open class URLNavigator {
     animated: Bool = true,
     completion: (() -> Void)? = nil
   ) -> UIViewController? {
+    if let delegate = delegate {
+      guard delegate.shouldPresent(viewController: viewController, wrap: wrap, from: from, animated: animated) else { return nil }
+    }
     guard let fromViewController = from ?? UIViewController.topMost else { return nil }
     delegate?.willPresent(viewController: viewController, wrap: wrap, from: from, animated: animated)
     if wrap {
@@ -270,7 +278,12 @@ open class URLNavigator {
   /// - returns: The return value of the matching `URLOpenHandler`. Returns `false` if there's no match.
   @discardableResult
   open func open(_ url: URLConvertible) -> Bool {
+    if let delegate = delegate {
+      guard delegate.shouldOpen(url: url) else { return false }
+    }
+    
     delegate?.willOpen(url: url)
+    
     let urlOpenHandlersKeys = Array(self.urlOpenHandlers.keys)
     if let urlMatchComponents = URLMatcher.default.match(url, scheme: self.scheme, from: urlOpenHandlersKeys) {
       let handler = self.urlOpenHandlers[urlMatchComponents.pattern]
