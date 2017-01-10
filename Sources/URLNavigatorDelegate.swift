@@ -78,7 +78,7 @@ public protocol URLNavigatorDelegate: class {
     
   // MARK: Pushing View Controllers with URL
 
-  /// Called before opening the URL. Default does nothing.
+  /// Called before opening the URL.
   /// This is called regardless if the presentation was successful.
   ///
   /// - parameter url: The URL to find view controllers.
@@ -89,7 +89,7 @@ public protocol URLNavigatorDelegate: class {
   /// - returns: True if the view should be pushed. The default is true.
   func shouldPush(url: URLConvertible, userInfo: [AnyHashable: Any]?, from: UINavigationController?, animated: Bool) -> Bool
 
-  /// Called before view controller is pushed. Default does nothing.
+  /// Called before view controller is pushed.
   ///
   /// - parameter viewController: The `UIViewController` instance to be pushed.
   /// - parameter from: The navigation controller which is used to push a view controller. Use application's top-most
@@ -101,7 +101,7 @@ public protocol URLNavigatorDelegate: class {
 
   // MARK: Presenting View Controllers with URL
 
-  /// Called before opening the URL. Default does nothing.
+  /// Called before opening the URL.
   /// This is called regardless if the presentation was successful.
   ///
   /// - parameter url: The URL to find view controllers.
@@ -114,7 +114,7 @@ public protocol URLNavigatorDelegate: class {
   /// - returns: True if the view should be pushed. The default is true.
   func shouldPresent(url: URLConvertible, userInfo: [AnyHashable: Any]?, wrap: Bool, from: UIViewController?, animated: Bool) -> Bool
     
-  /// Called before the view controller is presented. Default does nothing.
+  /// Called before the view controller is presented.
   /// This is called regardless if the presentation was successful.
   ///
   /// - parameter viewController: The `UIViewController` instance to be presented.
@@ -129,7 +129,7 @@ public protocol URLNavigatorDelegate: class {
 
   // MARK: Opening URL.
 
-  /// Called when before opening the url. Default does nothing.
+  /// Called when before opening the url.
   /// This is called regardless if the presentation was successful.
   ///
   /// - parameter url: The URL to find `URLOpenHandler`s.
