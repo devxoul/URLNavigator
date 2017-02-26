@@ -33,6 +33,7 @@
 		03D35EA31D35371A00452731 /* RepoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D35EA21D35371A00452731 /* RepoCell.swift */; };
 		03D35EA51D3567AF00452731 /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D35EA41D3567AF00452731 /* UserCell.swift */; };
 		03D35EA71D3569ED00452731 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D35EA61D3569ED00452731 /* WebViewController.swift */; };
+		72FB898C1E234ACD000381BE /* URLNavigatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72FB898B1E234ACD000381BE /* URLNavigatorDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -94,6 +95,7 @@
 		03D35EA21D35371A00452731 /* RepoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoCell.swift; sourceTree = "<group>"; };
 		03D35EA41D3567AF00452731 /* UserCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
 		03D35EA61D3569ED00452731 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		72FB898B1E234ACD000381BE /* URLNavigatorDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLNavigatorDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,6 +155,7 @@
 				03107EE11C6365BF00DF2F14 /* URLNavigable.swift */,
 				03107EE31C6365E500DF2F14 /* URLConvertible.swift */,
 				03107EE51C6366F500DF2F14 /* UIViewController+TopMostViewController.swift */,
+				72FB898B1E234ACD000381BE /* URLNavigatorDelegate.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -405,6 +408,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				72FB898C1E234ACD000381BE /* URLNavigatorDelegate.swift in Sources */,
 				03107EE61C6366F500DF2F14 /* UIViewController+TopMostViewController.swift in Sources */,
 				03107EE01C63653900DF2F14 /* URLNavigator.swift in Sources */,
 				02E016081D79E45E00BB7E25 /* URLMatcher.swift in Sources */,
