@@ -18,6 +18,7 @@
 		03107EE61C6366F500DF2F14 /* UIViewController+TopMostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03107EE51C6366F500DF2F14 /* UIViewController+TopMostViewController.swift */; };
 		03107EF01C636A3D00DF2F14 /* URLNavigator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03107ECE1C6362E800DF2F14 /* URLNavigator.framework */; };
 		03107EFC1C67289100DF2F14 /* URLNavigatorPublicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03107EFA1C67288400DF2F14 /* URLNavigatorPublicTests.swift */; };
+		032928EA1EA76B0700E9F8F2 /* Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032928E91EA76B0700E9F8F2 /* Navigation.swift */; };
 		03D35E781D35289200452731 /* URLNavigator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03107ECE1C6362E800DF2F14 /* URLNavigator.framework */; };
 		03D35E791D35289200452731 /* URLNavigator.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 03107ECE1C6362E800DF2F14 /* URLNavigator.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		03D35E881D3528F800452731 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 03D35E7F1D3528F800452731 /* Assets.xcassets */; };
@@ -80,6 +81,7 @@
 		03107EE51C6366F500DF2F14 /* UIViewController+TopMostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+TopMostViewController.swift"; sourceTree = "<group>"; };
 		03107EEB1C636A3D00DF2F14 /* URLNavigatorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = URLNavigatorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		03107EFA1C67288400DF2F14 /* URLNavigatorPublicTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLNavigatorPublicTests.swift; sourceTree = "<group>"; };
+		032928E91EA76B0700E9F8F2 /* Navigation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Navigation.swift; sourceTree = "<group>"; };
 		03D35E661D35209600452731 /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		03D35E7F1D3528F800452731 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		03D35E811D3528F800452731 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -152,6 +154,7 @@
 				03107EDF1C63653900DF2F14 /* URLNavigator.swift */,
 				03107EE11C6365BF00DF2F14 /* URLNavigable.swift */,
 				03107EE31C6365E500DF2F14 /* URLConvertible.swift */,
+				032928E91EA76B0700E9F8F2 /* Navigation.swift */,
 				03107EE51C6366F500DF2F14 /* UIViewController+TopMostViewController.swift */,
 			);
 			path = Sources;
@@ -410,6 +413,7 @@
 				02E016081D79E45E00BB7E25 /* URLMatcher.swift in Sources */,
 				03107EE41C6365E500DF2F14 /* URLConvertible.swift in Sources */,
 				03107EE21C6365BF00DF2F14 /* URLNavigable.swift in Sources */,
+				032928EA1EA76B0700E9F8F2 /* Navigation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -52,9 +52,9 @@ For full documentation, see [URLNavigator Class Reference](http://cocoadocs.org/
 
 #### 3. Implementing URLNavigable
 
-View controllers should conform a protocol `URLNavigable` to be mapped with URLs. A protocol `URLNavigable` defines an failable initializer with parameter: `url`, `values` and `userInfo`.
+View controllers should conform a protocol `URLNavigable` to be mapped with URLs. A protocol `URLNavigable` defines an failable initializer with parameter `navigation` which contains `url`, `values`, `mappingContext` and `navigationContext` as properties.
 
-Parameter `url` is an URL that is passed from `URLNavigator.push()` and `URLNavigator.present()`. Parameter `values` is a dictionary that contains URL placeholder keys and values. Parameter `userInfo` is a dictionary which contains extra values passed from `push()` or `present()`.
+Property `url` is an URL that is passed from `URLNavigator.push()` and `URLNavigator.present()`. Parameter `values` is a dictionary that contains URL placeholder keys and values. Parameter `mappingContext` is a context passed from a `map()` function. Parameter `navigationContext` is a dictionary which contains extra values passed from `push()` or `present()`.
 
 ```swift
 final class UserViewController: UIViewController, URLNavigable {
@@ -64,9 +64,9 @@ final class UserViewController: UIViewController, URLNavigable {
     // Initialize here...
   }
 
-  convenience init?(url: URLConvertible, values: [String: Any], userInfo: [AnyHashable: Any]?) {
+  convenience init?(navigation: Navigation) {
     // Let's assume that the user id is required
-    guard let userID = values["id"] as? Int else { return nil }
+    guard let userID = navigation.values["id"] as? Int else { return nil }
     self.init(userID: userID)
   }
     
@@ -269,15 +269,22 @@ Navigator.map("/user/<int:id>", UserViewController.self) // `myapp://user/<int:i
 Navigator.map("http://<path>", MyWebViewController.self) // `http://<path>`
 ```
 
+#### Passing Context when Mapping
+
+```swift
+let context = Foo()
+Navigator.map("myapp://user/10", UserViewController.self, context: context)
+```
+
 
 #### Passing Extra Values when Pushing or Presenting
 
 ```swift
-let userInfo: [AnyHashable: Any] = [
+let context: [AnyHashable: Any] = [
   "fromViewController": self
 ]
-Navigator.push("myapp://user/10", userInfo: userInfo)
-Navigator.present("myapp://user/10", userInfo: userInfo)
+Navigator.push("myapp://user/10", context: context)
+Navigator.present("myapp://user/10", context: context)
 ```
 
 
