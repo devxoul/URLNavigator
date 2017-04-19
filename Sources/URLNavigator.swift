@@ -60,6 +60,11 @@ public typealias _URLConvertible = URLConvertible
 /// - seealso: `URLNavigable`
 open class URLNavigator {
 
+  struct URLMapItem {
+    let navigable: URLNavigable.Type
+    let mappingContext: MappingContext?
+  }
+
   /// A typealias for avoiding namespace conflict.
   public typealias URLConvertible = _URLConvertible
 
@@ -67,7 +72,7 @@ open class URLNavigator {
   public typealias URLOpenHandler = (_ url: URLConvertible, _ values: [String: Any]) -> Bool
 
   /// A dictionary to store URLNaviables by URL patterns.
-  private(set) var urlMap = [String: URLNavigable.Type]()
+  private(set) var urlMap = [String: URLMapItem]()
 
   /// A dictionary to store URLOpenHandlers by URL patterns.
   private(set) var urlOpenHandlers = [String: URLOpenHandler]()
@@ -109,9 +114,9 @@ open class URLNavigator {
   // MARK: URL Mapping
 
   /// Map an `URLNavigable` to an URL pattern.
-  open func map(_ urlPattern: URLConvertible, _ navigable: URLNavigable.Type) {
+  open func map(_ urlPattern: URLConvertible, _ navigable: URLNavigable.Type, context: MappingContext? = nil) {
     let URLString = URLMatcher.default.normalized(urlPattern, scheme: self.scheme).urlStringValue
-    self.urlMap[URLString] = navigable
+    self.urlMap[URLString] = URLMapItem(navigable: navigable, mappingContext: context)
   }
 
   /// Map an `URLOpenHandler` to an URL pattern.
@@ -123,12 +128,18 @@ open class URLNavigator {
   /// Returns a matched view controller from a specified URL.
   ///
   /// - parameter url: The URL to find view controllers.
-  /// - parameter userInfo: The user extra parameters you want add.
+  /// - parameter context: The user extra parameters you want add.
   /// - returns: A match view controller or `nil` if not matched.
-  open func viewController(for url: URLConvertible, userInfo: [AnyHashable: Any]? = nil) -> UIViewController? {
+  open func viewController(for url: URLConvertible, context: NavigationContext? = nil) -> UIViewController? {
     if let urlMatchComponents = URLMatcher.default.match(url, scheme: self.scheme, from: Array(self.urlMap.keys)) {
-      let navigable = self.urlMap[urlMatchComponents.pattern]
-      return navigable?.init(url: url, values: urlMatchComponents.values, userInfo: userInfo) as? UIViewController
+      guard let item = self.urlMap[urlMatchComponents.pattern] else { return nil }
+      let navigation = Navigation(
+        url: url,
+        values: urlMatchComponents.values,
+        mappingContext: item.mappingContext,
+        navigationContext: context
+      )
+      return item.navigable.init(navigation: navigation) as? UIViewController
     }
     return nil
   }
@@ -156,11 +167,11 @@ open class URLNavigator {
   @discardableResult
   open func push(
     _ url: URLConvertible,
-    userInfo: [AnyHashable: Any]? = nil,
+    context: NavigationContext? = nil,
     from: UINavigationController? = nil,
     animated: Bool = true
   ) -> UIViewController? {
-    guard let viewController = self.viewController(for: url, userInfo: userInfo) else {
+    guard let viewController = self.viewController(for: url, context: context) else {
       return nil
     }
     return self.push(viewController, from: from, animated: animated)
@@ -214,13 +225,13 @@ open class URLNavigator {
   @discardableResult
   open func present(
     _ url: URLConvertible,
-    userInfo: [AnyHashable: Any]? = nil,
+    context: NavigationContext? = nil,
     wrap: Bool = false,
     from: UIViewController? = nil,
     animated: Bool = true,
     completion: (() -> Void)? = nil
   ) -> UIViewController? {
-    guard let viewController = self.viewController(for: url, userInfo: userInfo) else { return nil }
+    guard let viewController = self.viewController(for: url, context: context) else { return nil }
     return self.present(viewController, wrap: wrap, from: from, animated: animated, completion: completion)
   }
 
