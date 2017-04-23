@@ -1,7 +1,7 @@
 language: objective-c
 osx_image: xcode8.3
 script:
-    - xcodebuild test
+    - set -o pipefail && xcodebuild test
       -scheme "URLNavigator"
       -destination "platform=iOS Simulator,name=iPhone 7,OS=10.3"
       -sdk iphonesimulator
