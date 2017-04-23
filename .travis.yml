@@ -1,6 +1,10 @@
 language: objective-c
-osx_image: xcode8
+osx_image: xcode8.3
 script:
-    - xcodebuild -scheme 'URLNavigator' -sdk iphonesimulator CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO test | xcpretty -c
+    - xcodebuild test
+      -scheme "URLNavigator"
+      -destination "platform=iOS Simulator,name=iPhone 7,OS=10.3"
+      -sdk iphonesimulator
+      CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO | xcpretty -c
 after_success:
   - bash <(curl -s https://codecov.io/bash) -J 'URLNavigator'
