@@ -123,10 +123,11 @@ extension UserViewController: UITableViewDelegate {
 // MARK: - URLNavigable
 
 extension UserViewController: URLNavigable {
-
-  convenience init?(url: URLConvertible, values: [String: Any], userInfo: [AnyHashable: Any]?) {
-    guard let username = values["username"] as? String else { return nil }
-    self.init(username: username)
+  convenience init?(navigation: Navigation) {
+    guard let vcLink = navigation.values["username"] as? String else {
+      return nil
+    }
+    self.init(username: vcLink)
+    
   }
-
 }
