@@ -17,6 +17,9 @@ struct NavigationMap {
     Navigator.map("http://<path:_>", WebViewController.self)
     Navigator.map("https://<path:_>", WebViewController.self)
     Navigator.map("navigator://alert", self.alert)
+    Navigator.map("navigator://alternativeUser/<username>") { (_, values, _, _) -> UIViewController in
+        return UserViewController(username: values["username"] as! String)
+    }
   }
 
   private static func alert(URL: URLConvertible, values: [String: Any]) -> Bool {
