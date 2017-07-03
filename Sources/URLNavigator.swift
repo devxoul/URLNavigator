@@ -256,6 +256,7 @@ open class URLNavigator {
     completion: (() -> Void)? = nil
   ) -> UIViewController? {
     guard let fromViewController = from ?? UIViewController.topMost else { return nil }
+    let wrap = wrap && (viewController is UINavigationController) == false
     if wrap {
       let navigationController = UINavigationController(rootViewController: viewController)
       fromViewController.present(navigationController, animated: animated, completion: nil)
