@@ -40,6 +40,7 @@ class URLNavigatorPublicTests: XCTestCase {
     self.navigator.map("myapp://user/<int:id>", UserViewController.self)
     self.navigator.map("myapp://post/<title>", PostViewController.self)
     self.navigator.map("myapp://search", SearchViewController.self)
+    self.navigator.map("myapp://modal", ModalNavigationController.self)
     self.navigator.map("http://<path:_>", WebViewController.self)
     self.navigator.map("https://<path:_>", WebViewController.self)
 
@@ -58,6 +59,14 @@ class URLNavigatorPublicTests: XCTestCase {
     XCTAssertEqual(
       (self.navigator.viewController(for: "myapp://search?query=Hello") as! SearchViewController).query,
       "Hello"
+    )
+
+    XCTAssertNil(self.navigator.viewController(for: "myapp://modal"))
+    XCTAssertNil(self.navigator.viewController(for: "myapp://modal?"))
+    XCTAssertNil(self.navigator.viewController(for: "myapp://modal?title"))
+    XCTAssertEqual(
+      (self.navigator.viewController(for: "myapp://modal?title=HelloWorld") as! ModalNavigationController).viewControllers[0].title,
+      "HelloWorld"
     )
 
     XCTAssert(self.navigator.viewController(for: "http://") is WebViewController)
@@ -106,6 +115,13 @@ class URLNavigatorPublicTests: XCTestCase {
     XCTAssertEqual(navigationController.viewControllers.count, 1)
   }
 
+  func testPushURL_navigationController() {
+    self.navigator.map("myapp://modal", ModalNavigationController.self)
+    let navigationController = UINavigationController(rootViewController: UIViewController())
+    let viewController = self.navigator.push("myapp://modal?title=HelloWorld", from: navigationController, animated: false)
+    XCTAssertNil(viewController)
+  }
+
   func testPresentURL_URLNavigable() {
     self.navigator.map("myapp://user/<int:id>", UserViewController.self)
     ;{
@@ -140,6 +156,13 @@ class URLNavigatorPublicTests: XCTestCase {
     let getedValue = viewController.navigationContext as! [String: Any]
     XCTAssertEqual(getedValue["info"] as! String, passedValue)
     XCTAssertEqual(getedValue["object"] as! NSObject, passedObject)
+  }
+
+  func testPresentURL_wrapNavigationController() {
+    self.navigator.map("myapp://modal", ModalNavigationController.self)
+    let presentingViewController = UIViewController()
+    let viewController = self.navigator.present("myapp://modal?title=HelloWorld", wrap: true, from: presentingViewController, animated: false, completion: nil)
+    XCTAssertTrue(viewController is MyNavigationController)
   }
 
   func testOpenURL_URLOpenHandler() {
@@ -266,16 +289,23 @@ private class UserViewController: UIViewController, URLNavigable {
   var mappingContext: Any?
   var navigationContext: Any?
 
+  init(userID: Int) {
+    self.userID = userID
+    super.init(nibName: nil, bundle: nil)
+  }
+
   convenience required init?(navigation: Navigation) {
     guard let id = navigation.values["id"] as? Int else {
       return nil
     }
-    self.init()
-    self.userID = id
+    self.init(userID: id)
     self.mappingContext = navigation.mappingContext
     self.navigationContext = navigation.navigationContext
   }
-
+  
+  required init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
 }
 
 private class PostViewController: UIViewController, URLNavigable {
@@ -323,4 +353,33 @@ private class SearchViewController: UIViewController, URLNavigable {
     fatalError("init(coder:) has not been implemented")
   }
 
+}
+
+
+private class MyNavigationController: UINavigationController {
+}
+
+private class ModalNavigationController: MyNavigationController, URLNavigable {
+  init(title: String) {
+    let viewController = UIViewController()
+    viewController.title = title
+    super.init(rootViewController: viewController)
+  }
+
+  override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+    super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+  }
+
+  override init(rootViewController: UIViewController) {
+    super.init(rootViewController: rootViewController)
+  }
+
+  required init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+
+  convenience required init?(navigation: Navigation) {
+    guard let title = navigation.url.queryParameters["title"] else { return nil }
+    self.init(title: title)
+  }
 }
