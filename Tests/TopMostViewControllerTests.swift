@@ -159,4 +159,23 @@ final class TopMostViewControllerTests: XCTestCase {
     C.present(D, animated: false, completion: nil)
     XCTAssertEqual(self.topMost, D)
   }
+
+
+  // MARK: UIPageViewController
+
+  func testPageViewController() {
+    let A = UIViewController("A")
+    let pageViewController = UIPageViewController().asRoot()
+    pageViewController.setViewControllers([A], direction: .forward, animated: false, completion: nil)
+    XCTAssertEqual(self.topMost, A)
+  }
+
+  func testPageViewController_present() {
+    let A = UIViewController("A")
+    let B = UIViewController("B")
+    let pageViewController = UIPageViewController().asRoot()
+    pageViewController.setViewControllers([A], direction: .forward, animated: false, completion: nil)
+    A.present(B, animated: false, completion: nil)
+    XCTAssertEqual(self.topMost, B)
+  }
 }
