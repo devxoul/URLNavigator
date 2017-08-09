@@ -53,6 +53,12 @@ extension UIViewController {
       return self.topMost(of: visibleViewController)
     }
 
+    // UIPageController
+    if let pageViewController = viewController as? UIPageViewController,
+      pageViewController.viewControllers?.count == 1 {
+      return self.topMost(of: pageViewController.viewControllers?.first)
+    }
+
     // presented view controller
     if let presentedViewController = viewController?.presentedViewController {
       return self.topMost(of: presentedViewController)

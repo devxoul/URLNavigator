@@ -19,6 +19,7 @@
 		03107EF01C636A3D00DF2F14 /* URLNavigator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03107ECE1C6362E800DF2F14 /* URLNavigator.framework */; };
 		03107EFC1C67289100DF2F14 /* URLNavigatorPublicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03107EFA1C67288400DF2F14 /* URLNavigatorPublicTests.swift */; };
 		032928EA1EA76B0700E9F8F2 /* Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032928E91EA76B0700E9F8F2 /* Navigation.swift */; };
+		03C99FA11F3B94D300B5C575 /* TopMostViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C99F9F1F3B945F00B5C575 /* TopMostViewControllerTests.swift */; };
 		03D35E781D35289200452731 /* URLNavigator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03107ECE1C6362E800DF2F14 /* URLNavigator.framework */; };
 		03D35E791D35289200452731 /* URLNavigator.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 03107ECE1C6362E800DF2F14 /* URLNavigator.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		03D35E881D3528F800452731 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 03D35E7F1D3528F800452731 /* Assets.xcassets */; };
@@ -82,6 +83,7 @@
 		03107EEB1C636A3D00DF2F14 /* URLNavigatorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = URLNavigatorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		03107EFA1C67288400DF2F14 /* URLNavigatorPublicTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLNavigatorPublicTests.swift; sourceTree = "<group>"; };
 		032928E91EA76B0700E9F8F2 /* Navigation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Navigation.swift; sourceTree = "<group>"; };
+		03C99F9F1F3B945F00B5C575 /* TopMostViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopMostViewControllerTests.swift; sourceTree = "<group>"; };
 		03D35E661D35209600452731 /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		03D35E7F1D3528F800452731 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		03D35E811D3528F800452731 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -175,6 +177,7 @@
 				0245A7271D79E8F5004698A3 /* URLMatcherPublicTests.swift */,
 				03107EFA1C67288400DF2F14 /* URLNavigatorPublicTests.swift */,
 				03032BB61CCBA93400F7EBFD /* URLConvertibleTests.swift */,
+				03C99F9F1F3B945F00B5C575 /* TopMostViewControllerTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -425,6 +428,7 @@
 				03032BB81CCBA94B00F7EBFD /* URLConvertibleTests.swift in Sources */,
 				0245A7291D79E9CB004698A3 /* URLMatcherInternalTests.swift in Sources */,
 				0245A72A1D79EB0F004698A3 /* URLMatcherPublicTests.swift in Sources */,
+				03C99FA11F3B94D300B5C575 /* TopMostViewControllerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
