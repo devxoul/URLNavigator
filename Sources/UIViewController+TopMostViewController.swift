@@ -41,6 +41,11 @@ extension UIViewController {
 
   /// Returns the top most view controller from given view controller's stack.
   open class func topMost(of viewController: UIViewController?) -> UIViewController? {
+    // presented view controller
+    if let presentedViewController = viewController?.presentedViewController {
+      return self.topMost(of: presentedViewController)
+    }
+
     // UITabBarController
     if let tabBarController = viewController as? UITabBarController,
       let selectedViewController = tabBarController.selectedViewController {
@@ -57,11 +62,6 @@ extension UIViewController {
     if let pageViewController = viewController as? UIPageViewController,
       pageViewController.viewControllers?.count == 1 {
       return self.topMost(of: pageViewController.viewControllers?.first)
-    }
-
-    // presented view controller
-    if let presentedViewController = viewController?.presentedViewController {
-      return self.topMost(of: presentedViewController)
     }
 
     // child view controller
