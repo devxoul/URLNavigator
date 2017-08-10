@@ -64,7 +64,14 @@ open class URLNavigator {
     let navigable: URLNavigable.Type
     let mappingContext: MappingContext?
   }
+    
+  struct URLBlockMapItem {
+    let block: ViewControllerResolveBlock
+    let mappingContext: MappingContext?
+  }
 
+  public typealias ViewControllerResolveBlock = (URLConvertible, [String: Any], MappingContext?, NavigationContext?) -> UIViewController
+    
   /// A typealias for avoiding namespace conflict.
   public typealias URLConvertible = _URLConvertible
 
@@ -73,6 +80,9 @@ open class URLNavigator {
 
   /// A dictionary to store URLNaviables by URL patterns.
   private(set) var urlMap = [String: URLMapItem]()
+    
+  /// A dictionary to store blocks by URL patterns.
+  private(set) var urlBlockMap = [String: URLBlockMapItem]()
 
   /// A dictionary to store URLOpenHandlers by URL patterns.
   private(set) var urlOpenHandlers = [String: URLOpenHandler]()
@@ -118,6 +128,12 @@ open class URLNavigator {
     let URLString = URLMatcher.default.normalized(urlPattern, scheme: self.scheme).urlStringValue
     self.urlMap[URLString] = URLMapItem(navigable: navigable, mappingContext: context)
   }
+    
+  /// Map a ViewControllerResolveBlock to an URL pattern.
+  open func map(_ urlPattern: URLConvertible, context: MappingContext? = nil, _ resolve: @escaping ViewControllerResolveBlock) {
+    let URLString = URLMatcher.default.normalized(urlPattern, scheme: self.scheme).urlStringValue
+    self.urlBlockMap[URLString] = URLBlockMapItem(block: resolve, mappingContext: context)
+  }
 
   /// Map an `URLOpenHandler` to an URL pattern.
   open func map(_ urlPattern: URLConvertible, _ handler: @escaping URLOpenHandler) {
@@ -131,15 +147,20 @@ open class URLNavigator {
   /// - parameter context: The user extra parameters you want add.
   /// - returns: A match view controller or `nil` if not matched.
   open func viewController(for url: URLConvertible, context: NavigationContext? = nil) -> UIViewController? {
-    if let urlMatchComponents = URLMatcher.default.match(url, scheme: self.scheme, from: Array(self.urlMap.keys)) {
-      guard let item = self.urlMap[urlMatchComponents.pattern] else { return nil }
-      let navigation = Navigation(
-        url: url,
-        values: urlMatchComponents.values,
-        mappingContext: item.mappingContext,
-        navigationContext: context
-      )
-      return item.navigable.init(navigation: navigation) as? UIViewController
+    if let urlMatchComponents = URLMatcher.default.match(url, scheme: self.scheme, from: Array(self.urlMap.keys) + Array(self.urlBlockMap.keys)) {
+      if let item = self.urlMap[urlMatchComponents.pattern] {
+        let navigation = Navigation(
+          url: url,
+          values: urlMatchComponents.values,
+          mappingContext: item.mappingContext,
+          navigationContext: context
+        )
+        return item.navigable.init(navigation: navigation) as? UIViewController
+      }
+        
+      if let item = self.urlBlockMap[urlMatchComponents.pattern] {
+        return item.block(url, urlMatchComponents.values, item.mappingContext, context)
+      }
     }
     return nil
   }
