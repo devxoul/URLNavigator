@@ -121,7 +121,7 @@ final class TopMostViewControllerTests: XCTestCase {
     let tabBarController = UITabBarController().asRoot()
     tabBarController.viewControllers = [A, B, C]
     tabBarController.selectedIndex = 2
-    let D = UIViewController("C")
+    let D = UIViewController("D")
     C.present(D, animated: false, completion: nil)
     XCTAssertEqual(self.topMost, D)
   }
@@ -155,7 +155,7 @@ final class TopMostViewControllerTests: XCTestCase {
     let navigationController = UINavigationController(rootViewController: A).asRoot()
     navigationController.pushViewController(B, animated: false)
     navigationController.pushViewController(C, animated: false)
-    let D = UIViewController("C")
+    let D = UIViewController("D")
     C.present(D, animated: false, completion: nil)
     XCTAssertEqual(self.topMost, D)
   }
