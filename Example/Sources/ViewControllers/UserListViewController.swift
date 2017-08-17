@@ -15,10 +15,11 @@ class UserListViewController: UIViewController {
   // MARK: Properties
 
   let users = [
-    "devxoul",
-    "apple",
-    "google",
-    "facebook",
+    DataModel(title: "devxoul", router: "navigator://user/devxoul"),
+    DataModel(title: "apple", router: "navigator://user/apple"),
+    DataModel(title: "google", router: "navigator://user/google"),
+    DataModel(title: "facebook", router: "navigator://user/facebook"),
+    DataModel(title: "fallback", router: "navigator://notMatchable"),
     ]
 
 
@@ -70,9 +71,9 @@ extension UserListViewController: UITableViewDataSource {
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: "user", for: indexPath) as! UserCell
-    let username = self.users[indexPath.row]
-    cell.textLabel?.text = username
-    cell.detailTextLabel?.text = "navigator://user/\(username)"
+    let model = self.users[indexPath.row]
+    cell.textLabel?.text = model.title
+    cell.detailTextLabel?.text = model.router
     cell.detailTextLabel?.textColor = .gray
     cell.accessoryType = .disclosureIndicator
     return cell
@@ -89,10 +90,15 @@ extension UserListViewController: UITableViewDelegate {
     tableView.deselectRow(at: indexPath, animated: false)
 
     // This is just an example. Don't use like this. Create a new `UserViewController` instance instead.
-    let username = self.users[indexPath.row]
-    let URL = "navigator://user/\(username)"
+    let model = self.users[indexPath.row]
+    
+    if(model.title == "fallback"){
+        Navigator.open(model.router)
+    }
+    
+    let URL = model.router
     Navigator.push(URL)
-    NSLog("Navigator: Push \(URL)")
+    print("Navigator: Push \(URL)")
   }
 
 }
