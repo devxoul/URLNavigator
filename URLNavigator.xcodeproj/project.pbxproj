@@ -35,6 +35,7 @@
 		03D35EA31D35371A00452731 /* RepoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D35EA21D35371A00452731 /* RepoCell.swift */; };
 		03D35EA51D3567AF00452731 /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D35EA41D3567AF00452731 /* UserCell.swift */; };
 		03D35EA71D3569ED00452731 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D35EA61D3569ED00452731 /* WebViewController.swift */; };
+		0E6F39EB1F45FD3400DB220D /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6F39EA1F45FD3400DB220D /* DataModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,6 +99,7 @@
 		03D35EA21D35371A00452731 /* RepoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoCell.swift; sourceTree = "<group>"; };
 		03D35EA41D3567AF00452731 /* UserCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
 		03D35EA61D3569ED00452731 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		0E6F39EA1F45FD3400DB220D /* DataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -253,6 +255,7 @@
 			isa = PBXGroup;
 			children = (
 				03D35E9F1D35365400452731 /* Repo.swift */,
+				0E6F39EA1F45FD3400DB220D /* DataModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -438,6 +441,7 @@
 			files = (
 				03D35EA01D35365400452731 /* Repo.swift in Sources */,
 				03D35E8D1D35292700452731 /* AppDelegate.swift in Sources */,
+				0E6F39EB1F45FD3400DB220D /* DataModel.swift in Sources */,
 				03D35EA31D35371A00452731 /* RepoCell.swift in Sources */,
 				03D35EA71D3569ED00452731 /* WebViewController.swift in Sources */,
 				03D35E931D352DF000452731 /* UserViewController.swift in Sources */,

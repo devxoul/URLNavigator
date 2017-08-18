@@ -17,6 +17,13 @@ struct NavigationMap {
     Navigator.map("http://<path:_>", WebViewController.self)
     Navigator.map("https://<path:_>", WebViewController.self)
     Navigator.map("navigator://alert", self.alert)
+    
+    Navigator.map("navigator://<path:_>") { (url, values) -> Bool in
+        // No navigator match, do analytics or fallback function here
+        print("global fallback function called")
+        return true
+    }
+
   }
 
   private static func alert(URL: URLConvertible, values: [String: Any]) -> Bool {
