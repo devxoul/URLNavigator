@@ -12,49 +12,51 @@ import UIKit
 enum Result<T> {
   case success(T)
   case failure(Error)
-
+  
   var value: T? {
     switch self {
     case .success(let value):
       return value
-
+      
     case .failure:
       return nil
     }
   }
-
+  
   func map<R>(_ selector: (T) -> R) -> Result<R> {
     switch self {
     case .success(let value):
       return .success(selector(value))
-
+      
     case .failure(let error):
       return .failure(error)
     }
   }
-
+  
   func flatMap<R>(_ selector: (T) -> Result<R>) -> Result<R> {
     switch self {
     case .success(let value):
       return selector(value)
-
+      
     case .failure(let error):
       return .failure(error)
     }
   }
-
+  
 }
 
 struct HTTP {
-
+  
   static var baseURLString: String? = "https://api.github.com"
-
+  
   /// Send a simple HTTP GET request
   static func request(_ URLString: String, completion: ((Result<Any>) -> Void)? = nil) {
     let URLString = (self.baseURLString ?? "") + URLString
     guard let URL = URL(string: URLString) else { return }
     let task = URLSession.shared.dataTask(with: URL) { data, response, error in
-      UIApplication.shared.isNetworkActivityIndicatorVisible = false
+      #if os(iOS)
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+      #endif
       if let error = error {
         NSLog("FAILURE: GET \(URLString) error=\(error)")
         DispatchQueue.main.async {
@@ -76,8 +78,10 @@ struct HTTP {
       }
     }
     task.resume()
-    UIApplication.shared.isNetworkActivityIndicatorVisible = true
+    #if os(iOS)
+      UIApplication.shared.isNetworkActivityIndicatorVisible = true
+    #endif
     NSLog("REQUEST: GET \(URLString)")
   }
-
+  
 }

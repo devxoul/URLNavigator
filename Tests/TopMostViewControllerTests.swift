@@ -7,7 +7,11 @@
 //
 
 import XCTest
-import URLNavigator
+#if os(tvOS)
+  @testable import URLNavigator_tvOS
+#else
+  @testable import URLNavigator
+#endif
 
 private var currentWindow: UIWindow?
 

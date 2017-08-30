@@ -8,7 +8,12 @@
 
 import UIKit
 
-import URLNavigator
+#if os(tvOS)
+  import URLNavigator_tvOS
+#else
+  import URLNavigator
+#endif
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -34,20 +39,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     return true
   }
+  
+  func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+    return self.openURL(url: url)
+  }
 
+  #if os(iOS)
   func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+    return self.openURL(url: url)
+  }
+  #endif
+  
+  private func openURL(url: URL) -> Bool {
     // Try open URL first
     if Navigator.open(url) {
       NSLog("Navigator: Open \(url)")
       return true
     }
-
+    
     // Try present URL
     if Navigator.present(url, wrap: true) != nil {
       NSLog("Navigator: Present \(url)")
       return true
     }
-
+    
     return false
   }
 

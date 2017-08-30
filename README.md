@@ -85,13 +85,13 @@ final class UserViewController: UIViewController, URLNavigable {
 Installation
 ------------
 
-- **For iOS 8+ projects** with [CocoaPods](https://cocoapods.org):
+- **For iOS 8+ / tvOS 9+ projects** with [CocoaPods](https://cocoapods.org):
 
     ```ruby
     pod 'URLNavigator'
     ```
 
-- **For iOS 8+ projects** with [Carthage](https://github.com/Carthage/Carthage):
+- **For iOS 8+ / tvOS 9+ projects** with [Carthage](https://github.com/Carthage/Carthage):
 
     ```
     github "devxoul/URLNavigator"

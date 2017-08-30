@@ -8,7 +8,12 @@
 
 import UIKit
 
-import URLNavigator
+#if os(tvOS)
+  import URLNavigator_tvOS
+#else
+  import URLNavigator
+#endif
+
 
 final class UserViewController: UIViewController {
 
@@ -40,6 +45,11 @@ final class UserViewController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    #if os(tvOS)
+      self.view.backgroundColor = .black
+    #endif
+    
     self.view.addSubview(self.tableView)
 
     self.tableView.dataSource = self

@@ -36,6 +36,33 @@
 		03D35EA51D3567AF00452731 /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D35EA41D3567AF00452731 /* UserCell.swift */; };
 		03D35EA71D3569ED00452731 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D35EA61D3569ED00452731 /* WebViewController.swift */; };
 		0E6F39EB1F45FD3400DB220D /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6F39EA1F45FD3400DB220D /* DataModel.swift */; };
+		445179861F5756C9000DB43E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 445179851F5756C9000DB43E /* Assets.xcassets */; };
+		445179991F575701000DB43E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D35E831D3528F800452731 /* AppDelegate.swift */; };
+		4451799A1F57570B000DB43E /* HTTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D35E9C1D35330300452731 /* HTTP.swift */; };
+		4451799B1F57570B000DB43E /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D35E9A1D3532E700452731 /* API.swift */; };
+		4451799C1F57570B000DB43E /* NavigationMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D35E901D35294B00452731 /* NavigationMap.swift */; };
+		4451799D1F57570B000DB43E /* Repo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D35E9F1D35365400452731 /* Repo.swift */; };
+		4451799E1F57570B000DB43E /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6F39EA1F45FD3400DB220D /* DataModel.swift */; };
+		4451799F1F57570B000DB43E /* UserListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D35E851D3528F800452731 /* UserListViewController.swift */; };
+		445179A01F57570B000DB43E /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D35E921D352DF000452731 /* UserViewController.swift */; };
+		445179A11F57570B000DB43E /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D35EA61D3569ED00452731 /* WebViewController.swift */; };
+		445179A21F57570B000DB43E /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D35EA41D3567AF00452731 /* UserCell.swift */; };
+		445179A31F57570B000DB43E /* RepoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D35EA21D35371A00452731 /* RepoCell.swift */; };
+		445179B81F575858000DB43E /* URLNavigator_tvOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 445179AF1F575858000DB43E /* URLNavigator_tvOS.framework */; };
+		445179C11F575858000DB43E /* URLNavigator-tvOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 445179B11F575858000DB43E /* URLNavigator-tvOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		445179C41F575858000DB43E /* URLNavigator_tvOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 445179AF1F575858000DB43E /* URLNavigator_tvOS.framework */; };
+		445179C51F575858000DB43E /* URLNavigator_tvOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 445179AF1F575858000DB43E /* URLNavigator_tvOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		445179CC1F5758A0000DB43E /* URLMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E016071D79E45E00BB7E25 /* URLMatcher.swift */; };
+		445179CD1F5758A0000DB43E /* URLNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03107EDF1C63653900DF2F14 /* URLNavigator.swift */; };
+		445179CE1F5758A0000DB43E /* URLNavigable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03107EE11C6365BF00DF2F14 /* URLNavigable.swift */; };
+		445179CF1F5758A0000DB43E /* URLConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03107EE31C6365E500DF2F14 /* URLConvertible.swift */; };
+		445179D01F5758A0000DB43E /* Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032928E91EA76B0700E9F8F2 /* Navigation.swift */; };
+		445179D11F5758A0000DB43E /* UIViewController+TopMostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03107EE51C6366F500DF2F14 /* UIViewController+TopMostViewController.swift */; };
+		445179D21F575B5A000DB43E /* URLMatcherInternalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0245A7251D79E8CD004698A3 /* URLMatcherInternalTests.swift */; };
+		445179D31F575B61000DB43E /* URLMatcherPublicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0245A7271D79E8F5004698A3 /* URLMatcherPublicTests.swift */; };
+		445179D41F575B61000DB43E /* URLNavigatorPublicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03107EFA1C67288400DF2F14 /* URLNavigatorPublicTests.swift */; };
+		445179D51F575B61000DB43E /* URLConvertibleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03032BB61CCBA93400F7EBFD /* URLConvertibleTests.swift */; };
+		445179D61F575B61000DB43E /* TopMostViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C99F9F1F3B945F00B5C575 /* TopMostViewControllerTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +80,27 @@
 			remoteGlobalIDString = 03107ECD1C6362E800DF2F14;
 			remoteInfo = URLNavigator;
 		};
+		445179B91F575858000DB43E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 03107EC51C6362E800DF2F14 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 445179AE1F575858000DB43E;
+			remoteInfo = "URLNavigator-tvOS";
+		};
+		445179BB1F575858000DB43E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 03107EC51C6362E800DF2F14 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4451797B1F5756C8000DB43E;
+			remoteInfo = "Example-tvOS";
+		};
+		445179C21F575858000DB43E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 03107EC51C6362E800DF2F14 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 445179AE1F575858000DB43E;
+			remoteInfo = "URLNavigator-tvOS";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -63,6 +111,17 @@
 			dstSubfolderSpec = 10;
 			files = (
 				03D35E791D35289200452731 /* URLNavigator.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		445179A91F575815000DB43E /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				445179C51F575858000DB43E /* URLNavigator_tvOS.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -100,6 +159,14 @@
 		03D35EA41D3567AF00452731 /* UserCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
 		03D35EA61D3569ED00452731 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		0E6F39EA1F45FD3400DB220D /* DataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
+		4451797C1F5756C8000DB43E /* Example-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Example-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		445179851F5756C9000DB43E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		445179871F5756C9000DB43E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		445179AF1F575858000DB43E /* URLNavigator_tvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = URLNavigator_tvOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		445179B11F575858000DB43E /* URLNavigator-tvOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "URLNavigator-tvOS.h"; sourceTree = "<group>"; };
+		445179B21F575858000DB43E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		445179B71F575858000DB43E /* URLNavigator-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "URLNavigator-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		445179C01F575858000DB43E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +193,29 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		445179791F5756C8000DB43E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				445179C41F575858000DB43E /* URLNavigator_tvOS.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		445179AB1F575858000DB43E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		445179B41F575858000DB43E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				445179B81F575858000DB43E /* URLNavigator_tvOS.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -135,6 +225,9 @@
 				03107ED91C6364E700DF2F14 /* Sources */,
 				03107EF61C636A5500DF2F14 /* Tests */,
 				03D35E7D1D3528F800452731 /* Example */,
+				4451797D1F5756C9000DB43E /* Example-tvOS */,
+				445179B01F575858000DB43E /* URLNavigator-tvOS */,
+				445179BD1F575858000DB43E /* URLNavigator-tvOSTests */,
 				03107EDB1C6364E700DF2F14 /* Supporting Files */,
 				03107ECF1C6362E800DF2F14 /* Products */,
 			);
@@ -146,6 +239,9 @@
 				03107ECE1C6362E800DF2F14 /* URLNavigator.framework */,
 				03107EEB1C636A3D00DF2F14 /* URLNavigatorTests.xctest */,
 				03D35E661D35209600452731 /* Example.app */,
+				4451797C1F5756C8000DB43E /* Example-tvOS.app */,
+				445179AF1F575858000DB43E /* URLNavigator_tvOS.framework */,
+				445179B71F575858000DB43E /* URLNavigator-tvOSTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -269,6 +365,32 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		4451797D1F5756C9000DB43E /* Example-tvOS */ = {
+			isa = PBXGroup;
+			children = (
+				445179851F5756C9000DB43E /* Assets.xcassets */,
+				445179871F5756C9000DB43E /* Info.plist */,
+			);
+			path = "Example-tvOS";
+			sourceTree = "<group>";
+		};
+		445179B01F575858000DB43E /* URLNavigator-tvOS */ = {
+			isa = PBXGroup;
+			children = (
+				445179B11F575858000DB43E /* URLNavigator-tvOS.h */,
+				445179B21F575858000DB43E /* Info.plist */,
+			);
+			path = "URLNavigator-tvOS";
+			sourceTree = "<group>";
+		};
+		445179BD1F575858000DB43E /* URLNavigator-tvOSTests */ = {
+			isa = PBXGroup;
+			children = (
+				445179C01F575858000DB43E /* Info.plist */,
+			);
+			path = "URLNavigator-tvOSTests";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -277,6 +399,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				03107EDD1C6364E700DF2F14 /* URLNavigator.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		445179AC1F575858000DB43E /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				445179C11F575858000DB43E /* URLNavigator-tvOS.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -338,13 +468,69 @@
 			productReference = 03D35E661D35209600452731 /* Example.app */;
 			productType = "com.apple.product-type.application";
 		};
+		4451797B1F5756C8000DB43E /* Example-tvOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 445179971F5756C9000DB43E /* Build configuration list for PBXNativeTarget "Example-tvOS" */;
+			buildPhases = (
+				445179781F5756C8000DB43E /* Sources */,
+				445179791F5756C8000DB43E /* Frameworks */,
+				4451797A1F5756C8000DB43E /* Resources */,
+				445179A91F575815000DB43E /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				445179C31F575858000DB43E /* PBXTargetDependency */,
+			);
+			name = "Example-tvOS";
+			productName = "Example-tvOS";
+			productReference = 4451797C1F5756C8000DB43E /* Example-tvOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+		445179AE1F575858000DB43E /* URLNavigator_tvOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 445179C61F575858000DB43E /* Build configuration list for PBXNativeTarget "URLNavigator_tvOS" */;
+			buildPhases = (
+				445179AA1F575858000DB43E /* Sources */,
+				445179AB1F575858000DB43E /* Frameworks */,
+				445179AC1F575858000DB43E /* Headers */,
+				445179AD1F575858000DB43E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = URLNavigator_tvOS;
+			productName = "URLNavigator-tvOS";
+			productReference = 445179AF1F575858000DB43E /* URLNavigator_tvOS.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		445179B61F575858000DB43E /* URLNavigator-tvOSTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 445179C91F575858000DB43E /* Build configuration list for PBXNativeTarget "URLNavigator-tvOSTests" */;
+			buildPhases = (
+				445179B31F575858000DB43E /* Sources */,
+				445179B41F575858000DB43E /* Frameworks */,
+				445179B51F575858000DB43E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				445179BA1F575858000DB43E /* PBXTargetDependency */,
+				445179BC1F575858000DB43E /* PBXTargetDependency */,
+			);
+			name = "URLNavigator-tvOSTests";
+			productName = "URLNavigator-tvOSTests";
+			productReference = 445179B71F575858000DB43E /* URLNavigator-tvOSTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		03107EC51C6362E800DF2F14 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0730;
+				LastSwiftUpdateCheck = 0830;
 				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Suyeol Jeon";
 				TargetAttributes = {
@@ -359,6 +545,19 @@
 					03D35E651D35209600452731 = {
 						CreatedOnToolsVersion = 7.3.1;
 						LastSwiftMigration = 0800;
+					};
+					4451797B1F5756C8000DB43E = {
+						CreatedOnToolsVersion = 8.3.3;
+						ProvisioningStyle = Automatic;
+					};
+					445179AE1F575858000DB43E = {
+						CreatedOnToolsVersion = 8.3.3;
+						ProvisioningStyle = Manual;
+					};
+					445179B61F575858000DB43E = {
+						CreatedOnToolsVersion = 8.3.3;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 4451797B1F5756C8000DB43E;
 					};
 				};
 			};
@@ -378,6 +577,9 @@
 				03107ECD1C6362E800DF2F14 /* URLNavigator */,
 				03107EEA1C636A3D00DF2F14 /* URLNavigatorTests */,
 				03D35E651D35209600452731 /* Example */,
+				4451797B1F5756C8000DB43E /* Example-tvOS */,
+				445179AE1F575858000DB43E /* URLNavigator_tvOS */,
+				445179B61F575858000DB43E /* URLNavigator-tvOSTests */,
 			);
 		};
 /* End PBXProject section */
@@ -401,6 +603,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		03D35E641D35209600452731 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4451797A1F5756C8000DB43E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				445179861F5756C9000DB43E /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		445179AD1F575858000DB43E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		445179B51F575858000DB43E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -453,6 +677,49 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		445179781F5756C8000DB43E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4451799D1F57570B000DB43E /* Repo.swift in Sources */,
+				445179A11F57570B000DB43E /* WebViewController.swift in Sources */,
+				445179A01F57570B000DB43E /* UserViewController.swift in Sources */,
+				445179991F575701000DB43E /* AppDelegate.swift in Sources */,
+				4451799A1F57570B000DB43E /* HTTP.swift in Sources */,
+				445179A31F57570B000DB43E /* RepoCell.swift in Sources */,
+				4451799C1F57570B000DB43E /* NavigationMap.swift in Sources */,
+				4451799F1F57570B000DB43E /* UserListViewController.swift in Sources */,
+				445179A21F57570B000DB43E /* UserCell.swift in Sources */,
+				4451799E1F57570B000DB43E /* DataModel.swift in Sources */,
+				4451799B1F57570B000DB43E /* API.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		445179AA1F575858000DB43E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				445179CE1F5758A0000DB43E /* URLNavigable.swift in Sources */,
+				445179CC1F5758A0000DB43E /* URLMatcher.swift in Sources */,
+				445179D01F5758A0000DB43E /* Navigation.swift in Sources */,
+				445179CD1F5758A0000DB43E /* URLNavigator.swift in Sources */,
+				445179D11F5758A0000DB43E /* UIViewController+TopMostViewController.swift in Sources */,
+				445179CF1F5758A0000DB43E /* URLConvertible.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		445179B31F575858000DB43E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				445179D41F575B61000DB43E /* URLNavigatorPublicTests.swift in Sources */,
+				445179D61F575B61000DB43E /* TopMostViewControllerTests.swift in Sources */,
+				445179D51F575B61000DB43E /* URLConvertibleTests.swift in Sources */,
+				445179D31F575B61000DB43E /* URLMatcherPublicTests.swift in Sources */,
+				445179D21F575B5A000DB43E /* URLMatcherInternalTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -465,6 +732,21 @@
 			isa = PBXTargetDependency;
 			target = 03107ECD1C6362E800DF2F14 /* URLNavigator */;
 			targetProxy = 03D35E7A1D35289200452731 /* PBXContainerItemProxy */;
+		};
+		445179BA1F575858000DB43E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 445179AE1F575858000DB43E /* URLNavigator_tvOS */;
+			targetProxy = 445179B91F575858000DB43E /* PBXContainerItemProxy */;
+		};
+		445179BC1F575858000DB43E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4451797B1F5756C8000DB43E /* Example-tvOS */;
+			targetProxy = 445179BB1F575858000DB43E /* PBXContainerItemProxy */;
+		};
+		445179C31F575858000DB43E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 445179AE1F575858000DB43E /* URLNavigator_tvOS */;
+			targetProxy = 445179C21F575858000DB43E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -665,6 +947,143 @@
 			};
 			name = Release;
 		};
+		445179931F5756C9000DB43E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = "Example-tvOS/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "kr.xoul.Example-tvOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = appletvos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+			};
+			name = Debug;
+		};
+		445179941F5756C9000DB43E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = "Example-tvOS/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "kr.xoul.Example-tvOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = appletvos;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+			};
+			name = Release;
+		};
+		445179C71F575858000DB43E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_IDENTITY = "";
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "URLNavigator-tvOS/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "kr.xoul.URLNavigator-tvOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+			};
+			name = Debug;
+		};
+		445179C81F575858000DB43E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_IDENTITY = "";
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "URLNavigator-tvOS/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "kr.xoul.URLNavigator-tvOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+			};
+			name = Release;
+		};
+		445179CA1F575858000DB43E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				INFOPLIST_FILE = "URLNavigator-tvOSTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "kr.xoul.URLNavigator-tvOSTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Example-tvOS.app/Example-tvOS";
+				TVOS_DEPLOYMENT_TARGET = 10.2;
+			};
+			name = Debug;
+		};
+		445179CB1F575858000DB43E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				INFOPLIST_FILE = "URLNavigator-tvOSTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "kr.xoul.URLNavigator-tvOSTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Example-tvOS.app/Example-tvOS";
+				TVOS_DEPLOYMENT_TARGET = 10.2;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -703,6 +1122,30 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		445179971F5756C9000DB43E /* Build configuration list for PBXNativeTarget "Example-tvOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				445179931F5756C9000DB43E /* Debug */,
+				445179941F5756C9000DB43E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		445179C61F575858000DB43E /* Build configuration list for PBXNativeTarget "URLNavigator_tvOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				445179C71F575858000DB43E /* Debug */,
+				445179C81F575858000DB43E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		445179C91F575858000DB43E /* Build configuration list for PBXNativeTarget "URLNavigator-tvOSTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				445179CA1F575858000DB43E /* Debug */,
+				445179CB1F575858000DB43E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
