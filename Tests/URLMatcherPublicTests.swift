@@ -24,7 +24,11 @@
 // SOFTWARE.
 
 import XCTest
-@testable import URLNavigator
+#if os(tvOS)
+  @testable import URLNavigator_tvOS
+#else
+  @testable import URLNavigator
+#endif
 
 class URLMatcherPublicTests: XCTestCase {
 

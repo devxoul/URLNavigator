@@ -24,31 +24,36 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 
 import XCTest
-@testable import URLNavigator
+#if os(tvOS)
+  @testable import URLNavigator_tvOS
+#else
+  @testable import URLNavigator
+#endif
+
 
 class SSN {
   let ssnString: String
-
+  
   init(ssnString: String) {
     self.ssnString = ssnString
   }
 }
 
 class URLMatcherInternalTests: XCTestCase {
-
+  
   var matcher: URLMatcher!
-
+  
   override func setUp() {
     super.setUp()
     self.matcher = URLMatcher()
   }
-
+  
   func testURLWithScheme() {
     XCTAssertEqual(matcher.url(withScheme: nil, "myapp://user/1").urlStringValue, "myapp://user/1")
     XCTAssertEqual(matcher.url(withScheme: "myapp", "/user/1").urlStringValue, "myapp://user/1")
     XCTAssertEqual(matcher.url(withScheme: "", "/user/1").urlStringValue, "://user/1") // idiot
   }
-
+  
   func testNormalizedURL() {
     XCTAssertEqual(matcher.normalized("myapp://user/<id>/hello").urlStringValue, "myapp://user/<id>/hello")
     XCTAssertEqual(matcher.normalized("myapp:///////user///<id>//hello/??/#abc=/def").urlStringValue,
@@ -56,16 +61,16 @@ class URLMatcherInternalTests: XCTestCase {
     XCTAssertEqual(matcher.normalized("https://<path:_>").urlStringValue, "https://<path:_>")
     XCTAssertEqual(matcher.normalized("https://").urlStringValue, "https://")
   }
-
+  
   func testPlaceholderValueFromURLPathComponents() {
-    {
-      let placeholder = matcher.placeholderKeyValueFrom(
-        urlPatternPathComponent: "<id>",
-        urlPathComponents: ["123", "456"],
-        atIndex: 0
-      )
-      XCTAssertEqual(placeholder?.0, "id")
-      XCTAssertEqual(placeholder?.1 as? String, "123")
+  {
+    let placeholder = matcher.placeholderKeyValueFrom(
+      urlPatternPathComponent: "<id>",
+      urlPathComponents: ["123", "456"],
+      atIndex: 0
+    )
+    XCTAssertEqual(placeholder?.0, "id")
+    XCTAssertEqual(placeholder?.1 as? String, "123")
     }();
     {
       let placeholder = matcher.placeholderKeyValueFrom(
@@ -177,7 +182,7 @@ class URLMatcherInternalTests: XCTestCase {
       matcher.addURLValueMatcherHandler(for: "SSN") { ssnString in
         return SSN(ssnString: ssnString)
       }
-
+      
       let placeholder = matcher.placeholderKeyValueFrom(
         urlPatternPathComponent: "<SSN:ssn>",
         urlPathComponents: ["123-45-6789"],
@@ -187,7 +192,7 @@ class URLMatcherInternalTests: XCTestCase {
       XCTAssertEqual((placeholder?.1 as? SSN)?.ssnString, "123-45-6789")
     }();
   }
-
+  
   func testReplaceRegex() {
     XCTAssertEqual(matcher.replaceRegex("a", "0", "abc"), "0bc")
     XCTAssertEqual(matcher.replaceRegex("\\d", "A", "1234567abc098"), "AAAAAAAabcAAA")

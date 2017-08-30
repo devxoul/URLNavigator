@@ -8,7 +8,12 @@
 
 import UIKit
 
-import URLNavigator
+#if os(tvOS)
+  import URLNavigator_tvOS
+#else
+  import URLNavigator
+#endif
+
 
 struct NavigationMap {
 
