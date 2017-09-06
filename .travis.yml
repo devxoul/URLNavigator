@@ -1,10 +1,56 @@
-language: objective-c
 osx_image: xcode8.3
+language: objective-c
+sudo: required
+env:
+  global:
+    - PROJECT="URLNavigator.xcodeproj"
+    - SCHEME="URLNavigator"
+    - IOS_SDK="iphonesimulator10.3"
+    - TVOS_SDK="appletvsimulator10.2"
+    - FRAMEWORK="URLNavigator"
+  matrix:
+    - SDK="$IOS_SDK"      TEST=1  DESTINATION="platform=iOS Simulator,name=iPhone 7,OS=10.3.1"
+    - SDK="$TVOS_SDK"     TEST=1  DESTINATION="OS=10.2,name=Apple TV 1080p"
+
+install:
+  - eval "$(curl -sL https://gist.githubusercontent.com/kylef/5c0475ff02b7c7671d2a/raw/9f442512a46d7a2af7b850d65a7e9bd31edfb09b/swiftenv-install.sh)"
+  - swift --version
+
+before_script:
+  - set -o pipefail
+  - swift package generate-xcodeproj
+
 script:
-    - set -o pipefail && xcodebuild test
-      -scheme "URLNavigator"
-      -destination "platform=iOS Simulator,name=iPhone 7,OS=10.3.1"
-      -sdk iphonesimulator
+  - xcodebuild clean build test
+      -project "$PROJECT"
+      -scheme "$SCHEME"
+      -sdk "$SDK"
+      -destination "$DESTINATION"
+      -configuration Debug
+      -enableCodeCoverage YES
       CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO | xcpretty -c
+
 after_success:
-  - bash <(curl -s https://codecov.io/bash) -J 'URLNavigator'
+  - if [ $TEST == 1 ]; then
+      bash <(curl -s https://codecov.io/bash) -X xcodeplist -J 'URLNavigator'
+    fi
+
+before_deploy:
+  - ruby ./scripts/carthage_helper.rb prepare_xcconfig
+  - TEST=0 swift package generate-xcodeproj --xcconfig-overrides Config.xcconfig
+  - rm -r Examples  # https://github.com/Carthage/Carthage/issues/1974
+  - carthage bootstrap
+  - carthage build --no-skip-current --verbose | xcpretty -c
+  - ruby ./scripts/carthage_helper.rb modify_info
+  - carthage archive URLNavigator
+
+deploy:
+  provider: releases
+  api_key:
+    secure: iQLQ+53ce6rCfnwps+Q2Leq4wgkystcN9wk+3vtnkMFFW/n2myuZQF5lzBkFGI9YUJDwPl+unjT80Fkr6sxHk63DZw6hhqRFf2AlDtO20goa32WRR0MfCnL7CfxWnIywfXN4F9LaJQkghtihmeGng5USzur7CGpfdR9oXQ+JgGLl9HjhXpoRVkDNFBZ72AL+/q9ZjV5ZXHjTkaW5yAMsHo21SM8nfiOuCNTtmmybDp9FVeMAHvWCLXakKCLGBG3B6p73UhMQQXlvWARPAhi2ux+VMqcyydUG1DYilkSNAc+a4v8twWx750Lte0hAy/E17ZoxsZhhf0qPrYgUWlgKN7G4qeU95YOSmiWuhOqyZsb3pUyV0uBqaYpUMqK+C0UIRuzv1EOluZ+ysNUqKkQv7ogVyfCPfxhwxSwbpPpM66we7cpFZPz5Tt6r2mqa5CURsLNll3d1kzJNHq96IjfjTRceEkMA6SC2avJe3ASx+vEIlshuldyANVxpZ9aGt64KyuDpZA0Fjh41jSVWT4dAJ0zXXPMHHZLwH3JDq3AK/r5GlRbrIp+yM1r0JSXTxnjKQ8g5NACRrHiW6u/tu4nc/r/r1TLzO5dMHS9TGs4ql6qvmukqODfQxBU9gaGqqa9TVAKSKL12ZNOg9JvT4cpH+HKtwSRmb2PE7k4jGP2Pu1A=
+  file: "$FRAMEWORK.framework.zip"
+  skip_cleanup: true
+  on:
+    repo: devxoul/URLNavigator
+    tags: true
+    condition: $SDK = $IOS_SDK
