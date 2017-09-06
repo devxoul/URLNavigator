@@ -35,7 +35,6 @@ class SSN {
 }
 
 class URLMatcherInternalTests: XCTestCase {
-
   var matcher: URLMatcher!
 
   override func setUp() {

@@ -24,7 +24,6 @@ import XCTest
 import URLNavigator
 
 class URLNavigatorPublicTests: XCTestCase {
-
   var navigator: URLNavigator!
 
   override func setUp() {
@@ -280,11 +279,9 @@ class URLNavigatorPublicTests: XCTestCase {
     self.navigator.map("/user/<id>", UserViewController.self)
     XCTAssertFalse(self.navigator.open("/user/1"))
   }
-
 }
 
 private class UserViewController: UIViewController, URLNavigable {
-
   var userID: Int?
   var mappingContext: Any?
   var navigationContext: Any?
@@ -309,7 +306,6 @@ private class UserViewController: UIViewController, URLNavigable {
 }
 
 private class PostViewController: UIViewController, URLNavigable {
-
   var postTitle: String?
 
   convenience required init?(navigation: Navigation) {
@@ -319,22 +315,18 @@ private class PostViewController: UIViewController, URLNavigable {
     self.init()
     self.postTitle = title
   }
-
 }
 
 private class WebViewController: UIViewController, URLNavigable {
-
   var url: URLConvertible?
 
   convenience required init?(navigation: Navigation) {
     self.init()
     self.url = navigation.url
   }
-
 }
 
 private class SearchViewController: UIViewController, URLNavigable {
-
   let query: String
 
   init(query: String) {
@@ -352,7 +344,6 @@ private class SearchViewController: UIViewController, URLNavigable {
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
-
 }
 
 

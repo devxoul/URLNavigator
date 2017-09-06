@@ -27,7 +27,6 @@ import XCTest
 @testable import URLNavigator
 
 class URLMatcherPublicTests: XCTestCase {
-
   var matcher: URLMatcher!
 
   override func setUp() {
