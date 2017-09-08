@@ -38,8 +38,6 @@ after_success:
 before_deploy:
   - ruby ./scripts/carthage_helper.rb prepare_xcconfig
   - TEST=0 swift package generate-xcodeproj --xcconfig-overrides Config.xcconfig
-  - rm -r Examples  # https://github.com/Carthage/Carthage/issues/1974
-  - carthage bootstrap
   - carthage build --no-skip-current --verbose | xcpretty -c
   - ruby ./scripts/carthage_helper.rb modify_info
   - carthage archive URLNavigator

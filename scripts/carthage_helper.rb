@@ -97,4 +97,4 @@ when "prepare_xcconfig"
 
 when "modify_info"
   modify_info()
-
+end
