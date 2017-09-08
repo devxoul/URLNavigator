@@ -2,3 +2,7 @@
 /.build
 /Packages
 /*.xcodeproj
+**/xcuserdata
+**/xcshareddata
+Pods/
+Carthage/
