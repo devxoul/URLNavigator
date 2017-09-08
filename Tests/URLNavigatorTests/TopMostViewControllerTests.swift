@@ -6,6 +6,7 @@
 //  Copyright © 2017 Suyeol Jeon. All rights reserved.
 //
 
+#if os(iOS) || os(tvOS)
 import XCTest
 import URLNavigator
 
@@ -179,3 +180,4 @@ final class TopMostViewControllerTests: XCTestCase {
     XCTAssertEqual(self.topMost, B)
   }
 }
+#endif

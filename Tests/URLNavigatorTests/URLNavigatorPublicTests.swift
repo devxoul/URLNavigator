@@ -20,6 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+#if os(iOS) || os(tvOS)
 import XCTest
 import URLNavigator
 
@@ -374,3 +375,4 @@ private class ModalNavigationController: MyNavigationController, URLNavigable {
     self.init(title: title)
   }
 }
+#endif

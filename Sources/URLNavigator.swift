@@ -20,6 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+#if os(iOS) || os(tvOS)
 import UIKit
 
 /// A typealias for avoiding namespace conflict.
@@ -291,3 +292,4 @@ open class URLNavigator {
 // MARK: - Default Navigator
 
 public let Navigator = URLNavigator.default
+#endif
