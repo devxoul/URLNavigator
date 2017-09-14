@@ -187,7 +187,7 @@ open class URLMatcher {
       return nil
     }
     if typeAndKey.count == 1 { // untyped placeholder
-      return (placeholder, urlPathComponents[index])
+      return (String(placeholder), urlPathComponents[index])
     }
 
     let (type, key) = (typeAndKey[0], typeAndKey[1]) // e.g. ("int", "id")
