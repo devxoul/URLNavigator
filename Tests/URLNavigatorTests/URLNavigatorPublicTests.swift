@@ -108,7 +108,7 @@ class URLNavigatorPublicTests: XCTestCase {
   }
 
   func testPushURL_URLOpenHandler() {
-    self.navigator.map("myapp://ping") { _ in return true }
+    self.navigator.map("myapp://ping") { _, _ in return true }
     let navigationController = UINavigationController(rootViewController: UIViewController())
     let viewController = self.navigator.push("myapp://ping", from: navigationController, animated: false)
     XCTAssertNil(viewController)
@@ -139,7 +139,7 @@ class URLNavigatorPublicTests: XCTestCase {
   }
 
   func testPresentURL_URLOpenHandler() {
-    self.navigator.map("myapp://ping") { _ in return true }
+    self.navigator.map("myapp://ping") { _, _ in return true }
     let fromViewController = UIViewController()
     let viewController = self.navigator.present("myapp://ping", from: fromViewController)
     XCTAssertNil(viewController)
@@ -170,7 +170,7 @@ class URLNavigatorPublicTests: XCTestCase {
       NotificationCenter.default.post(name: .init("Ping"), object: nil, userInfo: nil)
       return true
     }
-    self.expectation(forNotification: "Ping", object: nil, handler: nil)
+    self.expectation(forNotification: .init(rawValue: "Ping"), object: nil, handler: nil)
     XCTAssertTrue(self.navigator.open("myapp://ping"))
     self.waitForExpectations(timeout: 1, handler: nil)
   }
@@ -232,7 +232,7 @@ class URLNavigatorPublicTests: XCTestCase {
 
   func testSchemePushURL_URLOpenHandler() {
     self.navigator.scheme = "myapp"
-    self.navigator.map("/ping") { _ in return true }
+    self.navigator.map("/ping") { _, _ in return true }
     let navigationController = UINavigationController(rootViewController: UIViewController())
     let viewController = self.navigator.push("/ping", from: navigationController, animated: false)
     XCTAssertNil(viewController)
@@ -258,7 +258,7 @@ class URLNavigatorPublicTests: XCTestCase {
 
   func testSchemePresentURL_URLOpenHandler() {
     self.navigator.scheme = "myapp"
-    self.navigator.map("/ping") { _ in return true }
+    self.navigator.map("/ping") { _, _ in return true }
     let fromViewController = UIViewController()
     let viewController = self.navigator.present("/ping", from: fromViewController)
     XCTAssertNil(viewController)
