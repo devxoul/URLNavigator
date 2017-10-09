@@ -93,7 +93,7 @@ final class URLMatcherSpec: QuickSpec {
     }
 
     it("returns a result with a custom-type url value for matching url") {
-      matcher.urlValueConverters["greeting"] = { pathComponents, index in
+      matcher.valueConverters["greeting"] = { pathComponents, index in
         return "Hello, \(pathComponents[index])!"
       }
       let candidates = ["myapp://hello/<greeting:name>"]

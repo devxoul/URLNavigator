@@ -25,7 +25,7 @@ open class URLMatcher {
     }
   ]
 
-  open var urlValueConverters: [String: URLValueConverter] = URLMatcher.defaultURLValueConverters
+  open var valueConverters: [String: URLValueConverter] = URLMatcher.defaultURLValueConverters
 
   public init() {
     // 🔄 I'm an URLMatcher!
@@ -147,7 +147,7 @@ open class URLMatcher {
       return .matches(nil)
 
     case let .placeholder(type, key):
-      guard let type = type, let converter = self.urlValueConverters[type] else {
+      guard let type = type, let converter = self.valueConverters[type] else {
         return .matches((key, stringPathComponent))
       }
       if let value = converter(stringPathComponents, index) {
