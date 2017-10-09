@@ -6,6 +6,7 @@ let package = Package(
   name: "URLNavigator",
   products: [
     .library(name: "URLMatcher", targets: ["URLMatcher"]),
+    .library(name: "URLNavigator", targets: ["URLNavigator"]),
   ],
   dependencies: [
     .package(url: "https://github.com/Quick/Quick.git", .upToNextMajor(from: "1.2.0")),
@@ -13,6 +14,8 @@ let package = Package(
   ],
   targets: [
     .target(name: "URLMatcher"),
+    .target(name: "URLNavigator", dependencies: ["URLMatcher"]),
     .testTarget(name: "URLMatcherTests", dependencies: ["URLMatcher", "Quick", "Nimble"]),
+    .testTarget(name: "URLNavigatorTests", dependencies: ["URLNavigator", "Quick", "Nimble"]),
   ]
 )
