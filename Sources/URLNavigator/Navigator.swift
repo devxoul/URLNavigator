@@ -23,7 +23,8 @@ public protocol NavigatorType {
 }
 
 open class Navigator: NavigatorType {
-  private let matcher = URLMatcher()
+  open let matcher = URLMatcher()
+
   private var factories = [URLPattern: ViewControllerFactory]()
   private var handlers = [URLPattern: URLOpenHandler]()
 
