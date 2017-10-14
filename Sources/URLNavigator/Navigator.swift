@@ -8,32 +8,32 @@ import URLMatcher
 open class Navigator: NavigatorType {
   open let matcher = URLMatcher()
 
-  private var factories = [URLPattern: ViewControllerFactory]()
-  private var handlers = [URLPattern: URLOpenHandlerFactory]()
+  private var viewControllerFactories = [URLPattern: ViewControllerFactory]()
+  private var handlerFactories = [URLPattern: URLOpenHandlerFactory]()
 
   public init() {
     // ⛵ I'm a Navigator!
   }
 
   open func register(_ pattern: URLPattern, _ factory: @escaping ViewControllerFactory) {
-    self.factories[pattern] = factory
+    self.viewControllerFactories[pattern] = factory
   }
 
-  open func handle(_ pattern: URLPattern, _ handler: @escaping URLOpenHandlerFactory) {
-    self.handlers[pattern] = handler
+  open func handle(_ pattern: URLPattern, _ factory: @escaping URLOpenHandlerFactory) {
+    self.handlerFactories[pattern] = factory
   }
 
   open func viewController(for url: URLConvertible, context: Any? = nil) -> UIViewController? {
-    let urlPatterns = Array(self.factories.keys)
+    let urlPatterns = Array(self.viewControllerFactories.keys)
     guard let match = self.matcher.match(url, from: urlPatterns) else { return nil }
-    guard let factory = self.factories[match.pattern] else { return nil }
+    guard let factory = self.viewControllerFactories[match.pattern] else { return nil }
     return factory(url, match.values, context)
   }
 
   open func handler(for url: URLConvertible, context: Any?) -> URLOpenHandler? {
-    let urlPatterns = Array(self.handlers.keys)
+    let urlPatterns = Array(self.handlerFactories.keys)
     guard let match = self.matcher.match(url, from: urlPatterns) else { return nil }
-    guard let handler = self.handlers[match.pattern] else { return nil }
+    guard let handler = self.handlerFactories[match.pattern] else { return nil }
     return { handler(url, match.values, context) }
   }
 }

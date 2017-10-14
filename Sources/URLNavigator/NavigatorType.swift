@@ -17,7 +17,7 @@ public protocol NavigatorType {
   func register(_ pattern: URLPattern, _ factory: @escaping ViewControllerFactory)
 
   /// Registers an URL open handler to the URL pattern.
-  func handle(_ pattern: URLPattern, _ handler: @escaping URLOpenHandlerFactory)
+  func handle(_ pattern: URLPattern, _ factory: @escaping URLOpenHandlerFactory)
 
   /// Returns a matching view controller from the specified URL.
   ///
