@@ -9,7 +9,7 @@ open class Navigator: NavigatorType {
   open let matcher = URLMatcher()
 
   private var factories = [URLPattern: ViewControllerFactory]()
-  private var handlers = [URLPattern: URLOpenHandler]()
+  private var handlers = [URLPattern: URLOpenHandlerFactory]()
 
   public init() {
     // ⛵ I'm a Navigator!
@@ -19,7 +19,7 @@ open class Navigator: NavigatorType {
     self.factories[pattern] = factory
   }
 
-  open func handle(_ pattern: URLPattern, _ handler: @escaping URLOpenHandler) {
+  open func handle(_ pattern: URLPattern, _ handler: @escaping URLOpenHandlerFactory) {
     self.handlers[pattern] = handler
   }
 
@@ -30,7 +30,7 @@ open class Navigator: NavigatorType {
     return factory(url, match.values, context)
   }
 
-  open func handler(for url: URLConvertible, context: Any?) -> URLOpenHandlerExecutable? {
+  open func handler(for url: URLConvertible, context: Any?) -> URLOpenHandler? {
     let urlPatterns = Array(self.handlers.keys)
     guard let match = self.matcher.match(url, from: urlPatterns) else { return nil }
     guard let handler = self.handlers[match.pattern] else { return nil }

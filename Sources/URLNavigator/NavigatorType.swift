@@ -7,8 +7,8 @@ import URLMatcher
 
 public typealias URLPattern = String
 public typealias ViewControllerFactory = (_ url: URLConvertible, _ values: [String: Any], _ context: Any?) -> UIViewController?
-public typealias URLOpenHandler = (_ url: URLConvertible, _ values: [String: Any], _ context: Any?) -> Bool
-public typealias URLOpenHandlerExecutable = () -> Bool
+public typealias URLOpenHandlerFactory = (_ url: URLConvertible, _ values: [String: Any], _ context: Any?) -> Bool
+public typealias URLOpenHandler = () -> Bool
 
 public protocol NavigatorType {
   var matcher: URLMatcher { get }
@@ -17,7 +17,7 @@ public protocol NavigatorType {
   func register(_ pattern: URLPattern, _ factory: @escaping ViewControllerFactory)
 
   /// Registers an URL open handler to the URL pattern.
-  func handle(_ pattern: URLPattern, _ handler: @escaping URLOpenHandler)
+  func handle(_ pattern: URLPattern, _ handler: @escaping URLOpenHandlerFactory)
 
   /// Returns a matching view controller from the specified URL.
   ///
@@ -31,7 +31,7 @@ public protocol NavigatorType {
   /// - parameter url: An URL to find url handlers.
   ///
   /// - returns: A matching handler factory or `nil` if not matched.
-  func handler(for url: URLConvertible, context: Any?) -> URLOpenHandlerExecutable?
+  func handler(for url: URLConvertible, context: Any?) -> URLOpenHandler?
 
   @discardableResult
   func push(_ url: URLConvertible, context: Any?, from: UINavigationControllerType?, animated: Bool) -> UIViewController?
@@ -54,7 +54,7 @@ extension NavigatorType {
     return self.viewController(for: url, context: nil)
   }
 
-  public func handler(for url: URLConvertible) -> URLOpenHandlerExecutable? {
+  public func handler(for url: URLConvertible) -> URLOpenHandler? {
     return self.handler(for: url, context: nil)
   }
 
