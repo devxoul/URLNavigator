@@ -9,7 +9,7 @@ import URLNavigator
 
 final class NavigatorSpec: QuickSpec {
   override func spec() {
-    var navigator: Navigator!
+    var navigator: NavigatorType!
 
     beforeEach {
       navigator = Navigator()
@@ -151,6 +151,38 @@ final class NavigatorSpec: QuickSpec {
         expect(executions[0].arguments.1) == false
         expect(executions[0].arguments.2).notTo(beNil())
         expect(completionExecutionCount) == 1
+      }
+    }
+
+    describe("handler(for:context:)") {
+      context("when there is no handler") {
+        it("returns nil") {
+          let handler = navigator.handler(for: "myapp://alert")
+          expect(handler).to(beNil())
+        }
+      }
+
+      context("when there is registered handlers") {
+        beforeEach {
+          navigator.handle("myapp://alert") { url, values, context in
+            return true
+          }
+        }
+
+        it("returns false for not matching url") {
+          let handler = navigator.handler(for: "myapp://alerthello")
+          expect(handler).to(beNil())
+        }
+
+        it("returns a matching handler") {
+          let handler = navigator.handler(for: "myapp://alert?title=Hello%2C%20world!&message=It%27s%20me!")
+          expect(handler).notTo(beNil())
+        }
+
+        it("returns a matching handler with a context") {
+          let handler = navigator.handler(for: "myapp://alert?title=Hello%2C%20world!", context: "Hi")
+          expect(handler).notTo(beNil())
+        }
       }
     }
 
