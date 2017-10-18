@@ -236,6 +236,112 @@ final class NavigatorSpec: QuickSpec {
         }
       }
     }
+
+    describe("delegate") {
+      var delegate: StubNavigatorDelegate!
+      var fromNavigationController: StubNavigationController!
+      var fromViewController: StubViewController!
+      var alerts: [(title: String, message: String?, context: Any?)]!
+
+      beforeEach {
+        delegate = StubNavigatorDelegate()
+        fromNavigationController = StubNavigationController()
+        fromViewController = StubViewController()
+        alerts = []
+
+        navigator.delegate = delegate
+        navigator.register("myapp://article/<int:id>") { url, values, context in
+          guard let articleID = values["id"] as? Int, articleID > 0 else { return nil }
+          return ArticleViewController(articleID: articleID, context: context)
+        }
+        navigator.handle("myapp://alert") { url, values, context in
+          guard let title = url.queryParameters["title"] else { return false }
+          let message = url.queryParameters["message"]
+          alerts.append((title: title, message: message, context: context))
+          return true
+        }
+      }
+
+      describe("shouldPush(viewController:from:)") {
+        context("on push()") {
+          it("doesn't get called for a not matching url") {
+            navigator.push("myapp://user/10", from: fromNavigationController)
+            expect(Stubber.executions(delegate.shouldPush).count) == 0
+          }
+
+          it("doesn't get called when the factory returns nil") {
+            navigator.push("myapp://article/-1", from: fromNavigationController)
+            expect(Stubber.executions(delegate.shouldPush).count) == 0
+          }
+
+          it("gets called for a valid url") {
+            navigator.push("myapp://article/123", from: fromNavigationController)
+            let executions = Stubber.executions(delegate.shouldPush)
+            expect(executions.count) == 1
+            expect(executions[0].arguments.0).to(beAKindOf(ArticleViewController.self))
+            expect(executions[0].arguments.1) === fromNavigationController
+          }
+
+          it("doesn't prevent from pushing when returns true") {
+            Stubber.register(delegate.shouldPush) { _ in true }
+            navigator.push("myapp://article/123", from: fromNavigationController)
+            expect(Stubber.executions(fromNavigationController.pushViewController).count) == 1
+          }
+
+          it("prevents from pushing when returns false") {
+            Stubber.register(delegate.shouldPush) { _ in false }
+            navigator.push("myapp://article/123", from: fromNavigationController)
+            expect(Stubber.executions(fromNavigationController.pushViewController).count) == 0
+          }
+        }
+
+        context("on present()") {
+          it("doesn't get called") {
+            navigator.present("myapp://article/1", from: fromViewController)
+          }
+        }
+      }
+
+      describe("shouldPresent(viewController:from:)") {
+        context("on push()") {
+          it("doesn't get called") {
+            navigator.push("myapp://article/1", from: fromNavigationController)
+          }
+        }
+
+        context("on present()") {
+          it("doesn't get called for a not matching url") {
+            navigator.present("myapp://user/10", from: fromViewController)
+            expect(Stubber.executions(delegate.shouldPresent).count) == 0
+          }
+
+          it("doesn't get called when the factory returns nil") {
+            navigator.present("myapp://article/-1", from: fromViewController)
+            expect(Stubber.executions(delegate.shouldPresent).count) == 0
+          }
+
+          it("gets called for a valid url") {
+            navigator.present("myapp://article/123", from: fromViewController)
+            let executions = Stubber.executions(delegate.shouldPresent)
+            expect(executions.count) == 1
+            expect(executions[0].arguments.0).to(beAKindOf(ArticleViewController.self))
+            expect(executions[0].arguments.1) === fromViewController
+          }
+
+          it("doesn't prevent from presenting when returns true") {
+            Stubber.register(delegate.shouldPresent) { _ in true }
+            navigator.present("myapp://article/123", from: fromViewController)
+            expect(Stubber.executions(fromViewController.present).count) == 1
+          }
+
+          it("prevents from presenting when returns false") {
+            Stubber.register(delegate.shouldPresent) { _ in false }
+            navigator.present("myapp://article/123", from: fromViewController)
+            expect(Stubber.executions(fromViewController.present).count) == 0
+          }
+        }
+      }
+    }
   }
 }
 #endif

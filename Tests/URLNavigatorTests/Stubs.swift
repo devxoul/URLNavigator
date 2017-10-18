@@ -14,3 +14,13 @@ final class StubViewController: UIViewControllerType {
     return Stubber.invoke(present, args: (viewControllerToPresent, flag, completion), default: Void())
   }
 }
+
+final class StubNavigatorDelegate: NavigatorDelegate {
+  func shouldPush(viewController: UIViewController, from: UINavigationControllerType) -> Bool {
+    return Stubber.invoke(shouldPush, args: (viewController, from), default: true)
+  }
+
+  func shouldPresent(viewController: UIViewController, from: UIViewControllerType) -> Bool {
+    return Stubber.invoke(shouldPresent, args: (viewController, from), default: true)
+  }
+}

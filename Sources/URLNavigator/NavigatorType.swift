@@ -12,6 +12,7 @@ public typealias URLOpenHandler = () -> Bool
 
 public protocol NavigatorType {
   var matcher: URLMatcher { get }
+  weak var delegate: NavigatorDelegate? { get set }
 
   /// Registers a view controller factory to the URL pattern.
   func register(_ pattern: URLPattern, _ factory: @escaping ViewControllerFactory)
@@ -67,9 +68,8 @@ extension NavigatorType {
   @discardableResult
   public func push(_ viewController: UIViewController, from: UINavigationControllerType? = nil, animated: Bool = true) -> UIViewController? {
     guard (viewController is UINavigationController) == false else { return nil }
-    guard let navigationController = from ?? UIViewController.topMost?.navigationController else {
-      return nil
-    }
+    guard let navigationController = from ?? UIViewController.topMost?.navigationController else { return nil }
+    guard self.delegate?.shouldPush(viewController: viewController, from: navigationController) != false else { return nil }
     navigationController.pushViewController(viewController, animated: animated)
     return viewController
   }
@@ -83,12 +83,16 @@ extension NavigatorType {
   @discardableResult
   public func present(_ viewController: UIViewController, wrap: UINavigationController.Type? = nil, from: UIViewControllerType? = nil, animated: Bool = true, completion: (() -> Void)? = nil) -> UIViewController? {
     guard let fromViewController = from ?? UIViewController.topMost else { return nil }
+
+    let viewControllerToPresent: UIViewController
     if let navigationControllerClass = wrap, (viewController is UINavigationController) == false {
-      let navigationController = navigationControllerClass.init(rootViewController: viewController)
-      fromViewController.present(navigationController, animated: animated, completion: completion)
+      viewControllerToPresent = navigationControllerClass.init(rootViewController: viewController)
     } else {
-      fromViewController.present(viewController, animated: animated, completion: completion)
+      viewControllerToPresent = viewController
     }
+
+    guard self.delegate?.shouldPresent(viewController: viewController, from: fromViewController) != false else { return nil }
+    fromViewController.present(viewControllerToPresent, animated: animated, completion: completion)
     return viewController
   }
 
