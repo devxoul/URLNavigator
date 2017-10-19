@@ -1,5 +1,4 @@
-URLNavigator
-============
+# URLNavigator
 
 ![Swift](https://img.shields.io/badge/Swift-3.0-orange.svg)
 [![CocoaPods](http://img.shields.io/cocoapods/v/URLNavigator.svg)](https://cocoapods.org/pods/URLNavigator)
@@ -13,77 +12,69 @@ URLNavigator
 URLNavigator can be used for mapping URL patterns with 2 kind of types: `URLNavigable` and `URLOpenHandler`. `URLNavigable` is a type which defines an custom initializer and `URLOpenHandler` is a closure which can be executed. Both an initializer and a closure receive an URL and placeholder values.
 
 
-Getting Started
----------------
+## Getting Started
 
-#### 1. Mapping URL Patterns
+#### 1. Understanding URL Patterns
 
 URL patterns can contain placeholders. Placeholders will be replaced with matching values from URLs. Use `<` and `>` to make placeholders. Placeholders can have types: `string`(default), `int`, `float`, and `path`.
 
-Here's an example of mapping URL patterns with view controllers and a closure. View controllers should conform a protocol `URLNavigable` to be mapped with URL patterns. See [Implementing URLNavigable](#implementing-urlnavigable) section for details.
+For example, `myapp://user/<int:id>` matches with:
+
+* `myapp://user/123`
+* `myapp://user/87`
+
+But it doesn't match with:
+
+* `myapp://user/devxoul` (expected int)
+* `myapp://user/123/posts` (different url structure)
+* `/user/devxoul` (missing scheme)
+
+#### 2. Mapping View Controllers and URL Open Handlers
+
+URLNavigator allows to map view controllers ans URL open handlers with URL patterns. Here's an example of mapping URL patterns with view controllers and a closure. Each closures has three parameters: `url`, `values` and `context`.
+
+* `url` is an URL that is passed from `push()` and `present()`.
+* `values` is a dictionary that contains URL placeholder keys and values.
+* `context` is a dictionary which contains extra values passed from `push()`, `present()` or `open()`.
 
 ```swift
-Navigator.map("myapp://user/<int:id>", UserViewController.self)
-Navigator.map("myapp://post/<title>", PostViewController.self)
+let navigator = Navigator()
 
-Navigator.map("myapp://alert") { url, values in
-  print(url.queryParameters["title"])
-  print(url.queryParameters["message"])
+// register view controllers
+navigator.register("myapp://user/<int:id>") { url, values, context in
+  guard let userID = values["id"] as? Int else { return nil }
+  return UserViewController(userID: userID)
+}
+navigator.register("myapp://post/<title>") { url, values, context in
+  return storyboard.instantiateViewController(withIdentifier: "PostViewController")
+}
+
+// register url open handlers
+navigator.handle("myapp://alert") { url, values, context in
+  let title = url.queryParameters["title"]
+  let message = url.queryParameters["message"]
+  presentAlertController(title: title, message: message)
   return true
 }
 ```
 
-> **Note**: Global constant `Navigator` is a shortcut for `URLNavigator.default`.
-
-#### 2. Pushing, Presenting and Opening URLs
+#### 3. Pushing, Presenting and Opening URLs
 
 URLNavigator can push and present view controllers and execute closures with URLs.
 
 Provide the `from` parameter to `push()` to specify the navigation controller which the new view controller will be pushed. Similarly, provide the `from` parameter to `present()` to specify the view controller which the new view controller will be presented. If the `nil` is passed, which is a default value, current application's top most view controller will be used to push or present view controllers.
 
-`present()` takes an extra parameter: `wrap`. If `true` is specified, the new view controller will be wrapped with a `UINavigationController`. Default value is `false`.
+`present()` takes an extra parameter: `wrap`. If a `UINavigationController` class is specified, the new view controller will be wrapped with the class. Default value is `nil`.
 
 ```swift
 Navigator.push("myapp://user/123")
-Navigator.present("myapp://post/54321", wrap: true)
+Navigator.present("myapp://post/54321", wrap: UINavigationController.self)
 
 Navigator.open("myapp://alert?title=Hello&message=World")
 ```
 
-For full documentation, see [URLNavigator Class Reference](http://cocoadocs.org/docsets/URLNavigator/1.2.0/Classes/URLNavigator.html).
 
-#### 3. Implementing URLNavigable
-
-View controllers should conform a protocol `URLNavigable` to be mapped with URLs. A protocol `URLNavigable` defines an failable initializer with parameter `navigation` which contains `url`, `values`, `mappingContext` and `navigationContext` as properties.
-
-Property `url` is an URL that is passed from `URLNavigator.push()` and `URLNavigator.present()`. Parameter `values` is a dictionary that contains URL placeholder keys and values. Parameter `mappingContext` is a context passed from a `map()` function. Parameter `navigationContext` is a dictionary which contains extra values passed from `push()` or `present()`.
-
-```swift
-final class UserViewController: UIViewController, URLNavigable {
-
-  init(userID: Int) {
-    super.init(nibName: nil, bundle: nil)
-    // Initialize here...
-  }
-
-  convenience init?(navigation: Navigation) {
-    // Let's assume that the user id is required
-    guard let userID = navigation.values["id"] as? Int else { return nil }
-    self.init(userID: userID)
-  }
-    
-  required init?(coder aDecoder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
-  }
-
-}
-```
-
-> **Note**: `URLConvertible` is a protocol that `URL` and `String` conforms.
-
-
-Installation
-------------
+## Installation
 
 - **For iOS 8+ projects** with [CocoaPods](https://cocoapods.org):
 
@@ -98,8 +89,7 @@ Installation
     ```
 
 
-Example
--------
+## Example
 
 You can find an example app [here](https://github.com/devxoul/URLNavigator/tree/master/Example).
 
@@ -109,8 +99,29 @@ You can find an example app [here](https://github.com/devxoul/URLNavigator/tree/
 4. The example app will be launched.
 
 
-Tips and Tricks
----------------
+## Tips and Tricks
+
+#### Where to initialize a Navigator instance
+
+1. Define as a global constant:
+
+    ```swift
+    let navigator = Navigator()
+
+    class AppDelegate: UIResponder, UIApplicationDelegate {
+      // ...
+    }
+    ```
+
+2. Register to an IoC container:
+
+    ```swift
+    container.register(NavigatorType.self) { _ in Navigator() } // Swinject
+    let navigator = container.resolve(NavigatorType.self)!
+    ```
+
+3. Inject dependency from a composition root.
+
 
 #### Where to Map URLs
 
@@ -118,23 +129,11 @@ I'd prefer using separated URL map file.
 
 ```swift
 struct URLNavigationMap {
-
-  static func initialize() {
-    Navigator.map("myapp://user/<int:id>", UserViewController.self)
-    Navigator.map("myapp://post/<title>", PostViewController.self)
-
-    Navigator.map("myapp://alert") { url, values in
-      print(url.queryParameters["title"])
-      print(url.queryParameters["message"])
-      self.someUtilityMethod()
-      return true
-    }
+  static func initialize(navigator: NavigatorType) {
+    navigator.register("myapp://user/<int:id>") { ... }
+    navigator.register("myapp://post/<title>") { ... }
+    navigator.map("myapp://alert") { ... }
   }
-
-  private static func someUtilityMethod() {
-    print("This method is really useful")
-  }
-
 }
 ```
 
@@ -143,13 +142,12 @@ Then call `initialize()` at `AppDelegate`'s `application:didFinishLaunchingWithO
 ```swift
 @UIApplicationMain
 final class AppDelegate: UIResponder, UIApplicationDelegate {
-
   func application(
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?
   ) -> Bool {
     // Navigator
-    URLNavigationMap.initialize()
+    URLNavigationMap.initialize(navigator: navigator)
     
     // Do something else...
   }
@@ -168,9 +166,9 @@ func application(
 ) -> Bool {
   // ...
   if let url = launchOptions?[.url] as? URL {
-    if let opened = Navigator.open(url)
+    if let opened = navigator.open(url)
     if !opened {
-      Navigator.push(url)
+      navigator.present(url)
     }
   }
   return true
@@ -192,12 +190,12 @@ func application(_ application: UIApplication, open url: URL, sourceApplication:
   }
 
   // URLNavigator Handler
-  if Navigator.open(url) {
+  if navigator.open(url) {
     return true
   }
 
   // URLNavigator View Controller
-  if Navigator.present(url, wrap: true) != nil {
+  if navigator.present(url, wrap: UINavigationController.self) != nil {
     return true
   }
 
@@ -206,61 +204,7 @@ func application(_ application: UIApplication, open url: URL, sourceApplication:
 ```
 
 
-#### Using with Storyboard
-
-It's not yet available to initialize view controllers from Storyboard. However, you can map the closures alternatively.
-
-```swift
-Navigator.map("myapp://post/<int:id>") { url, values in
-  guard let postID = values["id"] as? Int,
-    let postViewController = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController()
-    else { return false }
-  Navigator.push(postViewController)
-  return true
-}
-```
-
-Then use `Navigator.open()` instead of `Navigator.push()`:
-
-```swift
-Navigator.open("myapp://post/12345")
-```
-
-
-#### Setting Default Scheme
-
-Set `scheme` property on `URLNavigator` instance to get rid of schemes in every URLs.
-
-```swift
-Navigator.scheme = "myapp"
-Navigator.map("/user/<int:id>", UserViewController.self)
-Navigator.push("/user/10")
-```
-
-This is totally equivalent to:
-
-```swift
-Navigator.map("myapp://user/<int:id>", UserViewController.self)
-Navigator.push("myapp://user/10")
-```
-
-Setting `scheme` property will not affect other URLs that already have schemes.
-
-```swift
-Navigator.scheme = "myapp"
-Navigator.map("/user/<int:id>", UserViewController.self) // `myapp://user/<int:id>`
-Navigator.map("http://<path>", MyWebViewController.self) // `http://<path>`
-```
-
-#### Passing Context when Mapping
-
-```swift
-let context = Foo()
-Navigator.map("myapp://user/10", UserViewController.self, context: context)
-```
-
-
-#### Passing Extra Values when Pushing or Presenting
+#### Passing Extra Values when Pushing, Presenting and Opening
 
 ```swift
 let context: [AnyHashable: Any] = [
@@ -268,10 +212,10 @@ let context: [AnyHashable: Any] = [
 ]
 Navigator.push("myapp://user/10", context: context)
 Navigator.present("myapp://user/10", context: context)
+Navigator.open("myapp://alert?title=Hi", context: context)
 ```
 
 
-License
--------
+## License
 
 URLNavigator is under MIT license. See the [LICENSE](LICENSE) file for more info.
