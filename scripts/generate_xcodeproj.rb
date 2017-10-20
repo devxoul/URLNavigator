@@ -23,5 +23,19 @@ def add_xctest()
   project.save
 end
 
+def configure_scheme()
+  scheme = Xcodeproj::XCScheme.new("URLNavigator.xcodeproj/xcshareddata/xcschemes/URLNavigator-Package.xcscheme")
+  action = Xcodeproj::XCScheme::BuildAction.new
+  for entry in scheme.build_action.entries
+    name = entry.buildable_references[0].xml_element.attributes['BlueprintName']
+    if ["URLNavigator", "URLMatcher"].include? name
+      action.add_entry(entry)
+    end
+  end
+  scheme.build_action = action
+  scheme.save!
+end
+
 generate_xcodeproj()
 add_xctest()
+configure_scheme()
