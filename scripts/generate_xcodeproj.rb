@@ -8,7 +8,7 @@ def run(command)
 end
 
 def generate_xcodeproj()
-  run("swift package generate-xcodeproj --enable-code-coverage")
+  run("swift package generate-xcodeproj --enable-code-coverage #{ARGV.join(" ")}")
 end
 
 def add_xctest()
