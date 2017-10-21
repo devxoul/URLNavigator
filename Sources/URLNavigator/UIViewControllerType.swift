@@ -1,3 +1,4 @@
+#if os(iOS) || os(tvOS)
 import UIKit
 
 public protocol UINavigationControllerType {
@@ -10,3 +11,4 @@ public protocol UIViewControllerType {
 
 extension UINavigationController: UINavigationControllerType {}
 extension UIViewController: UIViewControllerType {}
+#endif
