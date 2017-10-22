@@ -15,6 +15,7 @@ env:
 install:
   - eval "$(curl -sL https://gist.githubusercontent.com/kylef/5c0475ff02b7c7671d2a/raw/9f442512a46d7a2af7b850d65a7e9bd31edfb09b/swiftenv-install.sh)"
   - swift --version
+  - gem install swiftproj
 
 before_script:
   - set -o pipefail
@@ -34,11 +35,18 @@ after_success:
   - bash <(curl -s https://codecov.io/bash) -X xcodeplist -J 'URLNavigator'
 
 before_deploy:
-  - ruby ./scripts/carthage_helper.rb prepare_xcconfig
-  - ruby ./scripts/generate_xcodeproj.rb --xcconfig-overrides Config.xcconfig
+  - swiftproj generate-xcconfig --podspec URLNavigator.podspec
+  - swiftproj generate-xcodeproj --xcconfig-overrides Config.xcconfig
+  - swiftproj add-system-framework
+    --project URLNavigator.xcodeproj
+    --target QuickSpecBase
+    --framework Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework
+  - swiftproj configure-scheme
+    --project URLNavigator.xcodeproj
+    --scheme URLNavigator-Package
+    --buildable-targets URLNavigator,URLMatcher
   - carthage build --no-skip-current --verbose | xcpretty -c
-  - ruby ./scripts/carthage_helper.rb modify_info
-  - carthage archive URLNavigator
+  - carthage archive URLNavigator URLMatcher
 
 deploy:
   provider: releases
