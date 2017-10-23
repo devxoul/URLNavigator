@@ -7,7 +7,7 @@
 [![CodeCov](https://img.shields.io/codecov/c/github/devxoul/URLNavigator.svg)](https://codecov.io/gh/devxoul/URLNavigator)
 [![CocoaDocs](https://img.shields.io/cocoapods/metrics/doc-percent/URLNavigator.svg)](http://cocoadocs.org/docsets/URLNavigator/)
 
-⛵️ URLNavigator provides an elegant way to navigate through view controllers by URLs. URL patterns can be mapped by using `URLNavigator.map(_:_:)` function.
+⛵️ URLNavigator provides an elegant way to navigate through view controllers by URLs. URL patterns can be mapped by using `URLNavigator.register(_:_:)` function.
 
 URLNavigator can be used for mapping URL patterns with 2 kind of types: `URLNavigable` and `URLOpenHandler`. `URLNavigable` is a type which defines an custom initializer and `URLOpenHandler` is a closure which can be executed. Both an initializer and a closure receive an URL and placeholder values.
 
@@ -132,7 +132,7 @@ struct URLNavigationMap {
   static func initialize(navigator: NavigatorType) {
     navigator.register("myapp://user/<int:id>") { ... }
     navigator.register("myapp://post/<title>") { ... }
-    navigator.map("myapp://alert") { ... }
+    navigator.handle("myapp://alert") { ... }
   }
 }
 ```
