@@ -29,6 +29,7 @@ script:
     -destination "$DESTINATION"
     -configuration Debug
     -enableCodeCoverage YES
+    APPLICATION_EXTENSION_API_ONLY=YES
     CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO | xcpretty -c
 
 after_success:

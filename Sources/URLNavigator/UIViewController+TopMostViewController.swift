@@ -2,11 +2,15 @@
 import UIKit
 
 extension UIViewController {
+  private class var sharedApplication: UIApplication? {
+    let selector = NSSelectorFromString("sharedApplication")
+    return UIApplication.perform(selector)?.takeRetainedValue() as? UIApplication
+  }
+
   /// Returns the current application's top most view controller.
   open class var topMost: UIViewController? {
+    guard let currentWindows = self.sharedApplication?.windows else { return nil }
     var rootViewController: UIViewController?
-    let currentWindows = UIApplication.shared.windows
-
     for window in currentWindows {
       if let windowRootViewController = window.rootViewController {
         rootViewController = windowRootViewController
