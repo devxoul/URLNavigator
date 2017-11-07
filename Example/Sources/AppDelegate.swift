@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  Example
+//  URLNavigatorExample
 //
 //  Created by Suyeol Jeon on 7/12/16.
 //  Copyright © 2016 Suyeol Jeon. All rights reserved.
@@ -14,41 +14,46 @@ import URLNavigator
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
   var window: UIWindow?
+  private var navigator: NavigatorType?
 
   func application(
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?
   ) -> Bool {
-    self.window = UIWindow(frame: UIScreen.main.bounds)
-    guard let window = self.window else { return false }
-    window.makeKeyAndVisible()
-    window.backgroundColor = .white
-    window.rootViewController = UINavigationController(rootViewController: UserListViewController())
+    let navigator = Navigator()
 
     // Initialize navigation map
-    NavigationMap.initialize()
+    NavigationMap.initialize(navigator: navigator)
 
-    if let URL = launchOptions?[.url] as? URL {
-      Navigator.present(URL)
-    }
+    let window = UIWindow(frame: UIScreen.main.bounds)
+    window.makeKeyAndVisible()
+    window.backgroundColor = .white
 
+    let userListViewController = UserListViewController(navigator: navigator)
+    window.rootViewController = UINavigationController(rootViewController: userListViewController)
+
+    self.window = window
+    self.navigator = navigator
     return true
   }
 
-  func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
-    // Try open URL first
-    if Navigator.open(url) {
-      NSLog("Navigator: Open \(url)")
+  func application(
+    _ app: UIApplication,
+    open url: URL,
+    options: [UIApplicationOpenURLOptionsKey: Any] = [:]
+  ) -> Bool {
+    // Try presenting the URL first
+    if self.navigator?.present(url, wrap: UINavigationController.self) != nil {
+      print("[Navigator] present: \(url)")
       return true
     }
 
-    // Try present URL
-    if Navigator.present(url, wrap: true) != nil {
-      NSLog("Navigator: Present \(url)")
+    // Try opening the URL
+    if self.navigator?.open(url) == true {
+      print("[Navigator] open: \(url)")
       return true
     }
 
     return false
   }
-
 }

@@ -1,0 +1,16 @@
+PODS:
+  - URLNavigator (2.0.1)
+
+DEPENDENCIES:
+  - URLNavigator (from `../`)
+
+EXTERNAL SOURCES:
+  URLNavigator:
+    :path: ../
+
+SPEC CHECKSUMS:
+  URLNavigator: 067099d49dd9f40e895e59859ad06dc0618c9768
+
+PODFILE CHECKSUM: 797c263b229fb2da6a9381964e439b9c78f774e2
+
+COCOAPODS: 1.3.1

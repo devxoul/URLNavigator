@@ -1,6 +1,6 @@
 //
 //  UserViewController.swift
-//  URLNavigator
+//  URLNavigatorExample
 //
 //  Created by Suyeol Jeon on 7/12/16.
 //  Copyright © 2016 Suyeol Jeon. All rights reserved.
@@ -14,18 +14,20 @@ final class UserViewController: UIViewController {
 
   // MARK: Properties
 
+  private let navigator: NavigatorType
   let username: String
   var repos = [Repo]()
 
 
-  // MARK: UI Properties
+  // MARK: UI
 
   let tableView = UITableView()
 
 
   // MARK: Initializing
 
-  init(username: String) {
+  init(navigator: NavigatorType, username: String) {
+    self.navigator = navigator
     self.username = username
     super.init(nibName: nil, bundle: nil)
     self.title = "\(username)'s Repositories"
@@ -44,9 +46,9 @@ final class UserViewController: UIViewController {
 
     self.tableView.dataSource = self
     self.tableView.delegate = self
-    self.tableView.register(RepoCell.self, forCellReuseIdentifier: "repo")
+    self.tableView.register(RepoCell.self, forCellReuseIdentifier: "cell")
 
-    API.repos(username: self.username) { [weak self] result in
+    GitHub.repos(username: self.username) { [weak self] result in
       guard let `self` = self else { return }
       self.repos = (result.value ?? []).sorted { $0.starCount > $1.starCount }
       self.tableView.reloadData()
@@ -77,23 +79,21 @@ final class UserViewController: UIViewController {
 
   // MARK: Actions
 
-  dynamic func doneButtonDidTap() {
+  @objc func doneButtonDidTap() {
     self.dismiss(animated: true, completion: nil)
   }
-
 }
 
 
 // MARK: - UITableViewDataSource
 
 extension UserViewController: UITableViewDataSource {
-
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return self.repos.count
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(withIdentifier: "repo", for: indexPath) as! RepoCell
+    let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! RepoCell
     let repo = self.repos[indexPath.row]
     cell.textLabel?.text = repo.name
     cell.detailTextLabel?.text = repo.descriptionText
@@ -101,33 +101,17 @@ extension UserViewController: UITableViewDataSource {
     cell.accessoryType = .disclosureIndicator
     return cell
   }
-
 }
 
 
 // MARK: - UITableViewDelegate
 
 extension UserViewController: UITableViewDelegate {
-
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     tableView.deselectRow(at: indexPath, animated: false)
     let repo = self.repos[indexPath.row]
-    let webViewController = Navigator.present(repo.URLString, wrap: true)
+    let webViewController = self.navigator.present(repo.urlString, wrap: nil)
     webViewController?.title = "\(self.username)/\(repo.name)"
-    NSLog("Navigator: Present \(repo.URLString)")
-  }
-
-}
-
-
-// MARK: - URLNavigable
-
-extension UserViewController: URLNavigable {
-  convenience init?(navigation: Navigation) {
-    guard let vcLink = navigation.values["username"] as? String else {
-      return nil
-    }
-    self.init(username: vcLink)
-    
+    print("[Navigator] push: \(repo.urlString)")
   }
 }

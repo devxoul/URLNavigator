@@ -1,6 +1,6 @@
 //
 //  ViewController.swift
-//  Example
+//  URLNavigatorExample
 //
 //  Created by Suyeol Jeon on 7/12/16.
 //  Copyright © 2016 Suyeol Jeon. All rights reserved.
@@ -14,13 +14,15 @@ class UserListViewController: UIViewController {
 
   // MARK: Properties
 
+  private let navigator: NavigatorType
   let users = [
-    DataModel(title: "devxoul", router: "navigator://user/devxoul"),
-    DataModel(title: "apple", router: "navigator://user/apple"),
-    DataModel(title: "google", router: "navigator://user/google"),
-    DataModel(title: "facebook", router: "navigator://user/facebook"),
-    DataModel(title: "fallback", router: "navigator://notMatchable"),
-    ]
+    User(name: "devxoul", urlString: "navigator://user/devxoul"),
+    User(name: "apple", urlString: "navigator://user/apple"),
+    User(name: "google", urlString: "navigator://user/google"),
+    User(name: "facebook", urlString: "navigator://user/facebook"),
+    User(name: "alert", urlString: "navigator://alert?title=Hello&message=World"),
+    User(name: "fallback", urlString: "navigator://notMatchable"),
+  ]
 
 
   // MARK: UI Properties
@@ -30,8 +32,9 @@ class UserListViewController: UIViewController {
 
   // MARK: Initializing
 
-  override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-    super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+  init(navigator: NavigatorType) {
+    self.navigator = navigator
+    super.init(nibName: nil, bundle: nil)
     self.title = "GitHub Users"
   }
 
@@ -64,41 +67,36 @@ class UserListViewController: UIViewController {
 // MARK: - UITableViewDataSource
 
 extension UserListViewController: UITableViewDataSource {
-
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return self.users.count
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: "user", for: indexPath) as! UserCell
-    let model = self.users[indexPath.row]
-    cell.textLabel?.text = model.title
-    cell.detailTextLabel?.text = model.router
+    let user = self.users[indexPath.row]
+    cell.textLabel?.text = user.name
+    cell.detailTextLabel?.text = user.urlString
     cell.detailTextLabel?.textColor = .gray
     cell.accessoryType = .disclosureIndicator
     return cell
   }
-
 }
 
 
 // MARK: - UITableViewDelegate
 
 extension UserListViewController: UITableViewDelegate {
-
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath : IndexPath) {
     tableView.deselectRow(at: indexPath, animated: false)
 
-    // This is just an example. Don't use like this. Create a new `UserViewController` instance instead.
-    let model = self.users[indexPath.row]
-    
-    if(model.title == "fallback"){
-        Navigator.open(model.router)
-    }
-    
-    let URL = model.router
-    Navigator.push(URL)
-    print("Navigator: Push \(URL)")
-  }
+    let user = self.users[indexPath.row]
 
+    let isPushed = self.navigator.push(user.urlString) != nil
+    if isPushed {
+      print("[Navigator] push: \(user.urlString)")
+    } else {
+      print("[Navigator] open: \(user.urlString)")
+      self.navigator.open(user.urlString)
+    }
+  }
 }
