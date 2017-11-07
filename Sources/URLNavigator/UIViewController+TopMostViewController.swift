@@ -4,7 +4,7 @@ import UIKit
 extension UIViewController {
   private class var sharedApplication: UIApplication? {
     let selector = NSSelectorFromString("sharedApplication")
-    return UIApplication.perform(selector)?.takeRetainedValue() as? UIApplication
+    return UIApplication.perform(selector)?.takeUnretainedValue() as? UIApplication
   }
 
   /// Returns the current application's top most view controller.
