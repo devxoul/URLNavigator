@@ -1,0 +1,4 @@
+module QuickSpecBase {
+    umbrella header "/Users/allanvialatte/Developer/github-poissonballon-2016/URLNavigator/.build/checkouts/Quick.git-2733117082000052066/Sources/QuickSpecBase/include/QuickSpecBase.h"
+    export *
+}
