@@ -1,8 +1,6 @@
 .DS_Store
 /.build
 /Packages
-/*.xcodeproj
 **/xcuserdata
-**/xcshareddata
 Pods/
 Carthage/

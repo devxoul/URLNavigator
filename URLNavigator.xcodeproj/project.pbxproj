@@ -1,0 +1,1857 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXAggregateTarget section */
+		"URLNavigator::URLNavigatorPackageTests::ProductTarget" /* URLNavigatorPackageTests */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = OBJ_333 /* Build configuration list for PBXAggregateTarget "URLNavigatorPackageTests" */;
+			buildPhases = (
+			);
+			dependencies = (
+				OBJ_336 /* PBXTargetDependency */,
+				OBJ_337 /* PBXTargetDependency */,
+			);
+			name = URLNavigatorPackageTests;
+			productName = URLNavigatorPackageTests;
+		};
+/* End PBXAggregateTarget section */
+
+/* Begin PBXBuildFile section */
+		OBJ_145 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_6 /* Package.swift */; };
+		OBJ_151 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_39 /* Package.swift */; };
+		OBJ_157 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_73 /* Package.swift */; };
+		OBJ_163 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_130 /* Package.swift */; };
+		OBJ_169 /* URLConvertibleSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_29 /* URLConvertibleSpec.swift */; };
+		OBJ_170 /* URLMatcherInternalSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_30 /* URLMatcherInternalSpec.swift */; };
+		OBJ_171 /* URLMatcherSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_31 /* URLMatcherSpec.swift */; };
+		OBJ_172 /* URLPathComponentSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_32 /* URLPathComponentSpec.swift */; };
+		OBJ_174 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "Nimble::Nimble::Product" /* Nimble.framework */; };
+		OBJ_175 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "Quick::Quick::Product" /* Quick.framework */; };
+		OBJ_176 /* QuickSpecBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "Quick::QuickSpecBase::Product" /* QuickSpecBase.framework */; };
+		OBJ_177 /* URLMatcher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "URLNavigator::URLMatcher::Product" /* URLMatcher.framework */; };
+		OBJ_191 /* Fixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_22 /* Fixtures.swift */; };
+		OBJ_192 /* NavigatorDelegateSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_23 /* NavigatorDelegateSpec.swift */; };
+		OBJ_193 /* NavigatorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_24 /* NavigatorSpec.swift */; };
+		OBJ_194 /* Stubs.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_25 /* Stubs.swift */; };
+		OBJ_195 /* TestConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_26 /* TestConfiguration.swift */; };
+		OBJ_196 /* TopMostViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_27 /* TopMostViewControllerSpec.swift */; };
+		OBJ_198 /* Stubber.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "Stubber::Stubber::Product" /* Stubber.framework */; };
+		OBJ_199 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "Nimble::Nimble::Product" /* Nimble.framework */; };
+		OBJ_200 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "Quick::Quick::Product" /* Quick.framework */; };
+		OBJ_201 /* QuickSpecBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "Quick::QuickSpecBase::Product" /* QuickSpecBase.framework */; };
+		OBJ_202 /* URLNavigator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "URLNavigator::URLNavigator::Product" /* URLNavigator.framework */; };
+		OBJ_203 /* URLMatcher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "URLNavigator::URLMatcher::Product" /* URLMatcher.framework */; };
+		OBJ_216 /* Execution.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_37 /* Execution.swift */; };
+		OBJ_217 /* Stubber.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_38 /* Stubber.swift */; };
+		OBJ_223 /* AdapterProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_77 /* AdapterProtocols.swift */; };
+		OBJ_224 /* AssertionDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_78 /* AssertionDispatcher.swift */; };
+		OBJ_225 /* AssertionRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_79 /* AssertionRecorder.swift */; };
+		OBJ_226 /* NMBExpectation.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_80 /* NMBExpectation.swift */; };
+		OBJ_227 /* NMBObjCMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_81 /* NMBObjCMatcher.swift */; };
+		OBJ_228 /* NimbleEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_82 /* NimbleEnvironment.swift */; };
+		OBJ_229 /* NimbleXCTestHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_83 /* NimbleXCTestHandler.swift */; };
+		OBJ_230 /* ExceptionCapture.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_85 /* ExceptionCapture.swift */; };
+		OBJ_231 /* DSL+Wait.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_86 /* DSL+Wait.swift */; };
+		OBJ_232 /* DSL.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_87 /* DSL.swift */; };
+		OBJ_233 /* Expectation.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_88 /* Expectation.swift */; };
+		OBJ_234 /* ExpectationMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_89 /* ExpectationMessage.swift */; };
+		OBJ_235 /* Expression.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_90 /* Expression.swift */; };
+		OBJ_236 /* FailureMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_91 /* FailureMessage.swift */; };
+		OBJ_237 /* AllPass.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_93 /* AllPass.swift */; };
+		OBJ_238 /* AsyncMatcherWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_94 /* AsyncMatcherWrapper.swift */; };
+		OBJ_239 /* BeAKindOf.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_95 /* BeAKindOf.swift */; };
+		OBJ_240 /* BeAnInstanceOf.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_96 /* BeAnInstanceOf.swift */; };
+		OBJ_241 /* BeCloseTo.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_97 /* BeCloseTo.swift */; };
+		OBJ_242 /* BeEmpty.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_98 /* BeEmpty.swift */; };
+		OBJ_243 /* BeGreaterThan.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_99 /* BeGreaterThan.swift */; };
+		OBJ_244 /* BeGreaterThanOrEqualTo.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_100 /* BeGreaterThanOrEqualTo.swift */; };
+		OBJ_245 /* BeIdenticalTo.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_101 /* BeIdenticalTo.swift */; };
+		OBJ_246 /* BeLessThan.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_102 /* BeLessThan.swift */; };
+		OBJ_247 /* BeLessThanOrEqual.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_103 /* BeLessThanOrEqual.swift */; };
+		OBJ_248 /* BeLogical.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_104 /* BeLogical.swift */; };
+		OBJ_249 /* BeNil.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_105 /* BeNil.swift */; };
+		OBJ_250 /* BeVoid.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_106 /* BeVoid.swift */; };
+		OBJ_251 /* BeginWith.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_107 /* BeginWith.swift */; };
+		OBJ_252 /* Contain.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_108 /* Contain.swift */; };
+		OBJ_253 /* ContainElementSatisfying.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_109 /* ContainElementSatisfying.swift */; };
+		OBJ_254 /* EndWith.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_110 /* EndWith.swift */; };
+		OBJ_255 /* Equal.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_111 /* Equal.swift */; };
+		OBJ_256 /* HaveCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_112 /* HaveCount.swift */; };
+		OBJ_257 /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_113 /* Match.swift */; };
+		OBJ_258 /* MatchError.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_114 /* MatchError.swift */; };
+		OBJ_259 /* MatcherFunc.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_115 /* MatcherFunc.swift */; };
+		OBJ_260 /* MatcherProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_116 /* MatcherProtocols.swift */; };
+		OBJ_261 /* PostNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_117 /* PostNotification.swift */; };
+		OBJ_262 /* Predicate.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_118 /* Predicate.swift */; };
+		OBJ_263 /* RaisesException.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_119 /* RaisesException.swift */; };
+		OBJ_264 /* SatisfyAnyOf.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_120 /* SatisfyAnyOf.swift */; };
+		OBJ_265 /* ThrowAssertion.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_121 /* ThrowAssertion.swift */; };
+		OBJ_266 /* ThrowError.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_122 /* ThrowError.swift */; };
+		OBJ_267 /* ToSucceed.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_123 /* ToSucceed.swift */; };
+		OBJ_268 /* Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_125 /* Async.swift */; };
+		OBJ_269 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_126 /* Errors.swift */; };
+		OBJ_270 /* Functional.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_127 /* Functional.swift */; };
+		OBJ_271 /* SourceLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_128 /* SourceLocation.swift */; };
+		OBJ_272 /* Stringers.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_129 /* Stringers.swift */; };
+		OBJ_278 /* Behavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_47 /* Behavior.swift */; };
+		OBJ_279 /* Callsite.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_48 /* Callsite.swift */; };
+		OBJ_280 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_50 /* Configuration.swift */; };
+		OBJ_281 /* QuickConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_51 /* QuickConfiguration.swift */; };
+		OBJ_282 /* DSL.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_53 /* DSL.swift */; };
+		OBJ_283 /* World+DSL.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_54 /* World+DSL.swift */; };
+		OBJ_284 /* ErrorUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_55 /* ErrorUtility.swift */; };
+		OBJ_285 /* Example.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_56 /* Example.swift */; };
+		OBJ_286 /* ExampleGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_57 /* ExampleGroup.swift */; };
+		OBJ_287 /* ExampleMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_58 /* ExampleMetadata.swift */; };
+		OBJ_288 /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_59 /* Filter.swift */; };
+		OBJ_289 /* Closures.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_61 /* Closures.swift */; };
+		OBJ_290 /* ExampleHooks.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_62 /* ExampleHooks.swift */; };
+		OBJ_291 /* HooksPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_63 /* HooksPhase.swift */; };
+		OBJ_292 /* SuiteHooks.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_64 /* SuiteHooks.swift */; };
+		OBJ_293 /* NSBundle+CurrentTestBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_65 /* NSBundle+CurrentTestBundle.swift */; };
+		OBJ_294 /* NSString+C99ExtendedIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_66 /* NSString+C99ExtendedIdentifier.swift */; };
+		OBJ_295 /* QuickMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_67 /* QuickMain.swift */; };
+		OBJ_296 /* QuickSelectedTestSuiteBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_68 /* QuickSelectedTestSuiteBuilder.swift */; };
+		OBJ_297 /* QuickSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_69 /* QuickSpec.swift */; };
+		OBJ_298 /* QuickTestSuite.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_70 /* QuickTestSuite.swift */; };
+		OBJ_299 /* URL+FileName.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_71 /* URL+FileName.swift */; };
+		OBJ_300 /* World.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_72 /* World.swift */; };
+		OBJ_302 /* QuickSpecBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "Quick::QuickSpecBase::Product" /* QuickSpecBase.framework */; };
+		OBJ_308 /* QuickSpecBase.m in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_42 /* QuickSpecBase.m */; };
+		OBJ_314 /* Navigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_15 /* Navigator.swift */; };
+		OBJ_315 /* NavigatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_16 /* NavigatorDelegate.swift */; };
+		OBJ_316 /* NavigatorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_17 /* NavigatorType.swift */; };
+		OBJ_317 /* UIViewController+TopMostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_18 /* UIViewController+TopMostViewController.swift */; };
+		OBJ_318 /* UIViewControllerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_19 /* UIViewControllerType.swift */; };
+		OBJ_320 /* URLMatcher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "URLNavigator::URLMatcher::Product" /* URLMatcher.framework */; };
+		OBJ_326 /* URLConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* URLConvertible.swift */; };
+		OBJ_327 /* URLMatchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_10 /* URLMatchResult.swift */; };
+		OBJ_328 /* URLMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* URLMatcher.swift */; };
+		OBJ_329 /* URLPatchComponentMatchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_12 /* URLPatchComponentMatchResult.swift */; };
+		OBJ_330 /* URLPathComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_13 /* URLPathComponent.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		3B93D4031FBB3B5800570A9F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = OBJ_1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = "Quick::QuickSpecBase";
+			remoteInfo = QuickSpecBase;
+		};
+		3B93D4041FBB3B5800570A9F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = OBJ_1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = "URLNavigator::URLMatcher";
+			remoteInfo = URLMatcher;
+		};
+		3B93D4051FBB3B5800570A9F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = OBJ_1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = "Nimble::Nimble";
+			remoteInfo = Nimble;
+		};
+		3B93D4061FBB3B5800570A9F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = OBJ_1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = "Quick::Quick";
+			remoteInfo = Quick;
+		};
+		3B93D4071FBB3B5800570A9F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = OBJ_1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = "Quick::QuickSpecBase";
+			remoteInfo = QuickSpecBase;
+		};
+		3B93D4081FBB3B5800570A9F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = OBJ_1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = "URLNavigator::URLMatcher";
+			remoteInfo = URLMatcher;
+		};
+		3B93D4091FBB3B5800570A9F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = OBJ_1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = "Stubber::Stubber";
+			remoteInfo = Stubber;
+		};
+		3B93D40A1FBB3B5800570A9F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = OBJ_1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = "Nimble::Nimble";
+			remoteInfo = Nimble;
+		};
+		3B93D40B1FBB3B5800570A9F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = OBJ_1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = "Quick::Quick";
+			remoteInfo = Quick;
+		};
+		3B93D40C1FBB3B5800570A9F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = OBJ_1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = "Quick::QuickSpecBase";
+			remoteInfo = QuickSpecBase;
+		};
+		3B93D40D1FBB3B5800570A9F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = OBJ_1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = "URLNavigator::URLNavigator";
+			remoteInfo = URLNavigator;
+		};
+		3B93D40E1FBB3B5800570A9F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = OBJ_1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = "URLNavigator::URLMatcher";
+			remoteInfo = URLMatcher;
+		};
+		3B93D40F1FBB3B5800570A9F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = OBJ_1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = "URLNavigator::URLNavigatorTests";
+			remoteInfo = URLNavigatorTests;
+		};
+		3B93D4101FBB3B5800570A9F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = OBJ_1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = "URLNavigator::URLMatcherTests";
+			remoteInfo = URLMatcherTests;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		"Nimble::Nimble::Product" /* Nimble.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Nimble.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		OBJ_10 /* URLMatchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLMatchResult.swift; sourceTree = "<group>"; };
+		OBJ_100 /* BeGreaterThanOrEqualTo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeGreaterThanOrEqualTo.swift; sourceTree = "<group>"; };
+		OBJ_101 /* BeIdenticalTo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeIdenticalTo.swift; sourceTree = "<group>"; };
+		OBJ_102 /* BeLessThan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeLessThan.swift; sourceTree = "<group>"; };
+		OBJ_103 /* BeLessThanOrEqual.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeLessThanOrEqual.swift; sourceTree = "<group>"; };
+		OBJ_104 /* BeLogical.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeLogical.swift; sourceTree = "<group>"; };
+		OBJ_105 /* BeNil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeNil.swift; sourceTree = "<group>"; };
+		OBJ_106 /* BeVoid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeVoid.swift; sourceTree = "<group>"; };
+		OBJ_107 /* BeginWith.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeginWith.swift; sourceTree = "<group>"; };
+		OBJ_108 /* Contain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contain.swift; sourceTree = "<group>"; };
+		OBJ_109 /* ContainElementSatisfying.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainElementSatisfying.swift; sourceTree = "<group>"; };
+		OBJ_11 /* URLMatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLMatcher.swift; sourceTree = "<group>"; };
+		OBJ_110 /* EndWith.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndWith.swift; sourceTree = "<group>"; };
+		OBJ_111 /* Equal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Equal.swift; sourceTree = "<group>"; };
+		OBJ_112 /* HaveCount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HaveCount.swift; sourceTree = "<group>"; };
+		OBJ_113 /* Match.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Match.swift; sourceTree = "<group>"; };
+		OBJ_114 /* MatchError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchError.swift; sourceTree = "<group>"; };
+		OBJ_115 /* MatcherFunc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatcherFunc.swift; sourceTree = "<group>"; };
+		OBJ_116 /* MatcherProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatcherProtocols.swift; sourceTree = "<group>"; };
+		OBJ_117 /* PostNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostNotification.swift; sourceTree = "<group>"; };
+		OBJ_118 /* Predicate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Predicate.swift; sourceTree = "<group>"; };
+		OBJ_119 /* RaisesException.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaisesException.swift; sourceTree = "<group>"; };
+		OBJ_12 /* URLPatchComponentMatchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLPatchComponentMatchResult.swift; sourceTree = "<group>"; };
+		OBJ_120 /* SatisfyAnyOf.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SatisfyAnyOf.swift; sourceTree = "<group>"; };
+		OBJ_121 /* ThrowAssertion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThrowAssertion.swift; sourceTree = "<group>"; };
+		OBJ_122 /* ThrowError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThrowError.swift; sourceTree = "<group>"; };
+		OBJ_123 /* ToSucceed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToSucceed.swift; sourceTree = "<group>"; };
+		OBJ_125 /* Async.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Async.swift; sourceTree = "<group>"; };
+		OBJ_126 /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
+		OBJ_127 /* Functional.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functional.swift; sourceTree = "<group>"; };
+		OBJ_128 /* SourceLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceLocation.swift; sourceTree = "<group>"; };
+		OBJ_129 /* Stringers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stringers.swift; sourceTree = "<group>"; };
+		OBJ_13 /* URLPathComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLPathComponent.swift; sourceTree = "<group>"; };
+		OBJ_130 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = Package.swift; path = "/Users/allanvialatte/Developer/github-poissonballon-2016/URLNavigator/.build/checkouts/Nimble.git-1225162792785459507/Package.swift"; sourceTree = "<group>"; };
+		OBJ_15 /* Navigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigator.swift; sourceTree = "<group>"; };
+		OBJ_16 /* NavigatorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigatorDelegate.swift; sourceTree = "<group>"; };
+		OBJ_17 /* NavigatorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigatorType.swift; sourceTree = "<group>"; };
+		OBJ_18 /* UIViewController+TopMostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+TopMostViewController.swift"; sourceTree = "<group>"; };
+		OBJ_19 /* UIViewControllerType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerType.swift; sourceTree = "<group>"; };
+		OBJ_22 /* Fixtures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fixtures.swift; sourceTree = "<group>"; };
+		OBJ_23 /* NavigatorDelegateSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigatorDelegateSpec.swift; sourceTree = "<group>"; };
+		OBJ_24 /* NavigatorSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigatorSpec.swift; sourceTree = "<group>"; };
+		OBJ_25 /* Stubs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stubs.swift; sourceTree = "<group>"; };
+		OBJ_26 /* TestConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestConfiguration.swift; sourceTree = "<group>"; };
+		OBJ_27 /* TopMostViewControllerSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopMostViewControllerSpec.swift; sourceTree = "<group>"; };
+		OBJ_29 /* URLConvertibleSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLConvertibleSpec.swift; sourceTree = "<group>"; };
+		OBJ_30 /* URLMatcherInternalSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLMatcherInternalSpec.swift; sourceTree = "<group>"; };
+		OBJ_31 /* URLMatcherSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLMatcherSpec.swift; sourceTree = "<group>"; };
+		OBJ_32 /* URLPathComponentSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLPathComponentSpec.swift; sourceTree = "<group>"; };
+		OBJ_33 /* Example */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Example; sourceTree = SOURCE_ROOT; };
+		OBJ_37 /* Execution.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Execution.swift; sourceTree = "<group>"; };
+		OBJ_38 /* Stubber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stubber.swift; sourceTree = "<group>"; };
+		OBJ_39 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = Package.swift; path = "/Users/allanvialatte/Developer/github-poissonballon-2016/URLNavigator/.build/checkouts/Stubber.git-8792084679083179886/Package.swift"; sourceTree = "<group>"; };
+		OBJ_42 /* QuickSpecBase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QuickSpecBase.m; sourceTree = "<group>"; };
+		OBJ_44 /* QuickSpecBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QuickSpecBase.h; sourceTree = "<group>"; };
+		OBJ_45 /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; name = module.modulemap; path = "/Users/allanvialatte/Developer/github-poissonballon-2016/URLNavigator/URLNavigator.xcodeproj/GeneratedModuleMap/QuickSpecBase/module.modulemap"; sourceTree = "<group>"; };
+		OBJ_47 /* Behavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Behavior.swift; sourceTree = "<group>"; };
+		OBJ_48 /* Callsite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Callsite.swift; sourceTree = "<group>"; };
+		OBJ_50 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
+		OBJ_51 /* QuickConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickConfiguration.swift; sourceTree = "<group>"; };
+		OBJ_53 /* DSL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DSL.swift; sourceTree = "<group>"; };
+		OBJ_54 /* World+DSL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "World+DSL.swift"; sourceTree = "<group>"; };
+		OBJ_55 /* ErrorUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorUtility.swift; sourceTree = "<group>"; };
+		OBJ_56 /* Example.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Example.swift; sourceTree = "<group>"; };
+		OBJ_57 /* ExampleGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleGroup.swift; sourceTree = "<group>"; };
+		OBJ_58 /* ExampleMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleMetadata.swift; sourceTree = "<group>"; };
+		OBJ_59 /* Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
+		OBJ_6 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
+		OBJ_61 /* Closures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Closures.swift; sourceTree = "<group>"; };
+		OBJ_62 /* ExampleHooks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleHooks.swift; sourceTree = "<group>"; };
+		OBJ_63 /* HooksPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HooksPhase.swift; sourceTree = "<group>"; };
+		OBJ_64 /* SuiteHooks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuiteHooks.swift; sourceTree = "<group>"; };
+		OBJ_65 /* NSBundle+CurrentTestBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSBundle+CurrentTestBundle.swift"; sourceTree = "<group>"; };
+		OBJ_66 /* NSString+C99ExtendedIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSString+C99ExtendedIdentifier.swift"; sourceTree = "<group>"; };
+		OBJ_67 /* QuickMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickMain.swift; sourceTree = "<group>"; };
+		OBJ_68 /* QuickSelectedTestSuiteBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickSelectedTestSuiteBuilder.swift; sourceTree = "<group>"; };
+		OBJ_69 /* QuickSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickSpec.swift; sourceTree = "<group>"; };
+		OBJ_70 /* QuickTestSuite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickTestSuite.swift; sourceTree = "<group>"; };
+		OBJ_71 /* URL+FileName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+FileName.swift"; sourceTree = "<group>"; };
+		OBJ_72 /* World.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = World.swift; sourceTree = "<group>"; };
+		OBJ_73 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = Package.swift; path = "/Users/allanvialatte/Developer/github-poissonballon-2016/URLNavigator/.build/checkouts/Quick.git-2733117082000052066/Package.swift"; sourceTree = "<group>"; };
+		OBJ_77 /* AdapterProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdapterProtocols.swift; sourceTree = "<group>"; };
+		OBJ_78 /* AssertionDispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssertionDispatcher.swift; sourceTree = "<group>"; };
+		OBJ_79 /* AssertionRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssertionRecorder.swift; sourceTree = "<group>"; };
+		OBJ_80 /* NMBExpectation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NMBExpectation.swift; sourceTree = "<group>"; };
+		OBJ_81 /* NMBObjCMatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NMBObjCMatcher.swift; sourceTree = "<group>"; };
+		OBJ_82 /* NimbleEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NimbleEnvironment.swift; sourceTree = "<group>"; };
+		OBJ_83 /* NimbleXCTestHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NimbleXCTestHandler.swift; sourceTree = "<group>"; };
+		OBJ_85 /* ExceptionCapture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExceptionCapture.swift; sourceTree = "<group>"; };
+		OBJ_86 /* DSL+Wait.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DSL+Wait.swift"; sourceTree = "<group>"; };
+		OBJ_87 /* DSL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DSL.swift; sourceTree = "<group>"; };
+		OBJ_88 /* Expectation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Expectation.swift; sourceTree = "<group>"; };
+		OBJ_89 /* ExpectationMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpectationMessage.swift; sourceTree = "<group>"; };
+		OBJ_9 /* URLConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLConvertible.swift; sourceTree = "<group>"; };
+		OBJ_90 /* Expression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Expression.swift; sourceTree = "<group>"; };
+		OBJ_91 /* FailureMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailureMessage.swift; sourceTree = "<group>"; };
+		OBJ_93 /* AllPass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllPass.swift; sourceTree = "<group>"; };
+		OBJ_94 /* AsyncMatcherWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncMatcherWrapper.swift; sourceTree = "<group>"; };
+		OBJ_95 /* BeAKindOf.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeAKindOf.swift; sourceTree = "<group>"; };
+		OBJ_96 /* BeAnInstanceOf.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeAnInstanceOf.swift; sourceTree = "<group>"; };
+		OBJ_97 /* BeCloseTo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeCloseTo.swift; sourceTree = "<group>"; };
+		OBJ_98 /* BeEmpty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeEmpty.swift; sourceTree = "<group>"; };
+		OBJ_99 /* BeGreaterThan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeGreaterThan.swift; sourceTree = "<group>"; };
+		"Quick::Quick::Product" /* Quick.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Quick.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		"Quick::QuickSpecBase::Product" /* QuickSpecBase.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = QuickSpecBase.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		"Stubber::Stubber::Product" /* Stubber.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Stubber.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		"URLNavigator::URLMatcher::Product" /* URLMatcher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = URLMatcher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		"URLNavigator::URLMatcherTests::Product" /* URLMatcherTests.xctest */ = {isa = PBXFileReference; lastKnownFileType = file; path = URLMatcherTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		"URLNavigator::URLNavigator::Product" /* URLNavigator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = URLNavigator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		"URLNavigator::URLNavigatorTests::Product" /* URLNavigatorTests.xctest */ = {isa = PBXFileReference; lastKnownFileType = file; path = URLNavigatorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		OBJ_173 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 0;
+			files = (
+				OBJ_174 /* Nimble.framework in Frameworks */,
+				OBJ_175 /* Quick.framework in Frameworks */,
+				OBJ_176 /* QuickSpecBase.framework in Frameworks */,
+				OBJ_177 /* URLMatcher.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		OBJ_197 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 0;
+			files = (
+				OBJ_198 /* Stubber.framework in Frameworks */,
+				OBJ_199 /* Nimble.framework in Frameworks */,
+				OBJ_200 /* Quick.framework in Frameworks */,
+				OBJ_201 /* QuickSpecBase.framework in Frameworks */,
+				OBJ_202 /* URLNavigator.framework in Frameworks */,
+				OBJ_203 /* URLMatcher.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		OBJ_218 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		OBJ_273 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		OBJ_301 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 0;
+			files = (
+				OBJ_302 /* QuickSpecBase.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		OBJ_309 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		OBJ_319 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 0;
+			files = (
+				OBJ_320 /* URLMatcher.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		OBJ_331 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		OBJ_124 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_125 /* Async.swift */,
+				OBJ_126 /* Errors.swift */,
+				OBJ_127 /* Functional.swift */,
+				OBJ_128 /* SourceLocation.swift */,
+				OBJ_129 /* Stringers.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		OBJ_131 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				"URLNavigator::URLMatcherTests::Product" /* URLMatcherTests.xctest */,
+				"URLNavigator::URLNavigatorTests::Product" /* URLNavigatorTests.xctest */,
+				"Stubber::Stubber::Product" /* Stubber.framework */,
+				"Nimble::Nimble::Product" /* Nimble.framework */,
+				"Quick::Quick::Product" /* Quick.framework */,
+				"Quick::QuickSpecBase::Product" /* QuickSpecBase.framework */,
+				"URLNavigator::URLNavigator::Product" /* URLNavigator.framework */,
+				"URLNavigator::URLMatcher::Product" /* URLMatcher.framework */,
+			);
+			name = Products;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		OBJ_14 /* URLNavigator */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_15 /* Navigator.swift */,
+				OBJ_16 /* NavigatorDelegate.swift */,
+				OBJ_17 /* NavigatorType.swift */,
+				OBJ_18 /* UIViewController+TopMostViewController.swift */,
+				OBJ_19 /* UIViewControllerType.swift */,
+			);
+			name = URLNavigator;
+			path = Sources/URLNavigator;
+			sourceTree = SOURCE_ROOT;
+		};
+		OBJ_20 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_21 /* URLNavigatorTests */,
+				OBJ_28 /* URLMatcherTests */,
+			);
+			name = Tests;
+			sourceTree = SOURCE_ROOT;
+		};
+		OBJ_21 /* URLNavigatorTests */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_22 /* Fixtures.swift */,
+				OBJ_23 /* NavigatorDelegateSpec.swift */,
+				OBJ_24 /* NavigatorSpec.swift */,
+				OBJ_25 /* Stubs.swift */,
+				OBJ_26 /* TestConfiguration.swift */,
+				OBJ_27 /* TopMostViewControllerSpec.swift */,
+			);
+			name = URLNavigatorTests;
+			path = Tests/URLNavigatorTests;
+			sourceTree = SOURCE_ROOT;
+		};
+		OBJ_28 /* URLMatcherTests */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_29 /* URLConvertibleSpec.swift */,
+				OBJ_30 /* URLMatcherInternalSpec.swift */,
+				OBJ_31 /* URLMatcherSpec.swift */,
+				OBJ_32 /* URLPathComponentSpec.swift */,
+			);
+			name = URLMatcherTests;
+			path = Tests/URLMatcherTests;
+			sourceTree = SOURCE_ROOT;
+		};
+		OBJ_34 /* Dependencies */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_35 /* Stubber 1.0.0 */,
+				OBJ_40 /* Quick 1.2.0 */,
+				OBJ_74 /* Nimble 7.0.2 */,
+			);
+			name = Dependencies;
+			sourceTree = "<group>";
+		};
+		OBJ_35 /* Stubber 1.0.0 */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_36 /* Stubber */,
+				OBJ_39 /* Package.swift */,
+			);
+			name = "Stubber 1.0.0";
+			sourceTree = SOURCE_ROOT;
+		};
+		OBJ_36 /* Stubber */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_37 /* Execution.swift */,
+				OBJ_38 /* Stubber.swift */,
+			);
+			name = Stubber;
+			path = ".build/checkouts/Stubber.git-8792084679083179886/Sources/Stubber";
+			sourceTree = SOURCE_ROOT;
+		};
+		OBJ_40 /* Quick 1.2.0 */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_41 /* QuickSpecBase */,
+				OBJ_46 /* Quick */,
+				OBJ_73 /* Package.swift */,
+			);
+			name = "Quick 1.2.0";
+			sourceTree = SOURCE_ROOT;
+		};
+		OBJ_41 /* QuickSpecBase */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_42 /* QuickSpecBase.m */,
+				OBJ_43 /* include */,
+			);
+			name = QuickSpecBase;
+			path = ".build/checkouts/Quick.git-2733117082000052066/Sources/QuickSpecBase";
+			sourceTree = SOURCE_ROOT;
+		};
+		OBJ_43 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_44 /* QuickSpecBase.h */,
+				OBJ_45 /* module.modulemap */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		OBJ_46 /* Quick */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_47 /* Behavior.swift */,
+				OBJ_48 /* Callsite.swift */,
+				OBJ_49 /* Configuration */,
+				OBJ_52 /* DSL */,
+				OBJ_55 /* ErrorUtility.swift */,
+				OBJ_56 /* Example.swift */,
+				OBJ_57 /* ExampleGroup.swift */,
+				OBJ_58 /* ExampleMetadata.swift */,
+				OBJ_59 /* Filter.swift */,
+				OBJ_60 /* Hooks */,
+				OBJ_65 /* NSBundle+CurrentTestBundle.swift */,
+				OBJ_66 /* NSString+C99ExtendedIdentifier.swift */,
+				OBJ_67 /* QuickMain.swift */,
+				OBJ_68 /* QuickSelectedTestSuiteBuilder.swift */,
+				OBJ_69 /* QuickSpec.swift */,
+				OBJ_70 /* QuickTestSuite.swift */,
+				OBJ_71 /* URL+FileName.swift */,
+				OBJ_72 /* World.swift */,
+			);
+			name = Quick;
+			path = ".build/checkouts/Quick.git-2733117082000052066/Sources/Quick";
+			sourceTree = SOURCE_ROOT;
+		};
+		OBJ_49 /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_50 /* Configuration.swift */,
+				OBJ_51 /* QuickConfiguration.swift */,
+			);
+			path = Configuration;
+			sourceTree = "<group>";
+		};
+		OBJ_5 /*  */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_6 /* Package.swift */,
+				OBJ_7 /* Sources */,
+				OBJ_20 /* Tests */,
+				OBJ_33 /* Example */,
+				OBJ_34 /* Dependencies */,
+				OBJ_131 /* Products */,
+			);
+			name = "";
+			sourceTree = "<group>";
+		};
+		OBJ_52 /* DSL */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_53 /* DSL.swift */,
+				OBJ_54 /* World+DSL.swift */,
+			);
+			path = DSL;
+			sourceTree = "<group>";
+		};
+		OBJ_60 /* Hooks */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_61 /* Closures.swift */,
+				OBJ_62 /* ExampleHooks.swift */,
+				OBJ_63 /* HooksPhase.swift */,
+				OBJ_64 /* SuiteHooks.swift */,
+			);
+			path = Hooks;
+			sourceTree = "<group>";
+		};
+		OBJ_7 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_8 /* URLMatcher */,
+				OBJ_14 /* URLNavigator */,
+			);
+			name = Sources;
+			sourceTree = SOURCE_ROOT;
+		};
+		OBJ_74 /* Nimble 7.0.2 */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_75 /* Nimble */,
+				OBJ_130 /* Package.swift */,
+			);
+			name = "Nimble 7.0.2";
+			sourceTree = SOURCE_ROOT;
+		};
+		OBJ_75 /* Nimble */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_76 /* Adapters */,
+				OBJ_86 /* DSL+Wait.swift */,
+				OBJ_87 /* DSL.swift */,
+				OBJ_88 /* Expectation.swift */,
+				OBJ_89 /* ExpectationMessage.swift */,
+				OBJ_90 /* Expression.swift */,
+				OBJ_91 /* FailureMessage.swift */,
+				OBJ_92 /* Matchers */,
+				OBJ_124 /* Utils */,
+			);
+			name = Nimble;
+			path = ".build/checkouts/Nimble.git-1225162792785459507/Sources/Nimble";
+			sourceTree = SOURCE_ROOT;
+		};
+		OBJ_76 /* Adapters */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_77 /* AdapterProtocols.swift */,
+				OBJ_78 /* AssertionDispatcher.swift */,
+				OBJ_79 /* AssertionRecorder.swift */,
+				OBJ_80 /* NMBExpectation.swift */,
+				OBJ_81 /* NMBObjCMatcher.swift */,
+				OBJ_82 /* NimbleEnvironment.swift */,
+				OBJ_83 /* NimbleXCTestHandler.swift */,
+				OBJ_84 /* NonObjectiveC */,
+			);
+			path = Adapters;
+			sourceTree = "<group>";
+		};
+		OBJ_8 /* URLMatcher */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_9 /* URLConvertible.swift */,
+				OBJ_10 /* URLMatchResult.swift */,
+				OBJ_11 /* URLMatcher.swift */,
+				OBJ_12 /* URLPatchComponentMatchResult.swift */,
+				OBJ_13 /* URLPathComponent.swift */,
+			);
+			name = URLMatcher;
+			path = Sources/URLMatcher;
+			sourceTree = SOURCE_ROOT;
+		};
+		OBJ_84 /* NonObjectiveC */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_85 /* ExceptionCapture.swift */,
+			);
+			path = NonObjectiveC;
+			sourceTree = "<group>";
+		};
+		OBJ_92 /* Matchers */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_93 /* AllPass.swift */,
+				OBJ_94 /* AsyncMatcherWrapper.swift */,
+				OBJ_95 /* BeAKindOf.swift */,
+				OBJ_96 /* BeAnInstanceOf.swift */,
+				OBJ_97 /* BeCloseTo.swift */,
+				OBJ_98 /* BeEmpty.swift */,
+				OBJ_99 /* BeGreaterThan.swift */,
+				OBJ_100 /* BeGreaterThanOrEqualTo.swift */,
+				OBJ_101 /* BeIdenticalTo.swift */,
+				OBJ_102 /* BeLessThan.swift */,
+				OBJ_103 /* BeLessThanOrEqual.swift */,
+				OBJ_104 /* BeLogical.swift */,
+				OBJ_105 /* BeNil.swift */,
+				OBJ_106 /* BeVoid.swift */,
+				OBJ_107 /* BeginWith.swift */,
+				OBJ_108 /* Contain.swift */,
+				OBJ_109 /* ContainElementSatisfying.swift */,
+				OBJ_110 /* EndWith.swift */,
+				OBJ_111 /* Equal.swift */,
+				OBJ_112 /* HaveCount.swift */,
+				OBJ_113 /* Match.swift */,
+				OBJ_114 /* MatchError.swift */,
+				OBJ_115 /* MatcherFunc.swift */,
+				OBJ_116 /* MatcherProtocols.swift */,
+				OBJ_117 /* PostNotification.swift */,
+				OBJ_118 /* Predicate.swift */,
+				OBJ_119 /* RaisesException.swift */,
+				OBJ_120 /* SatisfyAnyOf.swift */,
+				OBJ_121 /* ThrowAssertion.swift */,
+				OBJ_122 /* ThrowError.swift */,
+				OBJ_123 /* ToSucceed.swift */,
+			);
+			path = Matchers;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		"Nimble::Nimble" /* Nimble */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = OBJ_219 /* Build configuration list for PBXNativeTarget "Nimble" */;
+			buildPhases = (
+				OBJ_222 /* Sources */,
+				OBJ_273 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Nimble;
+			productName = Nimble;
+			productReference = "Nimble::Nimble::Product" /* Nimble.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		"Nimble::SwiftPMPackageDescription" /* NimblePackageDescription */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = OBJ_159 /* Build configuration list for PBXNativeTarget "NimblePackageDescription" */;
+			buildPhases = (
+				OBJ_162 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NimblePackageDescription;
+			productName = NimblePackageDescription;
+			productType = "com.apple.product-type.framework";
+		};
+		"Quick::Quick" /* Quick */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = OBJ_274 /* Build configuration list for PBXNativeTarget "Quick" */;
+			buildPhases = (
+				OBJ_277 /* Sources */,
+				OBJ_301 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				OBJ_303 /* PBXTargetDependency */,
+			);
+			name = Quick;
+			productName = Quick;
+			productReference = "Quick::Quick::Product" /* Quick.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		"Quick::QuickSpecBase" /* QuickSpecBase */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = OBJ_304 /* Build configuration list for PBXNativeTarget "QuickSpecBase" */;
+			buildPhases = (
+				OBJ_307 /* Sources */,
+				OBJ_309 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = QuickSpecBase;
+			productName = QuickSpecBase;
+			productReference = "Quick::QuickSpecBase::Product" /* QuickSpecBase.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		"Quick::SwiftPMPackageDescription" /* QuickPackageDescription */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = OBJ_153 /* Build configuration list for PBXNativeTarget "QuickPackageDescription" */;
+			buildPhases = (
+				OBJ_156 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = QuickPackageDescription;
+			productName = QuickPackageDescription;
+			productType = "com.apple.product-type.framework";
+		};
+		"Stubber::Stubber" /* Stubber */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = OBJ_212 /* Build configuration list for PBXNativeTarget "Stubber" */;
+			buildPhases = (
+				OBJ_215 /* Sources */,
+				OBJ_218 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Stubber;
+			productName = Stubber;
+			productReference = "Stubber::Stubber::Product" /* Stubber.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		"Stubber::SwiftPMPackageDescription" /* StubberPackageDescription */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = OBJ_147 /* Build configuration list for PBXNativeTarget "StubberPackageDescription" */;
+			buildPhases = (
+				OBJ_150 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = StubberPackageDescription;
+			productName = StubberPackageDescription;
+			productType = "com.apple.product-type.framework";
+		};
+		"URLNavigator::SwiftPMPackageDescription" /* URLNavigatorPackageDescription */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = OBJ_141 /* Build configuration list for PBXNativeTarget "URLNavigatorPackageDescription" */;
+			buildPhases = (
+				OBJ_144 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = URLNavigatorPackageDescription;
+			productName = URLNavigatorPackageDescription;
+			productType = "com.apple.product-type.framework";
+		};
+		"URLNavigator::URLMatcher" /* URLMatcher */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = OBJ_322 /* Build configuration list for PBXNativeTarget "URLMatcher" */;
+			buildPhases = (
+				OBJ_325 /* Sources */,
+				OBJ_331 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = URLMatcher;
+			productName = URLMatcher;
+			productReference = "URLNavigator::URLMatcher::Product" /* URLMatcher.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		"URLNavigator::URLMatcherTests" /* URLMatcherTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = OBJ_165 /* Build configuration list for PBXNativeTarget "URLMatcherTests" */;
+			buildPhases = (
+				OBJ_168 /* Sources */,
+				OBJ_173 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				OBJ_178 /* PBXTargetDependency */,
+				OBJ_180 /* PBXTargetDependency */,
+				OBJ_182 /* PBXTargetDependency */,
+				OBJ_184 /* PBXTargetDependency */,
+			);
+			name = URLMatcherTests;
+			productName = URLMatcherTests;
+			productReference = "URLNavigator::URLMatcherTests::Product" /* URLMatcherTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		"URLNavigator::URLNavigator" /* URLNavigator */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = OBJ_310 /* Build configuration list for PBXNativeTarget "URLNavigator" */;
+			buildPhases = (
+				OBJ_313 /* Sources */,
+				OBJ_319 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				OBJ_321 /* PBXTargetDependency */,
+			);
+			name = URLNavigator;
+			productName = URLNavigator;
+			productReference = "URLNavigator::URLNavigator::Product" /* URLNavigator.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		"URLNavigator::URLNavigatorTests" /* URLNavigatorTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = OBJ_187 /* Build configuration list for PBXNativeTarget "URLNavigatorTests" */;
+			buildPhases = (
+				OBJ_190 /* Sources */,
+				OBJ_197 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				OBJ_204 /* PBXTargetDependency */,
+				OBJ_206 /* PBXTargetDependency */,
+				OBJ_207 /* PBXTargetDependency */,
+				OBJ_208 /* PBXTargetDependency */,
+				OBJ_209 /* PBXTargetDependency */,
+				OBJ_211 /* PBXTargetDependency */,
+			);
+			name = URLNavigatorTests;
+			productName = URLNavigatorTests;
+			productReference = "URLNavigator::URLNavigatorTests::Product" /* URLNavigatorTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		OBJ_1 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 9999;
+			};
+			buildConfigurationList = OBJ_2 /* Build configuration list for PBXProject "URLNavigator" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = OBJ_5 /*  */;
+			productRefGroup = OBJ_131 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				"URLNavigator::SwiftPMPackageDescription" /* URLNavigatorPackageDescription */,
+				"Stubber::SwiftPMPackageDescription" /* StubberPackageDescription */,
+				"Quick::SwiftPMPackageDescription" /* QuickPackageDescription */,
+				"Nimble::SwiftPMPackageDescription" /* NimblePackageDescription */,
+				"URLNavigator::URLMatcherTests" /* URLMatcherTests */,
+				"URLNavigator::URLNavigatorTests" /* URLNavigatorTests */,
+				"Stubber::Stubber" /* Stubber */,
+				"Nimble::Nimble" /* Nimble */,
+				"Quick::Quick" /* Quick */,
+				"Quick::QuickSpecBase" /* QuickSpecBase */,
+				"URLNavigator::URLNavigator" /* URLNavigator */,
+				"URLNavigator::URLMatcher" /* URLMatcher */,
+				"URLNavigator::URLNavigatorPackageTests::ProductTarget" /* URLNavigatorPackageTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		OBJ_144 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 0;
+			files = (
+				OBJ_145 /* Package.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		OBJ_150 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 0;
+			files = (
+				OBJ_151 /* Package.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		OBJ_156 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 0;
+			files = (
+				OBJ_157 /* Package.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		OBJ_162 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 0;
+			files = (
+				OBJ_163 /* Package.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		OBJ_168 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 0;
+			files = (
+				OBJ_169 /* URLConvertibleSpec.swift in Sources */,
+				OBJ_170 /* URLMatcherInternalSpec.swift in Sources */,
+				OBJ_171 /* URLMatcherSpec.swift in Sources */,
+				OBJ_172 /* URLPathComponentSpec.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		OBJ_190 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 0;
+			files = (
+				OBJ_191 /* Fixtures.swift in Sources */,
+				OBJ_192 /* NavigatorDelegateSpec.swift in Sources */,
+				OBJ_193 /* NavigatorSpec.swift in Sources */,
+				OBJ_194 /* Stubs.swift in Sources */,
+				OBJ_195 /* TestConfiguration.swift in Sources */,
+				OBJ_196 /* TopMostViewControllerSpec.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		OBJ_215 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 0;
+			files = (
+				OBJ_216 /* Execution.swift in Sources */,
+				OBJ_217 /* Stubber.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		OBJ_222 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 0;
+			files = (
+				OBJ_223 /* AdapterProtocols.swift in Sources */,
+				OBJ_224 /* AssertionDispatcher.swift in Sources */,
+				OBJ_225 /* AssertionRecorder.swift in Sources */,
+				OBJ_226 /* NMBExpectation.swift in Sources */,
+				OBJ_227 /* NMBObjCMatcher.swift in Sources */,
+				OBJ_228 /* NimbleEnvironment.swift in Sources */,
+				OBJ_229 /* NimbleXCTestHandler.swift in Sources */,
+				OBJ_230 /* ExceptionCapture.swift in Sources */,
+				OBJ_231 /* DSL+Wait.swift in Sources */,
+				OBJ_232 /* DSL.swift in Sources */,
+				OBJ_233 /* Expectation.swift in Sources */,
+				OBJ_234 /* ExpectationMessage.swift in Sources */,
+				OBJ_235 /* Expression.swift in Sources */,
+				OBJ_236 /* FailureMessage.swift in Sources */,
+				OBJ_237 /* AllPass.swift in Sources */,
+				OBJ_238 /* AsyncMatcherWrapper.swift in Sources */,
+				OBJ_239 /* BeAKindOf.swift in Sources */,
+				OBJ_240 /* BeAnInstanceOf.swift in Sources */,
+				OBJ_241 /* BeCloseTo.swift in Sources */,
+				OBJ_242 /* BeEmpty.swift in Sources */,
+				OBJ_243 /* BeGreaterThan.swift in Sources */,
+				OBJ_244 /* BeGreaterThanOrEqualTo.swift in Sources */,
+				OBJ_245 /* BeIdenticalTo.swift in Sources */,
+				OBJ_246 /* BeLessThan.swift in Sources */,
+				OBJ_247 /* BeLessThanOrEqual.swift in Sources */,
+				OBJ_248 /* BeLogical.swift in Sources */,
+				OBJ_249 /* BeNil.swift in Sources */,
+				OBJ_250 /* BeVoid.swift in Sources */,
+				OBJ_251 /* BeginWith.swift in Sources */,
+				OBJ_252 /* Contain.swift in Sources */,
+				OBJ_253 /* ContainElementSatisfying.swift in Sources */,
+				OBJ_254 /* EndWith.swift in Sources */,
+				OBJ_255 /* Equal.swift in Sources */,
+				OBJ_256 /* HaveCount.swift in Sources */,
+				OBJ_257 /* Match.swift in Sources */,
+				OBJ_258 /* MatchError.swift in Sources */,
+				OBJ_259 /* MatcherFunc.swift in Sources */,
+				OBJ_260 /* MatcherProtocols.swift in Sources */,
+				OBJ_261 /* PostNotification.swift in Sources */,
+				OBJ_262 /* Predicate.swift in Sources */,
+				OBJ_263 /* RaisesException.swift in Sources */,
+				OBJ_264 /* SatisfyAnyOf.swift in Sources */,
+				OBJ_265 /* ThrowAssertion.swift in Sources */,
+				OBJ_266 /* ThrowError.swift in Sources */,
+				OBJ_267 /* ToSucceed.swift in Sources */,
+				OBJ_268 /* Async.swift in Sources */,
+				OBJ_269 /* Errors.swift in Sources */,
+				OBJ_270 /* Functional.swift in Sources */,
+				OBJ_271 /* SourceLocation.swift in Sources */,
+				OBJ_272 /* Stringers.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		OBJ_277 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 0;
+			files = (
+				OBJ_278 /* Behavior.swift in Sources */,
+				OBJ_279 /* Callsite.swift in Sources */,
+				OBJ_280 /* Configuration.swift in Sources */,
+				OBJ_281 /* QuickConfiguration.swift in Sources */,
+				OBJ_282 /* DSL.swift in Sources */,
+				OBJ_283 /* World+DSL.swift in Sources */,
+				OBJ_284 /* ErrorUtility.swift in Sources */,
+				OBJ_285 /* Example.swift in Sources */,
+				OBJ_286 /* ExampleGroup.swift in Sources */,
+				OBJ_287 /* ExampleMetadata.swift in Sources */,
+				OBJ_288 /* Filter.swift in Sources */,
+				OBJ_289 /* Closures.swift in Sources */,
+				OBJ_290 /* ExampleHooks.swift in Sources */,
+				OBJ_291 /* HooksPhase.swift in Sources */,
+				OBJ_292 /* SuiteHooks.swift in Sources */,
+				OBJ_293 /* NSBundle+CurrentTestBundle.swift in Sources */,
+				OBJ_294 /* NSString+C99ExtendedIdentifier.swift in Sources */,
+				OBJ_295 /* QuickMain.swift in Sources */,
+				OBJ_296 /* QuickSelectedTestSuiteBuilder.swift in Sources */,
+				OBJ_297 /* QuickSpec.swift in Sources */,
+				OBJ_298 /* QuickTestSuite.swift in Sources */,
+				OBJ_299 /* URL+FileName.swift in Sources */,
+				OBJ_300 /* World.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		OBJ_307 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 0;
+			files = (
+				OBJ_308 /* QuickSpecBase.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		OBJ_313 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 0;
+			files = (
+				OBJ_314 /* Navigator.swift in Sources */,
+				OBJ_315 /* NavigatorDelegate.swift in Sources */,
+				OBJ_316 /* NavigatorType.swift in Sources */,
+				OBJ_317 /* UIViewController+TopMostViewController.swift in Sources */,
+				OBJ_318 /* UIViewControllerType.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		OBJ_325 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 0;
+			files = (
+				OBJ_326 /* URLConvertible.swift in Sources */,
+				OBJ_327 /* URLMatchResult.swift in Sources */,
+				OBJ_328 /* URLMatcher.swift in Sources */,
+				OBJ_329 /* URLPatchComponentMatchResult.swift in Sources */,
+				OBJ_330 /* URLPathComponent.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		OBJ_178 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = "Nimble::Nimble" /* Nimble */;
+			targetProxy = 3B93D4051FBB3B5800570A9F /* PBXContainerItemProxy */;
+		};
+		OBJ_180 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = "Quick::Quick" /* Quick */;
+			targetProxy = 3B93D4061FBB3B5800570A9F /* PBXContainerItemProxy */;
+		};
+		OBJ_182 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = "Quick::QuickSpecBase" /* QuickSpecBase */;
+			targetProxy = 3B93D4071FBB3B5800570A9F /* PBXContainerItemProxy */;
+		};
+		OBJ_184 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = "URLNavigator::URLMatcher" /* URLMatcher */;
+			targetProxy = 3B93D4081FBB3B5800570A9F /* PBXContainerItemProxy */;
+		};
+		OBJ_204 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = "Stubber::Stubber" /* Stubber */;
+			targetProxy = 3B93D4091FBB3B5800570A9F /* PBXContainerItemProxy */;
+		};
+		OBJ_206 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = "Nimble::Nimble" /* Nimble */;
+			targetProxy = 3B93D40A1FBB3B5800570A9F /* PBXContainerItemProxy */;
+		};
+		OBJ_207 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = "Quick::Quick" /* Quick */;
+			targetProxy = 3B93D40B1FBB3B5800570A9F /* PBXContainerItemProxy */;
+		};
+		OBJ_208 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = "Quick::QuickSpecBase" /* QuickSpecBase */;
+			targetProxy = 3B93D40C1FBB3B5800570A9F /* PBXContainerItemProxy */;
+		};
+		OBJ_209 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = "URLNavigator::URLNavigator" /* URLNavigator */;
+			targetProxy = 3B93D40D1FBB3B5800570A9F /* PBXContainerItemProxy */;
+		};
+		OBJ_211 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = "URLNavigator::URLMatcher" /* URLMatcher */;
+			targetProxy = 3B93D40E1FBB3B5800570A9F /* PBXContainerItemProxy */;
+		};
+		OBJ_303 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = "Quick::QuickSpecBase" /* QuickSpecBase */;
+			targetProxy = 3B93D4031FBB3B5800570A9F /* PBXContainerItemProxy */;
+		};
+		OBJ_321 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = "URLNavigator::URLMatcher" /* URLMatcher */;
+			targetProxy = 3B93D4041FBB3B5800570A9F /* PBXContainerItemProxy */;
+		};
+		OBJ_336 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = "URLNavigator::URLNavigatorTests" /* URLNavigatorTests */;
+			targetProxy = 3B93D40F1FBB3B5800570A9F /* PBXContainerItemProxy */;
+		};
+		OBJ_337 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = "URLNavigator::URLMatcherTests" /* URLMatcherTests */;
+			targetProxy = 3B93D4101FBB3B5800570A9F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		OBJ_142 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				LD = /usr/bin/true;
+				OTHER_SWIFT_FLAGS = "-swift-version 4 -I /Applications/Xcode-9.1.0.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/pm/4 -target x86_64-apple-macosx10.10 -sdk /Applications/Xcode-9.1.0.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk";
+				SWIFT_VERSION = 4.0;
+			};
+			name = Debug;
+		};
+		OBJ_143 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				LD = /usr/bin/true;
+				OTHER_SWIFT_FLAGS = "-swift-version 4 -I /Applications/Xcode-9.1.0.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/pm/4 -target x86_64-apple-macosx10.10 -sdk /Applications/Xcode-9.1.0.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk";
+				SWIFT_VERSION = 4.0;
+			};
+			name = Release;
+		};
+		OBJ_148 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				LD = /usr/bin/true;
+				OTHER_SWIFT_FLAGS = "-swift-version 4 -I /Applications/Xcode-9.1.0.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/pm/4 -target x86_64-apple-macosx10.10 -sdk /Applications/Xcode-9.1.0.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk";
+				SWIFT_VERSION = 4.0;
+			};
+			name = Debug;
+		};
+		OBJ_149 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				LD = /usr/bin/true;
+				OTHER_SWIFT_FLAGS = "-swift-version 4 -I /Applications/Xcode-9.1.0.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/pm/4 -target x86_64-apple-macosx10.10 -sdk /Applications/Xcode-9.1.0.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk";
+				SWIFT_VERSION = 4.0;
+			};
+			name = Release;
+		};
+		OBJ_154 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				LD = /usr/bin/true;
+				OTHER_SWIFT_FLAGS = "-swift-version 4 -I /Applications/Xcode-9.1.0.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/pm/4 -target x86_64-apple-macosx10.10 -sdk /Applications/Xcode-9.1.0.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk";
+				SWIFT_VERSION = 4.0;
+			};
+			name = Debug;
+		};
+		OBJ_155 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				LD = /usr/bin/true;
+				OTHER_SWIFT_FLAGS = "-swift-version 4 -I /Applications/Xcode-9.1.0.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/pm/4 -target x86_64-apple-macosx10.10 -sdk /Applications/Xcode-9.1.0.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk";
+				SWIFT_VERSION = 4.0;
+			};
+			name = Release;
+		};
+		OBJ_160 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				LD = /usr/bin/true;
+				OTHER_SWIFT_FLAGS = "-swift-version 3 -I /Applications/Xcode-9.1.0.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/pm/3 -target x86_64-apple-macosx10.10 -sdk /Applications/Xcode-9.1.0.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		OBJ_161 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				LD = /usr/bin/true;
+				OTHER_SWIFT_FLAGS = "-swift-version 3 -I /Applications/Xcode-9.1.0.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/pm/3 -target x86_64-apple-macosx10.10 -sdk /Applications/Xcode-9.1.0.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		OBJ_166 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/.build/checkouts/Quick.git-2733117082000052066/Sources/QuickSpecBase/include",
+					"$(SRCROOT)/URLNavigator.xcodeproj/GeneratedModuleMap/QuickSpecBase",
+				);
+				INFOPLIST_FILE = URLNavigator.xcodeproj/URLMatcherTests_Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited) -Xcc -fmodule-map-file=$(SRCROOT)/URLNavigator.xcodeproj/GeneratedModuleMap/QuickSpecBase/module.modulemap";
+				SWIFT_VERSION = 4.0;
+				TARGET_NAME = URLMatcherTests;
+			};
+			name = Debug;
+		};
+		OBJ_167 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/.build/checkouts/Quick.git-2733117082000052066/Sources/QuickSpecBase/include",
+					"$(SRCROOT)/URLNavigator.xcodeproj/GeneratedModuleMap/QuickSpecBase",
+				);
+				INFOPLIST_FILE = URLNavigator.xcodeproj/URLMatcherTests_Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited) -Xcc -fmodule-map-file=$(SRCROOT)/URLNavigator.xcodeproj/GeneratedModuleMap/QuickSpecBase/module.modulemap";
+				SWIFT_VERSION = 4.0;
+				TARGET_NAME = URLMatcherTests;
+			};
+			name = Release;
+		};
+		OBJ_188 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/.build/checkouts/Quick.git-2733117082000052066/Sources/QuickSpecBase/include",
+					"$(SRCROOT)/URLNavigator.xcodeproj/GeneratedModuleMap/QuickSpecBase",
+				);
+				INFOPLIST_FILE = URLNavigator.xcodeproj/URLNavigatorTests_Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited) -Xcc -fmodule-map-file=$(SRCROOT)/URLNavigator.xcodeproj/GeneratedModuleMap/QuickSpecBase/module.modulemap";
+				SWIFT_VERSION = 4.0;
+				TARGET_NAME = URLNavigatorTests;
+			};
+			name = Debug;
+		};
+		OBJ_189 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/.build/checkouts/Quick.git-2733117082000052066/Sources/QuickSpecBase/include",
+					"$(SRCROOT)/URLNavigator.xcodeproj/GeneratedModuleMap/QuickSpecBase",
+				);
+				INFOPLIST_FILE = URLNavigator.xcodeproj/URLNavigatorTests_Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited) -Xcc -fmodule-map-file=$(SRCROOT)/URLNavigator.xcodeproj/GeneratedModuleMap/QuickSpecBase/module.modulemap";
+				SWIFT_VERSION = 4.0;
+				TARGET_NAME = URLNavigatorTests;
+			};
+			name = Release;
+		};
+		OBJ_213 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = URLNavigator.xcodeproj/Stubber_Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = Stubber;
+				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGET_NAME = Stubber;
+			};
+			name = Debug;
+		};
+		OBJ_214 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = URLNavigator.xcodeproj/Stubber_Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = Stubber;
+				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGET_NAME = Stubber;
+			};
+			name = Release;
+		};
+		OBJ_220 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = URLNavigator.xcodeproj/Nimble_Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = Nimble;
+				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGET_NAME = Nimble;
+			};
+			name = Debug;
+		};
+		OBJ_221 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = URLNavigator.xcodeproj/Nimble_Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = Nimble;
+				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGET_NAME = Nimble;
+			};
+			name = Release;
+		};
+		OBJ_275 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/.build/checkouts/Quick.git-2733117082000052066/Sources/QuickSpecBase/include",
+					"$(SRCROOT)/URLNavigator.xcodeproj/GeneratedModuleMap/QuickSpecBase",
+				);
+				INFOPLIST_FILE = URLNavigator.xcodeproj/Quick_Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited) -Xcc -fmodule-map-file=$(SRCROOT)/URLNavigator.xcodeproj/GeneratedModuleMap/QuickSpecBase/module.modulemap";
+				PRODUCT_BUNDLE_IDENTIFIER = Quick;
+				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGET_NAME = Quick;
+			};
+			name = Debug;
+		};
+		OBJ_276 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/.build/checkouts/Quick.git-2733117082000052066/Sources/QuickSpecBase/include",
+					"$(SRCROOT)/URLNavigator.xcodeproj/GeneratedModuleMap/QuickSpecBase",
+				);
+				INFOPLIST_FILE = URLNavigator.xcodeproj/Quick_Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited) -Xcc -fmodule-map-file=$(SRCROOT)/URLNavigator.xcodeproj/GeneratedModuleMap/QuickSpecBase/module.modulemap";
+				PRODUCT_BUNDLE_IDENTIFIER = Quick;
+				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGET_NAME = Quick;
+			};
+			name = Release;
+		};
+		OBJ_3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_NS_ASSERTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_SWIFT_FLAGS = "-DXcode";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = "macosx iphoneos iphonesimulator appletvos appletvsimulator watchos watchsimulator";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = SWIFT_PACKAGE;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				USE_HEADERMAP = NO;
+			};
+			name = Debug;
+		};
+		OBJ_305 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEFINES_MODULE = NO;
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/.build/checkouts/Quick.git-2733117082000052066/Sources/QuickSpecBase/include",
+				);
+				INFOPLIST_FILE = URLNavigator.xcodeproj/QuickSpecBase_Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = QuickSpecBase;
+				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				TARGET_NAME = QuickSpecBase;
+			};
+			name = Debug;
+		};
+		OBJ_306 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEFINES_MODULE = NO;
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/.build/checkouts/Quick.git-2733117082000052066/Sources/QuickSpecBase/include",
+				);
+				INFOPLIST_FILE = URLNavigator.xcodeproj/QuickSpecBase_Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = QuickSpecBase;
+				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				TARGET_NAME = QuickSpecBase;
+			};
+			name = Release;
+		};
+		OBJ_311 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = URLNavigator.xcodeproj/URLNavigator_Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = URLNavigator;
+				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGET_NAME = URLNavigator;
+			};
+			name = Debug;
+		};
+		OBJ_312 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = URLNavigator.xcodeproj/URLNavigator_Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = URLNavigator;
+				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGET_NAME = URLNavigator;
+			};
+			name = Release;
+		};
+		OBJ_323 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = URLNavigator.xcodeproj/URLMatcher_Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = URLMatcher;
+				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGET_NAME = URLMatcher;
+			};
+			name = Debug;
+		};
+		OBJ_324 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = URLNavigator.xcodeproj/URLMatcher_Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = URLMatcher;
+				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGET_NAME = URLMatcher;
+			};
+			name = Release;
+		};
+		OBJ_334 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		OBJ_335 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		OBJ_4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_OPTIMIZATION_LEVEL = s;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				OTHER_SWIFT_FLAGS = "-DXcode";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = "macosx iphoneos iphonesimulator appletvos appletvsimulator watchos watchsimulator";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = SWIFT_PACKAGE;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				USE_HEADERMAP = NO;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		OBJ_141 /* Build configuration list for PBXNativeTarget "URLNavigatorPackageDescription" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				OBJ_142 /* Debug */,
+				OBJ_143 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		OBJ_147 /* Build configuration list for PBXNativeTarget "StubberPackageDescription" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				OBJ_148 /* Debug */,
+				OBJ_149 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		OBJ_153 /* Build configuration list for PBXNativeTarget "QuickPackageDescription" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				OBJ_154 /* Debug */,
+				OBJ_155 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		OBJ_159 /* Build configuration list for PBXNativeTarget "NimblePackageDescription" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				OBJ_160 /* Debug */,
+				OBJ_161 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		OBJ_165 /* Build configuration list for PBXNativeTarget "URLMatcherTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				OBJ_166 /* Debug */,
+				OBJ_167 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		OBJ_187 /* Build configuration list for PBXNativeTarget "URLNavigatorTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				OBJ_188 /* Debug */,
+				OBJ_189 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		OBJ_2 /* Build configuration list for PBXProject "URLNavigator" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				OBJ_3 /* Debug */,
+				OBJ_4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		OBJ_212 /* Build configuration list for PBXNativeTarget "Stubber" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				OBJ_213 /* Debug */,
+				OBJ_214 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		OBJ_219 /* Build configuration list for PBXNativeTarget "Nimble" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				OBJ_220 /* Debug */,
+				OBJ_221 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		OBJ_274 /* Build configuration list for PBXNativeTarget "Quick" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				OBJ_275 /* Debug */,
+				OBJ_276 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		OBJ_304 /* Build configuration list for PBXNativeTarget "QuickSpecBase" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				OBJ_305 /* Debug */,
+				OBJ_306 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		OBJ_310 /* Build configuration list for PBXNativeTarget "URLNavigator" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				OBJ_311 /* Debug */,
+				OBJ_312 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		OBJ_322 /* Build configuration list for PBXNativeTarget "URLMatcher" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				OBJ_323 /* Debug */,
+				OBJ_324 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		OBJ_333 /* Build configuration list for PBXAggregateTarget "URLNavigatorPackageTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				OBJ_334 /* Debug */,
+				OBJ_335 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = OBJ_1 /* Project object */;
+}
