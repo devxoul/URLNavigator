@@ -34,21 +34,44 @@ public protocol NavigatorType {
   /// - returns: A matching handler factory or `nil` if not matched.
   func handler(for url: URLConvertible, context: Any?) -> URLOpenHandler?
 
+  /// Pushes a matching view controller to the navigation controller stack.
+  ///
+  /// - note: It is not a good idea to use this method directly because this method requires all
+  ///         parameters. This method eventually gets called when pushing a view controller with
+  ///         an URL, so it's recommended to implement this method only for mocking.
   @discardableResult
-  func push(_ url: URLConvertible, context: Any?, from: UINavigationControllerType?, animated: Bool) -> UIViewController?
+  func pushURL(_ url: URLConvertible, context: Any?, from: UINavigationControllerType?, animated: Bool) -> UIViewController?
 
+  /// Pushes the view controller to the navigation controller stack.
+  ///
+  /// - note: It is not a good idea to use this method directly because this method requires all
+  ///         parameters. This method eventually gets called when pushing a view controller, so
+  ///         it's recommended to implement this method only for mocking.
   @discardableResult
-  func push(_ viewController: UIViewController, from: UINavigationControllerType?, animated: Bool) -> UIViewController?
+  func pushViewController(_ viewController: UIViewController, from: UINavigationControllerType?, animated: Bool) -> UIViewController?
 
+  /// Presents a matching view controller.
+  ///
+  /// - note: It is not a good idea to use this method directly because this method requires all
+  ///         parameters. This method eventually gets called when presenting a view controller with
+  ///         an URL, so it's recommended to implement this method only for mocking.
   @discardableResult
-  func present(_ url: URLConvertible, context: Any?, wrap: UINavigationController.Type?, from: UIViewControllerType?, animated: Bool, completion: (() -> Void)?) -> UIViewController?
+  func presentURL(_ url: URLConvertible, context: Any?, wrap: UINavigationController.Type?, from: UIViewControllerType?, animated: Bool, completion: (() -> Void)?) -> UIViewController?
 
+  /// Presents the view controller.
+  ///
+  /// - note: It is not a good idea to use this method directly because this method requires all
+  ///         parameters. This method eventually gets called when presenting a view controller, so
+  ///         it's recommended to implement this method only for mocking.
   @discardableResult
-  func present(_ viewController: UIViewController, wrap: UINavigationController.Type?, from: UIViewControllerType?, animated: Bool, completion: (() -> Void)?) -> UIViewController?
+  func presentViewController(_ viewController: UIViewController, wrap: UINavigationController.Type?, from: UIViewControllerType?, animated: Bool, completion: (() -> Void)?) -> UIViewController?
 
   @discardableResult
   func open(_ url: URLConvertible, context: Any?) -> Bool
 }
+
+
+// MARK: - Protocol Requirements
 
 extension NavigatorType {
   public func viewController(for url: URLConvertible) -> UIViewController? {
@@ -60,13 +83,13 @@ extension NavigatorType {
   }
 
   @discardableResult
-  public func push(_ url: URLConvertible, context: Any? = nil, from: UINavigationControllerType? = nil, animated: Bool = true) -> UIViewController? {
+  public func pushURL(_ url: URLConvertible, context: Any? = nil, from: UINavigationControllerType? = nil, animated: Bool = true) -> UIViewController? {
     guard let viewController = self.viewController(for: url, context: context) else { return nil }
-    return self.push(viewController, from: from, animated: animated)
+    return self.pushViewController(viewController, from: from, animated: animated)
   }
 
   @discardableResult
-  public func push(_ viewController: UIViewController, from: UINavigationControllerType? = nil, animated: Bool = true) -> UIViewController? {
+  public func pushViewController(_ viewController: UIViewController, from: UINavigationControllerType?, animated: Bool) -> UIViewController? {
     guard (viewController is UINavigationController) == false else { return nil }
     guard let navigationController = from ?? UIViewController.topMost?.navigationController else { return nil }
     guard self.delegate?.shouldPush(viewController: viewController, from: navigationController) != false else { return nil }
@@ -75,13 +98,13 @@ extension NavigatorType {
   }
 
   @discardableResult
-  public func present(_ url: URLConvertible, context: Any? = nil, wrap: UINavigationController.Type? = nil, from: UIViewControllerType? = nil, animated: Bool = true, completion: (() -> Void)? = nil) -> UIViewController? {
+  public func presentURL(_ url: URLConvertible, context: Any? = nil, wrap: UINavigationController.Type? = nil, from: UIViewControllerType? = nil, animated: Bool = true, completion: (() -> Void)? = nil) -> UIViewController? {
     guard let viewController = self.viewController(for: url, context: context) else { return nil }
-    return self.present(viewController, wrap: wrap, from: from, animated: animated, completion: completion)
+    return self.presentViewController(viewController, wrap: wrap, from: from, animated: animated, completion: completion)
   }
 
   @discardableResult
-  public func present(_ viewController: UIViewController, wrap: UINavigationController.Type? = nil, from: UIViewControllerType? = nil, animated: Bool = true, completion: (() -> Void)? = nil) -> UIViewController? {
+  public func presentViewController(_ viewController: UIViewController, wrap: UINavigationController.Type?, from: UIViewControllerType?, animated: Bool, completion: (() -> Void)?) -> UIViewController? {
     guard let fromViewController = from ?? UIViewController.topMost else { return nil }
 
     let viewControllerToPresent: UIViewController
@@ -100,6 +123,31 @@ extension NavigatorType {
   public func open(_ url: URLConvertible, context: Any? = nil) -> Bool {
     guard let handler = self.handler(for: url, context: context) else { return false }
     return handler()
+  }
+}
+
+
+// MARK: - Syntactic Sugars for Optional Parameters
+
+extension NavigatorType {
+  @discardableResult
+  public func push(_ url: URLConvertible, context: Any? = nil, from: UINavigationControllerType? = nil, animated: Bool = true) -> UIViewController? {
+    return self.pushURL(url, context: context, from: from, animated: animated)
+  }
+
+  @discardableResult
+  public func push(_ viewController: UIViewController, from: UINavigationControllerType? = nil, animated: Bool = true) -> UIViewController? {
+    return self.pushViewController(viewController, from: from, animated: animated)
+  }
+
+  @discardableResult
+  public func present(_ url: URLConvertible, context: Any? = nil, wrap: UINavigationController.Type? = nil, from: UIViewControllerType? = nil, animated: Bool = true, completion: (() -> Void)? = nil) -> UIViewController? {
+    return self.presentURL(url, context: context, wrap: wrap, from: from, animated: animated, completion: completion)
+  }
+
+  @discardableResult
+  public func present(_ viewController: UIViewController, wrap: UINavigationController.Type? = nil, from: UIViewControllerType? = nil, animated: Bool = true, completion: (() -> Void)? = nil) -> UIViewController? {
+    return self.presentViewController(viewController, wrap: wrap, from: from, animated: animated, completion: completion)
   }
 }
 #endif
