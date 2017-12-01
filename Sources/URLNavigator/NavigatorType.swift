@@ -66,8 +66,13 @@ public protocol NavigatorType {
   @discardableResult
   func presentViewController(_ viewController: UIViewController, wrap: UINavigationController.Type?, from: UIViewControllerType?, animated: Bool, completion: (() -> Void)?) -> UIViewController?
 
+  /// Executes an URL open handler.
+  ///
+  /// - note: It is not a good idea to use this method directly because this method requires all
+  ///         parameters. This method eventually gets called when opening an url, so it's
+  ///         recommended to implement this method only for mocking.
   @discardableResult
-  func open(_ url: URLConvertible, context: Any?) -> Bool
+  func openURL(_ url: URLConvertible, context: Any?) -> Bool
 }
 
 
@@ -120,7 +125,7 @@ extension NavigatorType {
   }
 
   @discardableResult
-  public func open(_ url: URLConvertible, context: Any? = nil) -> Bool {
+  public func openURL(_ url: URLConvertible, context: Any?) -> Bool {
     guard let handler = self.handler(for: url, context: context) else { return false }
     return handler()
   }
@@ -148,6 +153,11 @@ extension NavigatorType {
   @discardableResult
   public func present(_ viewController: UIViewController, wrap: UINavigationController.Type? = nil, from: UIViewControllerType? = nil, animated: Bool = true, completion: (() -> Void)? = nil) -> UIViewController? {
     return self.presentViewController(viewController, wrap: wrap, from: from, animated: animated, completion: completion)
+  }
+
+  @discardableResult
+  public func open(_ url: URLConvertible, context: Any? = nil) -> Bool {
+    return self.openURL(url, context: context)
   }
 }
 #endif
