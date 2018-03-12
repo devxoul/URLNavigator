@@ -9,7 +9,13 @@ extension UIViewController {
 
   /// Returns the current application's top most view controller.
   open class var topMost: UIViewController? {
-    guard let currentKeyWindows = self.sharedApplication?.windows.filter ({ $0.isKeyWindow }) else { return nil }
+    guard let currentWindows = self.sharedApplication?.windows else { return nil }
+    return self.topMost(of: currentWindows)
+  }
+  
+  /// Returns the top most view controller from windows.
+  internal class func topMost(of windows: [UIWindow], keyWindowChecker: KeyWindowCheckerType = KeyWindowChecker()) -> UIViewController? {
+    let currentKeyWindows = windows.filter(keyWindowChecker.isKeyWindow)
     var rootViewController: UIViewController?
     for window in currentKeyWindows {
       if let windowRootViewController = window.rootViewController {
@@ -54,6 +60,16 @@ extension UIViewController {
     }
 
     return viewController
+  }
+}
+
+internal protocol KeyWindowCheckerType {
+  func isKeyWindow(_ window: UIWindow) -> Bool
+}
+
+internal class KeyWindowChecker: KeyWindowCheckerType {
+  func isKeyWindow(_ window: UIWindow) -> Bool {
+    return window.isKeyWindow
   }
 }
 #endif

@@ -4,20 +4,22 @@ import UIKit
 import Nimble
 import Quick
 
-import URLNavigator
+@testable import URLNavigator
 
 final class TopMostViewControllerSpec: QuickSpec {
   fileprivate static var currentWindow: UIWindow?
 
   override func spec() {
-    var window: UIWindow!
+    var windows: [UIWindow] = []
     var topMost: UIViewController? {
-      return UIViewController.topMost(of: window.rootViewController)
+      return UIViewController.topMost(of: windows, keyWindowChecker: TestKeyWindowChecker())
     }
 
     beforeEach {
-      window = UIWindow(frame: UIScreen.main.bounds)
-      TopMostViewControllerSpec.currentWindow = window
+      windows.removeAll()
+      let keyWindow = KeyWindow(frame: UIScreen.main.bounds)
+      windows.append(keyWindow)
+      TopMostViewControllerSpec.currentWindow = windows[0]
     }
 
     context("when the root view controller is a view controller") {
@@ -72,6 +74,16 @@ final class TopMostViewControllerSpec: QuickSpec {
           pageViewController.setViewControllers([B], direction: .forward, animated: false, completion: nil)
           A.present(pageViewController, animated: false, completion: nil)
           expect(topMost) == B
+        }
+      }
+      
+      context("when an window that is not the key window that containing a view controller is added to the beginning of windows") {
+        it("returns root view controller that is contained in key window") {
+          let notKeyWindow = UIWindow(frame: UIScreen.main.bounds)
+          let A = UIViewController("A").asRoot(of: TopMostViewControllerSpec.currentWindow)
+          _ = UIViewController("B").asRoot(of: notKeyWindow)
+          windows.insert(notKeyWindow, at: 0)
+          expect(topMost) == A
         }
       }
     }
@@ -197,10 +209,18 @@ extension UIViewController {
   }
 
   @discardableResult
-  func asRoot() -> Self {
-    TopMostViewControllerSpec.currentWindow?.rootViewController = self
-    TopMostViewControllerSpec.currentWindow?.addSubview(self.view)
+  func asRoot(of window: UIWindow? = TopMostViewControllerSpec.currentWindow) -> Self {
+    window?.rootViewController = self
+    window?.addSubview(self.view)
     return self
+  }
+}
+
+private class KeyWindow: UIWindow {}
+  
+private class TestKeyWindowChecker: KeyWindowCheckerType {
+  func isKeyWindow(_ window: UIWindow) -> Bool {
+    return window is KeyWindow
   }
 }
 #endif
