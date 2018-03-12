@@ -9,7 +9,7 @@ extension UIViewController {
 
   /// Returns the current application's top most view controller.
   open class var topMost: UIViewController? {
-    guard let currentKeyWindows = self.sharedApplication?.windows.filter { $0.isKeyWindow } else { return nil }
+    guard let currentKeyWindows = self.sharedApplication?.windows.filter ({ $0.isKeyWindow }) else { return nil }
     var rootViewController: UIViewController?
     for window in currentKeyWindows {
       if let windowRootViewController = window.rootViewController {
