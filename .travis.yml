@@ -1,16 +1,16 @@
-osx_image: xcode9
+osx_image: xcode9.3
 language: objective-c
 sudo: required
 env:
   global:
     - PROJECT="URLNavigator.xcodeproj"
     - SCHEME="URLNavigator-Package"
-    - IOS_SDK="iphonesimulator11.0"
-    - TVOS_SDK="appletvsimulator11.0"
+    - IOS_SDK="iphonesimulator11.3"
+    - TVOS_SDK="appletvsimulator11.3"
     - FRAMEWORK="URLNavigator"
   matrix:
-    - SDK="$IOS_SDK"      TEST=1  DESTINATION="platform=iOS Simulator,name=iPhone 7,OS=11.0"
-    - SDK="$TVOS_SDK"     TEST=1  DESTINATION="OS=11.0,name=Apple TV 1080p"
+    - SDK="$IOS_SDK"      TEST=1  DESTINATION="platform=iOS Simulator,name=iPhone 7,OS=11.3"
+    - SDK="$TVOS_SDK"     TEST=1  DESTINATION="OS=11.3,name=Apple TV 4K"
 
 install:
   - eval "$(curl -sL https://gist.githubusercontent.com/kylef/5c0475ff02b7c7671d2a/raw/9f442512a46d7a2af7b850d65a7e9bd31edfb09b/swiftenv-install.sh)"
