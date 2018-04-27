@@ -22,13 +22,13 @@ public protocol URLConvertible {
 extension URLConvertible {
   public var queryParameters: [String: String] {
     var parameters = [String: String]()
-    self.urlValue?.query?.components(separatedBy: "&").forEach {
-      let keyAndValue = $0.components(separatedBy: "=")
-      if keyAndValue.count == 2 {
-        let key = keyAndValue[0]
-        let value = keyAndValue[1].removingPercentEncoding ?? keyAndValue[1]
-        parameters[key] = value
-      }
+    self.urlValue?.query?.components(separatedBy: "&").forEach { component in
+      guard let separatorIndex = component.index(of: "=") else { return }
+      let keyRange = component.startIndex..<separatorIndex
+      let valueRange = component.index(after: separatorIndex)..<component.endIndex
+      let key = String(component[keyRange])
+      let value = component[valueRange].removingPercentEncoding ?? String(component[valueRange])
+      parameters[key] = value
     }
     return parameters
   }

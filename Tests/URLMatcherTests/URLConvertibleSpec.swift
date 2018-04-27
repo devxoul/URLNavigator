@@ -46,11 +46,11 @@ final class URLConvertibleSpec: QuickSpec {
       }
 
       context("when there is a query string") {
-        let url = "https://xoul.kr?key=this%20is%20a%20value&greeting=hello+world!&int=12&int=34"
+        let url = "https://xoul.kr?key=this%20is%20a%20value&greeting=hello+world!&int=12&int=34&url=https://foo/bar?hello=world"
 
         it("has proper keys") {
-          expect(Set(url.urlValue!.queryParameters.keys)) == ["key", "greeting", "int"]
-          expect(Set(url.urlStringValue.queryParameters.keys)) == ["key", "greeting", "int"]
+          expect(Set(url.urlValue!.queryParameters.keys)) == ["key", "greeting", "int", "url"]
+          expect(Set(url.urlStringValue.queryParameters.keys)) == ["key", "greeting", "int", "url"]
         }
 
         it("decodes a percent encoding") {
@@ -66,6 +66,10 @@ final class URLConvertibleSpec: QuickSpec {
         it("takes last value from duplicated keys") {
           expect(url.urlValue?.queryParameters["int"]) == "34"
           expect(url.urlStringValue.queryParameters["int"]) == "34"
+        }
+
+        it("has an url") {
+          expect(url.urlValue?.queryParameters["url"]) == "https://foo/bar?hello=world"
         }
       }
     }
