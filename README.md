@@ -221,20 +221,17 @@ Custom validators can be defined for placeholders.
 
 For example, the placeholder `<department>` should only contain the strings `['men','women','kids']`. If it doesn't contain any of these, the URL pattern should not match.
 
-```swift
-let deptartmentType: [String: URLValueConverter] = [
-  "dept-type": { pathComponents, index in
-                  let departments = ["men","women","kids"]
-                  if (departments.contains(pathComponents[index])) {
-                    return pathComponents[index]
-                  }}
-]
-```
-
-Then include the validator on your instance of `Navigator`. You can merge your new validators with the default validators, or overwrite the existing ones.
+Add the custom value converter to the `[String: URLValueConverter]` dictionary on your instance of `Navigator`.
 
 ```swift
-navigator.matcher.valueConverters.merge(deptartmentType, uniquingKeysWith: { (current, _) in current })
+navigator.matcher.valueConverters["dept-type"] = { pathComponents, index in
+  let departments = ["men", "women", "kids"]
+  if departments.contains(pathComponents[index]) {
+    return pathComponents[index]
+  } else {
+    return nil
+  }
+}
 ```
 
 You will then be able to add the validator to a placeholder in the same way that standard validators are included.
@@ -247,7 +244,7 @@ For example, `myapp://user/browse/<department:dept-type>` matches with:
 But it doesn't match with:
 - `myapp://user/browse/babies`
 
-For additional information, see the [implementation](https://github.com/devxoul/URLNavigator/blob/master/Sources/URLMatcher/URLMatcher.swift#L10) of default validators.
+For additional information, see the [implementation](https://github.com/devxoul/URLNavigator/blob/master/Sources/URLMatcher/URLMatcher.swift) of default validators.
 
 
 ## License
