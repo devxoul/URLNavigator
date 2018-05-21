@@ -216,6 +216,37 @@ Navigator.open("myapp://alert?title=Hi", context: context)
 ```
 
 
+#### Setting custom validators for placeholders
+Custom validators can be defined for placeholders.
+
+For example, the placeholder `<department>` should only contain the strings `['men','women','kids']`. If it doesn't contain any of these, the URL pattern should not match.
+
+Add the custom value converter to the `[String: URLValueConverter]` dictionary on your instance of `Navigator`.
+
+```swift
+navigator.matcher.valueConverters["dept-type"] = { pathComponents, index in
+  let departments = ["men", "women", "kids"]
+  if departments.contains(pathComponents[index]) {
+    return pathComponents[index]
+  } else {
+    return nil
+  }
+}
+```
+
+You will then be able to add the validator to a placeholder in the same way that standard validators are included.
+
+For example, `myapp://user/browse/<department:dept-type>` matches with:
+- `myapp://user/browse/men`
+- `myapp://user/browse/women`
+- `myapp://user/browse/kids`
+
+But it doesn't match with:
+- `myapp://user/browse/babies`
+
+For additional information, see the [implementation](https://github.com/devxoul/URLNavigator/blob/master/Sources/URLMatcher/URLMatcher.swift) of default validators.
+
+
 ## License
 
 URLNavigator is under MIT license. See the [LICENSE](LICENSE) file for more info.
