@@ -236,7 +236,7 @@ navigator.matcher.valueConverters["dept-type"] = { pathComponents, index in
 
 You will then be able to add the validator to a placeholder in the same way that standard validators are included.
 
-For example, `myapp://user/browse/<department:dept-type>` matches with:
+For example, `myapp://user/browse/<dept-type:department>` matches with:
 - `myapp://user/browse/men`
 - `myapp://user/browse/women`
 - `myapp://user/browse/kids`
