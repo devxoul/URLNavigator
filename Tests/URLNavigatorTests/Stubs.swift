@@ -1,3 +1,4 @@
+#if os(iOS) || os(tvOS)
 import UIKit
 import Stubber
 import URLNavigator
@@ -24,3 +25,4 @@ final class StubNavigatorDelegate: NavigatorDelegate {
     return Stubber.invoke(shouldPresent, args: (viewController, from), default: true)
   }
 }
+#endif
