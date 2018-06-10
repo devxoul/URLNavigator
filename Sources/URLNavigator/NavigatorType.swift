@@ -12,7 +12,7 @@ public typealias URLOpenHandler = () -> Bool
 
 public protocol NavigatorType {
   var matcher: URLMatcher { get }
-  weak var delegate: NavigatorDelegate? { get set }
+  var delegate: NavigatorDelegate? { get set }
 
   /// Registers a view controller factory to the URL pattern.
   func register(_ pattern: URLPattern, _ factory: @escaping ViewControllerFactory)
