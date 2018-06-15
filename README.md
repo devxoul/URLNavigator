@@ -2,10 +2,8 @@
 
 ![Swift](https://img.shields.io/badge/Swift-4.1-orange.svg)
 [![CocoaPods](http://img.shields.io/cocoapods/v/URLNavigator.svg)](https://cocoapods.org/pods/URLNavigator)
-[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Build Status](https://travis-ci.org/devxoul/URLNavigator.svg?branch=master)](https://travis-ci.org/devxoul/URLNavigator)
 [![CodeCov](https://img.shields.io/codecov/c/github/devxoul/URLNavigator.svg)](https://codecov.io/gh/devxoul/URLNavigator)
-[![CocoaDocs](https://img.shields.io/cocoapods/metrics/doc-percent/URLNavigator.svg)](http://cocoadocs.org/docsets/URLNavigator/)
 
 ⛵️ URLNavigator provides an elegant way to navigate through view controllers by URLs. URL patterns can be mapped by using `URLNavigator.register(_:_:)` function.
 
@@ -76,17 +74,13 @@ Navigator.open("myapp://alert?title=Hello&message=World")
 
 ## Installation
 
-- **For iOS 8+ projects** with [CocoaPods](https://cocoapods.org):
+URLNavigator officially supports CocoaPods only.
 
-    ```ruby
-    pod 'URLNavigator'
-    ```
+**Podfile**
 
-- **For iOS 8+ projects** with [Carthage](https://github.com/Carthage/Carthage):
-
-    ```
-    github "devxoul/URLNavigator"
-    ```
+```ruby
+pod 'URLNavigator'
+```
 
 
 ## Example
