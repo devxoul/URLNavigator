@@ -6,7 +6,7 @@ import URLMatcher
 #endif
 
 open class Navigator: NavigatorType {
-  open let matcher = URLMatcher()
+  public let matcher = URLMatcher()
   open weak var delegate: NavigatorDelegate?
 
   private var viewControllerFactories = [URLPattern: ViewControllerFactory]()
