@@ -120,7 +120,7 @@ open class URLMatcher {
         return false
       }
     }
-    return hasSameNumberOfComponents || containsPathPlaceholderComponent
+    return hasSameNumberOfComponents || (containsPathPlaceholderComponent && stringPathComponents.count > candidatePathComponents.count)
   }
 
   func stringPathComponents(from url: URLConvertible) -> [String] {
