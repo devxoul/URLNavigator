@@ -137,5 +137,25 @@ final class URLMatcherSpec: QuickSpec {
       expect(result?.pattern) == "https://<path:url>"
       expect(result?.values["url"] as? String) == "google.com/search"
     }
+
+    it("returns nil when there's no candidates (issues-109)") {
+        let candidates = ["/anything/<path:url>"]
+        let result = matcher.match("", from: candidates)
+        expect(result).to(beNil())
+    }
+
+    it("returns nil when there's no candidates (issues-109)") {
+        let candidates = ["http://host/anything/<path:url>"]
+        let result = matcher.match("http://host/anything", from: candidates)
+        expect(result).to(beNil())
+    }
+
+    it("returns same candidate (issues-109)") {
+        let candidates1 = ["http://host/anything/<path:url>", "http://host/anything"]
+        let result1 = matcher.match("http://host/anything", from: candidates1)
+        let candidates2 = ["http://host/anything", "http://host/anything/<path:url>"]
+        let result2 = matcher.match("http://host/anything", from: candidates2)
+        expect(result1?.pattern).to(equal(result2?.pattern))
+    }
   }
 }
