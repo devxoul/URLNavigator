@@ -10,7 +10,7 @@ open class Navigator: NavigatorType {
   open weak var delegate: NavigatorDelegate?
 
   private var viewControllerFactories = [URLPattern: ViewControllerFactory]()
-  private var handlerFactories = [URLPattern: URLOpenHandlerFactory]()
+  private var handlerFactories = OrderedDictionary<URLPattern, URLOpenHandlerFactory>()
 
   public init() {
     // ⛵ I'm a Navigator!
