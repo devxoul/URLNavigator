@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   func application(
     _ application: UIApplication,
-    didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?
+    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
     let navigator = Navigator()
 
@@ -40,7 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   func application(
     _ app: UIApplication,
     open url: URL,
-    options: [UIApplicationOpenURLOptionsKey: Any] = [:]
+    options: [UIApplication.OpenURLOptionsKey: Any] = [:]
   ) -> Bool {
     // Try presenting the URL first
     if self.navigator?.present(url, wrap: UINavigationController.self) != nil {

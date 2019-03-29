@@ -23,7 +23,7 @@ extension URLConvertible {
   public var queryParameters: [String: String] {
     var parameters = [String: String]()
     self.urlValue?.query?.components(separatedBy: "&").forEach { component in
-      guard let separatorIndex = component.index(of: "=") else { return }
+      guard let separatorIndex = component.firstIndex(of: "=") else { return }
       let keyRange = component.startIndex..<separatorIndex
       let valueRange = component.index(after: separatorIndex)..<component.endIndex
       let key = String(component[keyRange])
