@@ -3,20 +3,20 @@
     "pins": [
       {
         "package": "Nimble",
-        "repositoryURL": "https://github.com/Quick/Nimble.git",
+        "repositoryURL": "https://github.com/devxoul/Nimble.git",
         "state": {
-          "branch": null,
-          "revision": "cd6dfb86f496fcd96ce0bc6da962cd936bf41903",
-          "version": "7.3.1"
+          "branch": "swift-5",
+          "revision": "e904448875265bebc82d6e2a6827bbb68ac9ac23",
+          "version": null
         }
       },
       {
         "package": "Quick",
-        "repositoryURL": "https://github.com/Quick/Quick.git",
+        "repositoryURL": "https://github.com/devxoul/Quick.git",
         "state": {
-          "branch": null,
-          "revision": "5fbf13871d185526993130c3a1fad0b70bfe37ce",
-          "version": "1.3.2"
+          "branch": "swift-5",
+          "revision": "7d18e3f932dbde8c916cf280fe08e81ebbf41297",
+          "version": null
         }
       },
       {
@@ -24,8 +24,8 @@
         "repositoryURL": "https://github.com/devxoul/Stubber.git",
         "state": {
           "branch": null,
-          "revision": "efb1ed736e889824e74a22e3ac205d4469ad6bad",
-          "version": "1.3.1"
+          "revision": "1c1bbdf1e9e1d04009c6c0bdb030af38b503a612",
+          "version": "1.4.0"
         }
       }
     ]

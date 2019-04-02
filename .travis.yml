@@ -13,13 +13,11 @@ env:
     - SDK="$TVOS_SDK"     TEST=1  DESTINATION="OS=12.2,name=Apple TV 4K"
 
 install:
-  - eval "$(curl -sL https://gist.githubusercontent.com/kylef/5c0475ff02b7c7671d2a/raw/9f442512a46d7a2af7b850d65a7e9bd31edfb09b/swiftenv-install.sh)"
   - swift --version
-  - gem install swiftproj
 
 before_script:
   - set -o pipefail
-  - make project
+  - swift package generate-xcodeproj
 
 script:
   - xcodebuild clean build test
