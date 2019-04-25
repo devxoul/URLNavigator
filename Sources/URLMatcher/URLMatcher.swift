@@ -51,6 +51,8 @@ open class URLMatcher {
     let scheme = url.urlValue?.scheme
     let stringPathComponents = self.stringPathComponents(from :url)
 
+    var results = [URLMatchResult]()
+    
     for candidate in candidates {
       guard scheme == candidate.urlValue?.scheme else { continue }
       if let result = self.match(stringPathComponents, with: candidate) {
@@ -58,7 +60,30 @@ open class URLMatcher {
       }
     }
 
-    return nil
+    if results.count > 1 {
+        
+        let firstPlacholderClosure = { (urlPattern: URLPattern) -> Int in
+            var count = 0
+            for pathComponent in self.pathComponents(from: urlPattern) {
+                switch pathComponent {
+                case .plain(_):
+                    count += 1
+                case .placeholder(_, _):
+                    return count
+                }
+            }
+            return count
+        }
+        
+        return results
+            .sorted(by: { return firstPlacholderClosure($0.pattern) < firstPlacholderClosure($1.pattern) })
+            .last
+        
+    } else if results.count == 1 {
+        return results[0]
+    } else {
+        return nil
+    }
   }
 
   func match(_ stringPathComponents: [String], with candidate: URLPattern) -> URLMatchResult? {
