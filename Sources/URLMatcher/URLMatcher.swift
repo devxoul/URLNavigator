@@ -56,7 +56,7 @@ open class URLMatcher {
     for candidate in candidates {
       guard scheme == candidate.urlValue?.scheme else { continue }
       if let result = self.match(stringPathComponents, with: candidate) {
-        return result
+        results.append(result)
       }
     }
 
