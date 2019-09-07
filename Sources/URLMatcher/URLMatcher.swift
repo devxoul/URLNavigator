@@ -128,9 +128,14 @@ open class URLMatcher {
   }
 
   func stringPathComponents(from url: URLConvertible) -> [String] {
-    return url.urlStringValue.components(separatedBy: "/").lazy
-      .filter { !$0.isEmpty }
-      .filter { !$0.hasSuffix(":") }
+    return url.urlStringValue.components(separatedBy: "/").lazy.enumerated()
+      .filter { index, component in !component.isEmpty }
+      .filter { index, component in !self.isScheme(index, component) }
+      .map { index, component in component }
+  }
+
+  private func isScheme(_ index: Int, _ component: String) -> Bool {
+    return index == 0 && component.hasSuffix(":")
   }
 
   func pathComponents(from url: URLPattern) -> [URLPathComponent] {

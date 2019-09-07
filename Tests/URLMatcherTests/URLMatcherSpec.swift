@@ -38,7 +38,7 @@ final class URLMatcherSpec: QuickSpec {
       expect(result).to(beNil())
     }
 
-    fit("returns a result for totally matching url") {
+    it("returns a result for totally matching url") {
       let candidates = ["myapp://hello/<name>", "myapp://hello/world"]
       let result = matcher.match("myapp://hello/world", from: candidates)
       expect(result).notTo(beNil())
@@ -46,7 +46,7 @@ final class URLMatcherSpec: QuickSpec {
       expect(result?.values.count) == 0
     }
 
-    fit("returns a result for totally matching url2") {
+    it("returns a result for the longest matching url") {
       let candidates = ["myapp://<path:path>", "myapp://hello/<name>"]
       let result = matcher.match("myapp://hello/world", from: candidates)
       expect(result).notTo(beNil())
@@ -164,6 +164,12 @@ final class URLMatcherSpec: QuickSpec {
         let candidates2 = ["http://host/anything", "http://host/anything/<path:url>"]
         let result2 = matcher.match("http://host/anything", from: candidates2)
         expect(result1?.pattern).to(equal(result2?.pattern))
+    }
+
+    it("returns nil when there is anotehr url in the path (#123)") {
+      let candidates = ["myapp://browser/<url>"]
+      let result = matcher.match("myapp://browser/http://google.fr", from: candidates)
+      expect(result).to(beNil())
     }
   }
 }
