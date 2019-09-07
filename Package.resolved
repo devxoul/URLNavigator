@@ -3,20 +3,20 @@
     "pins": [
       {
         "package": "Nimble",
-        "repositoryURL": "https://github.com/devxoul/Nimble.git",
+        "repositoryURL": "https://github.com/Quick/Nimble.git",
         "state": {
-          "branch": "swift-5",
-          "revision": "e904448875265bebc82d6e2a6827bbb68ac9ac23",
-          "version": null
+          "branch": null,
+          "revision": "f8657642dfdec9973efc79cc68bcef43a653a2bc",
+          "version": "8.0.2"
         }
       },
       {
         "package": "Quick",
-        "repositoryURL": "https://github.com/devxoul/Quick.git",
+        "repositoryURL": "https://github.com/Quick/Quick.git",
         "state": {
-          "branch": "swift-5",
-          "revision": "7d18e3f932dbde8c916cf280fe08e81ebbf41297",
-          "version": null
+          "branch": null,
+          "revision": "94df9b449508344667e5afc7e80f8bcbff1e4c37",
+          "version": "2.1.0"
         }
       },
       {
