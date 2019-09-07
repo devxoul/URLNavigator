@@ -165,5 +165,11 @@ final class URLMatcherSpec: QuickSpec {
         let result2 = matcher.match("http://host/anything", from: candidates2)
         expect(result1?.pattern).to(equal(result2?.pattern))
     }
+
+    it("returns nil when there is anotehr url in the path (#123)") {
+      let candidates = ["myapp://browser/<url>"]
+      let result = matcher.match("myapp://browser/http://google.fr", from: candidates)
+      expect(result).to(beNil())
+    }
   }
 }
