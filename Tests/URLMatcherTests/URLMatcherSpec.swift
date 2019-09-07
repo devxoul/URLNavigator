@@ -38,7 +38,7 @@ final class URLMatcherSpec: QuickSpec {
       expect(result).to(beNil())
     }
 
-    fit("returns a result for totally matching url") {
+    it("returns a result for totally matching url") {
       let candidates = ["myapp://hello/<name>", "myapp://hello/world"]
       let result = matcher.match("myapp://hello/world", from: candidates)
       expect(result).notTo(beNil())
@@ -46,7 +46,7 @@ final class URLMatcherSpec: QuickSpec {
       expect(result?.values.count) == 0
     }
 
-    fit("returns a result for totally matching url2") {
+    it("returns a result for the longest matching url") {
       let candidates = ["myapp://<path:path>", "myapp://hello/<name>"]
       let result = matcher.match("myapp://hello/world", from: candidates)
       expect(result).notTo(beNil())
