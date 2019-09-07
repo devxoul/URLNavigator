@@ -60,29 +60,8 @@ open class URLMatcher {
       }
     }
 
-    if results.count > 1 {
-        
-        let firstPlacholderClosure = { (urlPattern: URLPattern) -> Int in
-            var count = 0
-            for pathComponent in self.pathComponents(from: urlPattern) {
-                switch pathComponent {
-                case .plain(_):
-                    count += 1
-                case .placeholder(_, _):
-                    return count
-                }
-            }
-            return count
-        }
-        
-        return results
-            .sorted(by: { return firstPlacholderClosure($0.pattern) < firstPlacholderClosure($1.pattern) })
-            .last
-        
-    } else if results.count == 1 {
-        return results[0]
-    } else {
-        return nil
+    return results.max {
+       self.numberOfPlainPathComponent(in: $0.pattern) < self.numberOfPlainPathComponent(in: $1.pattern)
     }
   }
 
@@ -181,5 +160,12 @@ open class URLMatcher {
         return .notMatches
       }
     }
+  }
+
+  private func numberOfPlainPathComponent(in pattern: URLPattern) -> Int {
+    return self.pathComponents(from: pattern).lazy.filter {
+      guard case .plain = $0 else { return false }
+      return true
+    }.count
   }
 }

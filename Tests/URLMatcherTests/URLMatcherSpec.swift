@@ -38,12 +38,20 @@ final class URLMatcherSpec: QuickSpec {
       expect(result).to(beNil())
     }
 
-    it("returns a result for totally matching url") {
-      let candidates = ["myapp://hello"]
-      let result = matcher.match("myapp://hello", from: candidates)
+    fit("returns a result for totally matching url") {
+      let candidates = ["myapp://hello/<name>", "myapp://hello/world"]
+      let result = matcher.match("myapp://hello/world", from: candidates)
       expect(result).notTo(beNil())
-      expect(result?.pattern) == "myapp://hello"
+      expect(result?.pattern) == "myapp://hello/world"
       expect(result?.values.count) == 0
+    }
+
+    fit("returns a result for totally matching url2") {
+      let candidates = ["myapp://<path:path>", "myapp://hello/<name>"]
+      let result = matcher.match("myapp://hello/world", from: candidates)
+      expect(result).notTo(beNil())
+      expect(result?.pattern) == "myapp://hello/<name>"
+      expect(result?.values.count) == 1
     }
 
     it("returns a result with an url value for matching url") {
