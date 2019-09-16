@@ -40,7 +40,7 @@ public protocol NavigatorType {
   ///         parameters. This method eventually gets called when pushing a view controller with
   ///         an URL, so it's recommended to implement this method only for mocking.
   @discardableResult
-  func pushURL(_ url: URLConvertible, context: Any?, from: UINavigationControllerType?, animated: Bool) -> UIViewController?
+  func pushURL(_ url: URLConvertible, context: Any?, from: UINavigationControllerType?, animated: Bool, completion: (() -> Void)?) -> UIViewController?
 
   /// Pushes the view controller to the navigation controller stack.
   ///
@@ -48,7 +48,7 @@ public protocol NavigatorType {
   ///         parameters. This method eventually gets called when pushing a view controller, so
   ///         it's recommended to implement this method only for mocking.
   @discardableResult
-  func pushViewController(_ viewController: UIViewController, from: UINavigationControllerType?, animated: Bool) -> UIViewController?
+  func pushViewController(_ viewController: UIViewController, from: UINavigationControllerType?, animated: Bool, completion: (() -> Void)?) -> UIViewController?
 
   /// Presents a matching view controller.
   ///
@@ -86,19 +86,22 @@ extension NavigatorType {
   public func handler(for url: URLConvertible) -> URLOpenHandler? {
     return self.handler(for: url, context: nil)
   }
-
+  
   @discardableResult
-  public func pushURL(_ url: URLConvertible, context: Any? = nil, from: UINavigationControllerType? = nil, animated: Bool = true) -> UIViewController? {
+  public func pushURL(_ url: URLConvertible, context: Any? = nil, from: UINavigationControllerType? = nil, animated: Bool = true, completion: (() -> Void)? = nil) -> UIViewController? {
     guard let viewController = self.viewController(for: url, context: context) else { return nil }
-    return self.pushViewController(viewController, from: from, animated: animated)
+    return self.pushViewController(viewController, from: from, animated: animated, completion: completion)
   }
-
+  
   @discardableResult
-  public func pushViewController(_ viewController: UIViewController, from: UINavigationControllerType?, animated: Bool) -> UIViewController? {
+  public func pushViewController(_ viewController: UIViewController, from: UINavigationControllerType?, animated: Bool, completion: (() -> Void)?) -> UIViewController? {
     guard (viewController is UINavigationController) == false else { return nil }
     guard let navigationController = from ?? UIViewController.topMost?.navigationController else { return nil }
     guard self.delegate?.shouldPush(viewController: viewController, from: navigationController) != false else { return nil }
+    CATransaction.begin()
+    CATransaction.setCompletionBlock(completion)
     navigationController.pushViewController(viewController, animated: animated)
+    CATransaction.commit()
     return viewController
   }
 
@@ -136,13 +139,13 @@ extension NavigatorType {
 
 extension NavigatorType {
   @discardableResult
-  public func push(_ url: URLConvertible, context: Any? = nil, from: UINavigationControllerType? = nil, animated: Bool = true) -> UIViewController? {
-    return self.pushURL(url, context: context, from: from, animated: animated)
+  public func push(_ url: URLConvertible, context: Any? = nil, from: UINavigationControllerType? = nil, animated: Bool = true, completion: (() -> Void)? = nil) -> UIViewController? {
+    return self.pushURL(url, context: context, from: from, animated: animated, completion: completion)
   }
 
   @discardableResult
-  public func push(_ viewController: UIViewController, from: UINavigationControllerType? = nil, animated: Bool = true) -> UIViewController? {
-    return self.pushViewController(viewController, from: from, animated: animated)
+  public func push(_ viewController: UIViewController, from: UINavigationControllerType? = nil, animated: Bool = true, completion: (() -> Void)? = nil) -> UIViewController? {
+    return self.pushViewController(viewController, from: from, animated: animated, completion: completion)
   }
 
   @discardableResult
