@@ -115,6 +115,8 @@ extension NavigatorType {
     let viewControllerToPresent: UIViewController
     if let navigationControllerClass = wrap, (viewController is UINavigationController) == false {
       viewControllerToPresent = navigationControllerClass.init(rootViewController: viewController)
+      viewControllerToPresent.modalPresentationStyle = viewController.modalPresentationStyle
+      viewControllerToPresent.modalTransitionStyle = viewController.modalTransitionStyle
     } else {
       viewControllerToPresent = viewController
     }
