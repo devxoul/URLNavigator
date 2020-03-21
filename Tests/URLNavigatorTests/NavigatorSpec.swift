@@ -9,7 +9,7 @@ import URLNavigator
 
 final class NavigatorSpec: QuickSpec {
   override func spec() {
-    var navigator: NavigatorType!
+    var navigator: NavigatorProtocol!
 
     beforeEach {
       navigator = Navigator()

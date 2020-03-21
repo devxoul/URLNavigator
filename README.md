@@ -110,8 +110,8 @@ You can find an example app [here](https://github.com/devxoul/URLNavigator/tree/
 2. Register to an IoC container:
 
     ```swift
-    container.register(NavigatorType.self) { _ in Navigator() } // Swinject
-    let navigator = container.resolve(NavigatorType.self)!
+    container.register(NavigatorProtocol.self) { _ in Navigator() } // Swinject
+    let navigator = container.resolve(NavigatorProtocol.self)!
     ```
 
 3. Inject dependency from a composition root.
@@ -123,7 +123,7 @@ I'd prefer using separated URL map file.
 
 ```swift
 struct URLNavigationMap {
-  static func initialize(navigator: NavigatorType) {
+  static func initialize(navigator: NavigatorProtocol) {
     navigator.register("myapp://user/<int:id>") { ... }
     navigator.register("myapp://post/<title>") { ... }
     navigator.handle("myapp://alert") { ... }
