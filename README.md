@@ -29,7 +29,7 @@ But it doesn't match with:
 
 #### 2. Mapping View Controllers and URL Open Handlers
 
-URLNavigator allows to map view controllers ans URL open handlers with URL patterns. Here's an example of mapping URL patterns with view controllers and a closure. Each closures has three parameters: `url`, `values` and `context`.
+URLNavigator allows to map view controllers and URL open handlers with URL patterns. Here's an example of mapping URL patterns with view controllers and a closure. Each closures has three parameters: `url`, `values` and `context`.
 
 * `url` is an URL that is passed from `push()` and `present()`.
 * `values` is a dictionary that contains URL placeholder keys and values.
