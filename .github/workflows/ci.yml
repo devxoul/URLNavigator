@@ -49,5 +49,6 @@ jobs:
     - name: Upload Code Coverage
       run: |
         bash <(curl -s https://codecov.io/bash) \
+          -X xcodeplist \
           -J "$CODECOV_PACKAGE_NAME" \
           -t ${{ secrets.CODECOV_TOKEN }}
