@@ -10,7 +10,7 @@ env:
   CARTHAGE_FRAMEWORK_NAME: URLNavigator.framework.zip
 
 jobs:
-  test:
+  build:
     runs-on: macOS-latest
     steps:
     - uses: actions/checkout@v1
