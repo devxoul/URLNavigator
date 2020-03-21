@@ -12,14 +12,14 @@ jobs:
     strategy:
       matrix:
         env:
-          - sdk: iphonesimulator12.2
-            destination: platform=iOS Simulator,name=iPhone XS,OS=12.2
+          - sdk: iphonesimulator
+            destination: platform=iOS Simulator,name=iPhone 11 Pro,OS=latest
 
-          - sdk: macosx10.14
+          - sdk: macosx
             destination: arch=x86_64
 
-          - sdk: appletvsimulator12.2
-            destination: OS=12.2,name=Apple TV
+          - sdk: appletvsimulator
+            destination: platform=tvOS Simulator,name=Apple TV,OS=latest
 
     steps:
     - uses: actions/checkout@v1
