@@ -7,6 +7,10 @@ on:
 jobs:
   test:
     runs-on: macOS-latest
+    env:
+      PROJECT: URLNavigator.xcodeproj
+      SCHEME: URLNavigator-Package
+      CODECOV_PACKAGE_NAME: URLNavigator
     strategy:
       matrix:
         env:
@@ -39,13 +43,11 @@ jobs:
           -enableCodeCoverage YES \
           CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO | xcpretty -c;
       env:
-        PROJECT: URLNavigator.xcodeproj
-        SCHEME: URLNavigator-Package
         SDK: ${{ matrix.env.sdk }}
         DESTINATION: ${{ matrix.env.destination }}
 
     - name: Upload Code Coverage
       run: |
         bash <(curl -s https://codecov.io/bash) \
-          -J URLNavigator \
+          -J "$CODECOV_PACKAGE_NAME" \
           -t caf13cea-d207-454f-be53-78db3160d842
