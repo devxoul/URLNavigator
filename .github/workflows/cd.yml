@@ -8,6 +8,7 @@ on:
 env:
   CARTHAGE_FRAMEWORKS: URLNavigator URLMatcher
   CARTHAGE_FRAMEWORK_NAME: URLNavigator.framework.zip
+  CARTHAGE_PLATFORMS: iOS,tvOS
 
 jobs:
   build:
@@ -19,7 +20,7 @@ jobs:
       run: swift package generate-xcodeproj
 
     - name: Carthage Build
-      run: carthage build --no-skip-current
+      run: carthage build --no-skip-current --platform $CARTHAGE_PLATFORMS
 
     - name: Carthage Archive
       run: carthage archive $CARTHAGE_FRAMEWORKS
