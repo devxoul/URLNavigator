@@ -1,0 +1,35 @@
+name: CD
+
+on:
+  release:
+    types:
+      - created
+
+env:
+  CARTHAGE_FRAMEWORKS: URLNavigator URLMatcher
+  CARTHAGE_FRAMEWORK_NAME: URLNavigator.framework.zip
+
+jobs:
+  test:
+    runs-on: macOS-latest
+    steps:
+    - uses: actions/checkout@v1
+
+    - name: Generate Xcode Project
+      run: swift package generate-xcodeproj --enable-code-coverage
+
+    - name: Carthage Build
+      run: carthage build --no-skip-current
+
+    - name: Carthage Archive
+      run: carthage archive $CARTHAGE_FRAMEWORKS
+
+    - name: Upload Carthage Framework
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ github.event.release.upload_url }}
+        asset_path: ${{ env.CARTHAGE_FRAMEWORK_NAME }}
+        asset_name: ${{ env.CARTHAGE_FRAMEWORK_NAME }}
+        asset_content_type: application/zip
