@@ -16,7 +16,7 @@ jobs:
     - uses: actions/checkout@v1
 
     - name: Generate Xcode Project
-      run: swift package generate-xcodeproj --enable-code-coverage
+      run: swift package generate-xcodeproj
 
     - name: Carthage Build
       run: carthage build --no-skip-current
