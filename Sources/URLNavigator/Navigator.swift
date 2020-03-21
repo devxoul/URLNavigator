@@ -10,7 +10,7 @@ public typealias ViewControllerFactory = (_ url: URLConvertible, _ values: [Stri
 public typealias URLOpenHandlerFactory = (_ url: URLConvertible, _ values: [String: Any], _ context: Any?) -> Bool
 public typealias URLOpenHandler = () -> Bool
 
-open class Navigator {
+open class Navigator: NavigatorProtocol {
 
   // MARK: Properties
 
