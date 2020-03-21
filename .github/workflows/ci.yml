@@ -50,4 +50,4 @@ jobs:
       run: |
         bash <(curl -s https://codecov.io/bash) \
           -J "$CODECOV_PACKAGE_NAME" \
-          -t caf13cea-d207-454f-be53-78db3160d842
+          -t ${{ secrets.CODECOV_TOKEN }}
