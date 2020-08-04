@@ -12,7 +12,7 @@ import UIKit
 import URLNavigator
 
 enum NavigationMap {
-  static func initialize(navigator: NavigatorType) {
+  static func initialize(navigator: NavigatorProtocol) {
     navigator.register("navigator://user/<username>") { url, values, context in
       guard let username = values["username"] as? String else { return nil }
       return UserViewController(navigator: navigator, username: username)
@@ -37,13 +37,13 @@ enum NavigationMap {
     return SFSafariViewController(url: url)
   }
 
-  private static func alert(navigator: NavigatorType) -> URLOpenHandlerFactory {
+  private static func alert(navigator: NavigatorProtocol) -> URLOpenHandlerFactory {
     return { url, values, context in
       guard let title = url.queryParameters["title"] else { return false }
       let message = url.queryParameters["message"]
       let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
       alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-      navigator.present(alertController)
+      navigator.present(alertController, wrap: nil, from: nil, animated: true, completion: nil)
       return true
     }
   }
