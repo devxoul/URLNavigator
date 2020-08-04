@@ -14,7 +14,7 @@ import URLNavigator
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
   var window: UIWindow?
-  private var navigator: NavigatorType?
+  private var navigator: NavigatorProtocol?
 
   func application(
     _ application: UIApplication,
