@@ -10,14 +10,11 @@ extension UIViewController {
   /// Returns the current application's top most view controller.
   open class var topMost: UIViewController? {
     var keyWindow:UIWindow?
-    keyWindow = self.sharedApplication?.delegate?.window ?? self.sharedApplication?.keyWindow
-    if keyWindow == nil {
-        keyWindow = self.sharedApplication?.windows.filter({ (window) -> Bool in
-            return window.isKeyWindow
-        }).first
-    }
-    guard let currentWindows = keyWindow else { return nil }
-    return self.topMost(of: currentWindows.rootViewController)
+    keyWindow = self.sharedApplication?.delegate?.window ?? self.sharedApplication?.windows.filter({ (window) -> Bool in
+        return window.isKeyWindow && (window.rootViewController != nil)
+    }).first
+    guard let currentWindow = keyWindow else { return nil }
+    return self.topMost(of: currentWindow.rootViewController)
   }
 
   /// Returns the top most view controller from given view controller's stack.
