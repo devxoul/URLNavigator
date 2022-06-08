@@ -2,12 +2,30 @@
   "object": {
     "pins": [
       {
+        "package": "CwlCatchException",
+        "repositoryURL": "https://github.com/mattgallagher/CwlCatchException.git",
+        "state": {
+          "branch": null,
+          "revision": "35f9e770f54ce62dd8526470f14c6e137cef3eea",
+          "version": "2.1.1"
+        }
+      },
+      {
+        "package": "CwlPreconditionTesting",
+        "repositoryURL": "https://github.com/mattgallagher/CwlPreconditionTesting.git",
+        "state": {
+          "branch": null,
+          "revision": "c21f7bab5ca8eee0a9998bbd17ca1d0eb45d4688",
+          "version": "2.1.0"
+        }
+      },
+      {
         "package": "Nimble",
         "repositoryURL": "https://github.com/Quick/Nimble.git",
         "state": {
           "branch": null,
-          "revision": "f8657642dfdec9973efc79cc68bcef43a653a2bc",
-          "version": "8.0.2"
+          "revision": "1f3bde57bde12f5e7b07909848c071e9b73d6edc",
+          "version": "10.0.0"
         }
       },
       {
@@ -15,8 +33,8 @@
         "repositoryURL": "https://github.com/Quick/Quick.git",
         "state": {
           "branch": null,
-          "revision": "94df9b449508344667e5afc7e80f8bcbff1e4c37",
-          "version": "2.1.0"
+          "revision": "f9d519828bb03dfc8125467d8f7b93131951124c",
+          "version": "5.0.1"
         }
       },
       {
@@ -24,7 +42,7 @@
         "repositoryURL": "https://github.com/devxoul/Stubber.git",
         "state": {
           "branch": null,
-          "revision": "1c1bbdf1e9e1d04009c6c0bdb030af38b503a612",
+          "revision": "2a9b0acf6af7ea0a77e1cd051243aba8823ceddf",
           "version": "1.4.0"
         }
       }
