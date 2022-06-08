@@ -14,12 +14,11 @@ let package = Package(
   dependencies: [
     .package(url: "https://github.com/Quick/Quick.git", .upToNextMajor(from: "5.0.0")),
     .package(url: "https://github.com/Quick/Nimble.git", .upToNextMajor(from: "10.0.0")),
-    .package(url: "https://github.com/devxoul/Stubber.git", .upToNextMajor(from: "1.4.0")),
   ],
   targets: [
     .target(name: "URLMatcher"),
     .target(name: "URLNavigator", dependencies: ["URLMatcher"]),
     .testTarget(name: "URLMatcherTests", dependencies: ["URLMatcher", "Quick", "Nimble"]),
-    .testTarget(name: "URLNavigatorTests", dependencies: ["URLNavigator", "Quick", "Nimble", "Stubber"]),
+    .testTarget(name: "URLNavigatorTests", dependencies: ["URLNavigator", "Quick", "Nimble"]),
   ]
 )

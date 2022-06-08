@@ -36,15 +36,6 @@
           "revision": "f9d519828bb03dfc8125467d8f7b93131951124c",
           "version": "5.0.1"
         }
-      },
-      {
-        "package": "Stubber",
-        "repositoryURL": "https://github.com/devxoul/Stubber.git",
-        "state": {
-          "branch": null,
-          "revision": "2a9b0acf6af7ea0a77e1cd051243aba8823ceddf",
-          "version": "1.4.0"
-        }
       }
     ]
   },
