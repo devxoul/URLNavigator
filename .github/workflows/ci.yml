@@ -8,14 +8,13 @@ jobs:
   test:
     runs-on: macOS-latest
     env:
-      PROJECT: URLNavigator.xcodeproj
       SCHEME: URLNavigator-Package
       CODECOV_PACKAGE_NAME: URLNavigator
     strategy:
       matrix:
         env:
           - sdk: iphonesimulator
-            destination: platform=iOS Simulator,name=iPhone 11 Pro,OS=latest
+            destination: platform=iOS Simulator,name=iPhone 13 Pro,OS=latest
 
           - sdk: macosx
             destination: arch=x86_64
@@ -24,32 +23,32 @@ jobs:
             destination: platform=tvOS Simulator,name=Apple TV,OS=latest
 
     steps:
-    - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
 
-    - name: List SDKs and Devices
-      run: xcodebuild -showsdks; instruments -s
+      - name: List SDKs and Devices
+        run: xcodebuild -showsdks; xcrun xctrace list devices
 
-    - name: Generate Xcode Project
-      run: swift package generate-xcodeproj --enable-code-coverage
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest
 
-    - name: Build and Test
-      run: |
-        set -o pipefail && xcodebuild clean build test \
-          -project "$PROJECT" \
-          -scheme "$SCHEME" \
-          -sdk "$SDK" \
-          -destination "$DESTINATION" \
-          -configuration Debug \
-          -enableCodeCoverage YES \
-          CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO | xcpretty -c;
-      env:
-        SDK: ${{ matrix.env.sdk }}
-        DESTINATION: ${{ matrix.env.destination }}
+      - name: Build and Test
+        run: |
+          set -o pipefail && xcodebuild clean build test \
+            -scheme "$SCHEME" \
+            -sdk "$SDK" \
+            -destination "$DESTINATION" \
+            -configuration Debug \
+            -enableCodeCoverage YES \
+            CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO | xcpretty -c;
+        env:
+          SDK: ${{ matrix.env.sdk }}
+          DESTINATION: ${{ matrix.env.destination }}
 
-    - name: Upload Code Coverage
-      run: |
-        bash <(curl -s https://codecov.io/bash) \
-          -X xcodeplist \
-          -J "$CODECOV_PACKAGE_NAME"
-      env:
-        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      - name: Upload Code Coverage
+        run: |
+          bash <(curl -s https://codecov.io/bash) \
+            -X xcodeplist \
+            -J "$CODECOV_PACKAGE_NAME"
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
