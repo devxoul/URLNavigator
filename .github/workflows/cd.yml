@@ -14,23 +14,23 @@ jobs:
   build:
     runs-on: macOS-latest
     steps:
-    - uses: actions/checkout@v1
+      - uses: actions/checkout@v1
 
-    - name: Generate Xcode Project
-      run: swift package generate-xcodeproj
+      - name: Generate Xcode Project
+        run: swift package generate-xcodeproj
 
-    - name: Carthage Build
-      run: carthage build --no-skip-current --platform $CARTHAGE_PLATFORMS
+      - name: Carthage Build
+        run: carthage build --no-skip-current --platform $CARTHAGE_PLATFORMS
 
-    - name: Carthage Archive
-      run: carthage archive $CARTHAGE_FRAMEWORKS
+      - name: Carthage Archive
+        run: carthage archive $CARTHAGE_FRAMEWORKS
 
-    - name: Upload Carthage Framework
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ github.event.release.upload_url }}
-        asset_path: ${{ env.CARTHAGE_FRAMEWORK_NAME }}
-        asset_name: ${{ env.CARTHAGE_FRAMEWORK_NAME }}
-        asset_content_type: application/zip
+      - name: Upload Carthage Framework
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ${{ env.CARTHAGE_FRAMEWORK_NAME }}
+          asset_name: ${{ env.CARTHAGE_FRAMEWORK_NAME }}
+          asset_content_type: application/zip
