@@ -6,3 +6,8 @@
 **/xcshareddata
 Pods/
 Carthage/
+
+# spm
+.build/
+Packages/
+.swiftpm
