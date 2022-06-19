@@ -1,7 +1,7 @@
 #if os(iOS) || os(tvOS)
 import UIKit
 
-public protocol NavigatorDelegate: class {
+public protocol NavigatorDelegate: AnyObject {
   /// Returns whether the navigator should push the view controller or not. It returns `true` for
   /// default.
   func shouldPush(viewController: UIViewController, from: UINavigationControllerType) -> Bool
