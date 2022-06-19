@@ -5,7 +5,7 @@ import UIKit
 import URLMatcher
 #endif
 
-public protocol NavigatorProtocol: class {
+public protocol NavigatorProtocol: AnyObject {
   var delegate: NavigatorDelegate? { get set }
 
   func register(_ pattern: URLPattern, _ factory: @escaping ViewControllerFactory)
