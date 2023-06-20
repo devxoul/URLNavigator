@@ -8,7 +8,7 @@ extension UIViewController {
   }
 
   /// Returns the current application's top most view controller.
-  open class var topMost: UIViewController? {
+  public class var topMost: UIViewController? {
     guard let currentWindows = self.sharedApplication?.windows else { return nil }
     var rootViewController: UIViewController?
     for window in currentWindows {
@@ -22,7 +22,7 @@ extension UIViewController {
   }
 
   /// Returns the top most view controller from given view controller's stack.
-  open class func topMost(of viewController: UIViewController?) -> UIViewController? {
+  public class func topMost(of viewController: UIViewController?) -> UIViewController? {
     // presented view controller
     if let presentedViewController = viewController?.presentedViewController {
       return self.topMost(of: presentedViewController)

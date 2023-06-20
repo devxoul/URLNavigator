@@ -15,7 +15,6 @@ public protocol URLConvertible {
   /// Returns `queryItems` property of `URLComponents` instance.
   ///
   /// - seealso: `queryParameters`
-  @available(iOS 8, *)
   var queryItems: [URLQueryItem]? { get }
 }
 
@@ -33,7 +32,6 @@ extension URLConvertible {
     return parameters
   }
 
-  @available(iOS 8, *)
   public var queryItems: [URLQueryItem]? {
     return URLComponents(string: self.urlStringValue)?.queryItems
   }

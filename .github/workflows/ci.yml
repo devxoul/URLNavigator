@@ -6,6 +6,10 @@ on:
       - master
   pull_request:
 
+concurrency:
+  group: ${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
 jobs:
   test:
     runs-on: macOS-latest
@@ -17,9 +21,6 @@ jobs:
         env:
           - sdk: iphonesimulator
             destination: platform=iOS Simulator,name=iPhone 13 Pro,OS=latest
-
-          - sdk: macosx
-            destination: arch=x86_64
 
           - sdk: appletvsimulator
             destination: platform=tvOS Simulator,name=Apple TV,OS=latest
@@ -36,21 +37,22 @@ jobs:
 
       - name: Build and Test
         run: |
-          set -o pipefail && xcodebuild clean build test \
+          set -o pipefail
+          xcodebuild -resolvePackageDependencies
+          xcodebuild clean build test \
             -scheme "$SCHEME" \
             -sdk "$SDK" \
             -destination "$DESTINATION" \
             -configuration Debug \
             -enableCodeCoverage YES \
+            -resultBundlePath "./${{ matrix.env.sdk }}.xcresult" \
             CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO | xcpretty -c;
         env:
           SDK: ${{ matrix.env.sdk }}
           DESTINATION: ${{ matrix.env.destination }}
 
-      - name: Upload Code Coverage
-        run: |
-          bash <(curl -s https://codecov.io/bash) \
-            -X xcodeplist \
-            -J "$CODECOV_PACKAGE_NAME"
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3.1.0
+        with:
+          xcode: true
+          xcode_archive_path: "./${{ matrix.env.sdk }}.xcresult"
