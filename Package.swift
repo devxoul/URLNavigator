@@ -1,11 +1,11 @@
-// swift-tools-version:5.4
+// swift-tools-version: 5.8
 
 import PackageDescription
 
 let package = Package(
   name: "URLNavigator",
   platforms: [
-    .iOS(.v9), .tvOS(.v9),
+    .iOS(.v11), .tvOS(.v11),
   ],
   products: [
     .library(name: "URLMatcher", targets: ["URLMatcher"]),
