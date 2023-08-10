@@ -14,7 +14,7 @@ URLNavigator can be used for mapping URL patterns with 2 kind of types: `URLNavi
 
 #### 1. Understanding URL Patterns
 
-URL patterns can contain placeholders. Placeholders will be replaced with matching values from URLs. Use `<` and `>` to make placeholders. Placeholders can have types: `string`(default), `int`, `float`, and `path`.
+URL patterns can contain placeholders. Placeholders will be replaced with matching values from URLs. Use `<` and `>` to make placeholders. Placeholders can have types: `string`(default), `int`, `float`, `uuid`, and `path`.
 
 For example, `myapp://user/<int:id>` matches with:
 
