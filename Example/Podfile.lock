@@ -1,5 +1,5 @@
 PODS:
-  - URLNavigator (2.2.0)
+  - URLNavigator (2.5.1)
 
 DEPENDENCIES:
   - URLNavigator (from `../`)
@@ -9,8 +9,8 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  URLNavigator: 0bffc3efdeb2d97f7b5eec7ac82d290f4a099431
+  URLNavigator: e9c0426ba6e6ac57f34d018bbf3df840797f984d
 
-PODFILE CHECKSUM: 797c263b229fb2da6a9381964e439b9c78f774e2
+PODFILE CHECKSUM: c16541252e7407cd194d0a5a4ccf4634ef75be2b
 
-COCOAPODS: 1.6.1
+COCOAPODS: 1.11.2

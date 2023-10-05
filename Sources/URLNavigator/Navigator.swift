@@ -14,7 +14,7 @@ open class Navigator: NavigatorProtocol {
 
   // MARK: Properties
 
-  public let matcher = URLMatcher()
+  public let matcher: URLMatcher
   open weak var delegate: NavigatorDelegate?
 
   private var viewControllerFactories = [URLPattern: ViewControllerFactory]()
@@ -23,8 +23,9 @@ open class Navigator: NavigatorProtocol {
 
   // MARK: Initializing
 
-  public init() {
+    public init(withMatcher matcher: URLMatcher = URLMatcher()) {
     // ⛵ I'm a Navigator!
+        self.matcher = matcher
   }
 
 
